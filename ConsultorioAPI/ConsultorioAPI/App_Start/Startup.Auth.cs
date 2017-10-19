@@ -1,0 +1,43 @@
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Owin;
+using Owin;
+using Microsoft.Owin.Security.OAuth;
+using ConsultorioAPI.Providers;
+
+[assembly: OwinStartup(typeof(ConsultorioAPI.App_Start.Startup))]
+
+namespace ConsultorioAPI.App_Start
+{
+    public partial class Startup
+    {
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static string PublicClientId { get; private set; }
+        public static string ExternalAuthPageUrl { get; private set; }
+
+        /// <summary>
+        /// Configura os serviços de autorização do aplicativo
+        /// </summary>
+        public void ConfigureAuth(IAppBuilder app)
+        {
+            PublicClientId = "self";
+            OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/Token"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                // Note: Remove the following line before you deploy to production:
+                AllowInsecureHttp = true
+            };
+
+            // Enable the application to use bearer tokens to authenticate users
+            app.UseOAuthBearerTokens(OAuthOptions);
+
+            app.Run(context =>
+            {
+                return context.Response.WriteAsync("Minha WEB api");
+            });
+        }
+    }
+}
