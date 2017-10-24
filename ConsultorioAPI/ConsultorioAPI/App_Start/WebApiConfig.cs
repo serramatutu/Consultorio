@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using Microsoft.Owin.Security.OAuth;
+using System.Web.Http;
 
 namespace ConsultorioAPI.App_Start
 {
@@ -13,6 +14,12 @@ namespace ConsultorioAPI.App_Start
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+        }
+
+        public static void Register(HttpConfiguration config)
+        {
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
         }
     }
 }

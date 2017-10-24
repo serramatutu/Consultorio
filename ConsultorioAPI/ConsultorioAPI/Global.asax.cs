@@ -11,6 +11,7 @@ namespace ConsultorioAPI
         protected void Application_Start(object sender, EventArgs e)
         {
             GlobalConfiguration.Configure(WebApiConfig.Configure);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
 
         protected void Session_Start(object sender, EventArgs e)

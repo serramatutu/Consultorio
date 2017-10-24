@@ -11,6 +11,7 @@ namespace ConsultorioAPI.App_Start
 {
     public partial class Startup
     {
+        const int TOKEN_EXPIRATION = 30; // horas
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
         public static string PublicClientId { get; private set; }
         public static string ExternalAuthPageUrl { get; private set; }
@@ -24,20 +25,14 @@ namespace ConsultorioAPI.App_Start
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
-                Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // Note: Remove the following line before you deploy to production:
+                Provider = new ApplicationOAuthProvider(),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(TOKEN_EXPIRATION),
+                // TODO: HTTPS
                 AllowInsecureHttp = true
             };
 
-            // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
-
-            app.Run(context =>
-            {
-                return context.Response.WriteAsync("Minha WEB api");
-            });
+            app.UseOAuthAuthorizationServer(OAuthOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }
