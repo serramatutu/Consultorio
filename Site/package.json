@@ -1,0 +1,14 @@
+{
+  "name": "Consultorio",
+  "version": "1.0.0",
+  "description": "Projeto de PPIII",
+  "main": "index.js",
+  "repository": "http://github.com/serramatutu/Consultorio",
+  "author": "Lucas Valente",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.6",
+    "bootstrap": "^3.3.7"
+  }
+}
