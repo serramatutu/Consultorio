@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace ConsultorioAPI.Controllers
 {
-    [RoutePrefix("api/Account")]
+    [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;
@@ -23,7 +23,7 @@ namespace ConsultorioAPI.Controllers
 
         // POST api/Account/Register
         [AllowAnonymous]
-        [Route("Register")]
+        [Route("register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
             if (!ModelState.IsValid)
