@@ -12,7 +12,7 @@ using System.Web.Http;
 
 namespace ConsultorioAPI.Controllers
 {
-    [RoutePrefix("api/account")]
+    [RoutePrefix("api/conta")]
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;
@@ -25,10 +25,10 @@ namespace ConsultorioAPI.Controllers
         /// <summary>
         /// Cadastra um usuário
         /// </summary>
-        // POST api/account/register
+        // POST api/conta/cadastrar
         [AllowAnonymous]
-        [Route("register")]
-        public async Task<IHttpActionResult> Register([FromBody]UserModel userModel)
+        [Route("cadastrar")]
+        public async Task<IHttpActionResult> Cadastrar([FromBody]UserModel userModel)
         {
             if (!ModelState.IsValid)
             {

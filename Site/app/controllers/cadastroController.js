@@ -16,7 +16,6 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
             loginTimer();
         },
         function (response) {
-            console.log(response);
             var errors = [];
             var ms = response.data.ModelState || response.data.modelState;
             for (var key in ms) {

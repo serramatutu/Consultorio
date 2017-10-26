@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace ConsultorioAPI.App_Start
@@ -14,6 +15,9 @@ namespace ConsultorioAPI.App_Start
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Respostas em formato JSON
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
 
         public static void Register(HttpConfiguration config)
