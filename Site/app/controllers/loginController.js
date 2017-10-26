@@ -8,7 +8,6 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
     $scope.message = "";
 
     $scope.login = function () {
-
         // Quando logou, redireciona para a dashboard
         authService.login($scope.loginData).then(function (response) {
             $location.path('/dashboard');

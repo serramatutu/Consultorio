@@ -10,8 +10,8 @@ namespace ConsultorioAPI.Controllers
     public class TroleiController : ApiController
     {
         // GET api/<controller>
-        [Authorize]
-        [Route("")]
+        //[Authorize]
+        [Route("/")]
         public IEnumerable<string> Get()
         {
             return new string[] { "oi", "ola" };

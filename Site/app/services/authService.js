@@ -5,7 +5,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
     var authServiceFactory = {};
 
     var _auth = {
-        isAuth: false,
+        isAuthenticated: false,
         userName: ""
     };
 
@@ -25,7 +25,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+        $http.post(serviceBase + 'login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
             localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
 
@@ -47,16 +47,16 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         localStorageService.remove('authorizationData');
 
-        _authentication.isAuth = false;
+        _authentication.isAuthenticated = false;
         _authentication.userName = "";
 
     };
 
-    var _getAuthData = function () {
+    var _fillAuthData = function () {
 
         var authData = localStorageService.get('authorizationData');
         if (authData) {
-            _authentication.isAuth = true;
+            _authentication.isAuthenticated = true;
             _authentication.userName = authData.userName;
         }
 
@@ -65,7 +65,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
     authServiceFactory.cadastrar = _cadastrar;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
-    authServiceFactory.getAuthData = _getAuthData;
+    authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.auth = _auth;
 
     return authServiceFactory;

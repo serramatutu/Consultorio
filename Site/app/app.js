@@ -1,7 +1,9 @@
 ﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
 
 // Configura as rotas do site
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.hashPrefix(''); // Tira o bug do #/ virar %2F
 
     $routeProvider.when("/home", {
         controller: "homeController",
@@ -13,7 +15,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/login.html"
     });
 
-    $routeProvider.when("/signup", {
+    $routeProvider.when("/cadastro", {
         controller: "cadastroController",
         templateUrl: "/app/views/cadastro.html"
     });
