@@ -33,7 +33,6 @@ namespace ConsultorioAPI.Providers
             identity.AddClaim(new Claim("role", "user"));
 
             context.Validated(identity);
-
         }
     }
 }

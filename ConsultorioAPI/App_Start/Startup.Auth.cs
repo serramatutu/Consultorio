@@ -12,6 +12,9 @@ namespace ConsultorioAPI.App_Start
     public partial class Startup
     {
         const int TOKEN_EXPIRATION = 30; // horas
+
+        const string ROUTE = "/token"; // local de requisição
+
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
         public static string PublicClientId { get; private set; }
         public static string ExternalAuthPageUrl { get; private set; }
@@ -24,7 +27,7 @@ namespace ConsultorioAPI.App_Start
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
+                TokenEndpointPath = new PathString(ROUTE),
                 Provider = new ApplicationOAuthProvider(),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(TOKEN_EXPIRATION),
                 // TODO: HTTPS

@@ -1,6 +1,7 @@
 ﻿using ConsultorioAPI.Data;
 using ConsultorioAPI.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,17 @@ namespace ConsultorioAPI.Controllers
             _repo = new AuthRepository();
         }
 
-        // POST api/Account/Register
+        /// <summary>
+        /// Cadastra um usuário
+        /// </summary>
+        // POST api/account/register
         [AllowAnonymous]
         [Route("register")]
-        public async Task<IHttpActionResult> Register(UserModel userModel)
+        public async Task<IHttpActionResult> Register([FromBody]UserModel userModel)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
             }
 
             IdentityResult result = await _repo.RegisterUser(userModel);

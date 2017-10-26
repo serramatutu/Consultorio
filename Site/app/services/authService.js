@@ -1,7 +1,6 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
-
-    var serviceBase = window.location.hostname+'/'; // Testar
+app.factory('authService', ['$http', '$q', 'localStorageService', 'constsProvider',
+    function ($http, $q, localStorageService, constantsProvider) {
     var authServiceFactory = {};
 
     var _auth = {
@@ -13,7 +12,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         _logOut();
 
-        return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
+        console.log(registration);
+        return $http.post(constantsProvider.apiDomain + 'api/account/register', registration).then(function success(response) {
             return response;
         });
 
@@ -25,30 +25,29 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-
+        $http.post(constantsProvider.apiDomain + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(
+            function success(response) {
             localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
 
-            _authentication.isAuth = true;
-            _authentication.userName = loginData.userName;
+            _auth.isAuth = true;
+            _auth.userName = loginData.userName;
 
             deferred.resolve(response);
 
-        }).error(function (err, status) {
+        }, function error(err, status) {
             _logOut();
             deferred.reject(err);
         });
 
         return deferred.promise;
-
     };
 
     var _logOut = function () {
 
         localStorageService.remove('authorizationData');
 
-        _authentication.isAuthenticated = false;
-        _authentication.userName = "";
+        _auth.isAuthenticated = false;
+        _auth.userName = "";
 
     };
 
@@ -56,8 +55,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         var authData = localStorageService.get('authorizationData');
         if (authData) {
-            _authentication.isAuthenticated = true;
-            _authentication.userName = authData.userName;
+            _auth.isAuthenticated = true;
+            _auth.userName = authData.userName;
         }
 
     }

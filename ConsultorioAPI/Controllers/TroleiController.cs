@@ -11,7 +11,7 @@ namespace ConsultorioAPI.Controllers
     {
         // GET api/<controller>
         //[Authorize]
-        [Route("/")]
+        [Route("")]
         public IEnumerable<string> Get()
         {
             return new string[] { "oi", "ola" };

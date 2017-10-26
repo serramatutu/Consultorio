@@ -15,14 +15,16 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
             $scope.message = "Cadastrado com sucesso! Redirecionando para login...";
             loginTimer();
         },
-         function (response) {
-             var errors = [];
-             for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             $scope.message = "Não pôde cadastrar o usuário devido a: " + errors.join(' ');
+        function (response) {
+            console.log(response);
+            var errors = [];
+            var ms = response.data.ModelState || response.data.modelState;
+            for (var key in ms) {
+                for (var i = 0; i < ms[key].length; i++) {
+                    errors.push(ms[key][i]);
+                }
+            }
+            $scope.message = "Não pôde cadastrar o usuário devido a: " + errors.join(' ');
          });
     };
 
