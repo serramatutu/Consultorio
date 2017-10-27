@@ -9,7 +9,6 @@ namespace ConsultorioAPI.App_Start
     {
         public static void Configure(HttpConfiguration config)
         {
-            System.Diagnostics.Debug.WriteLine("Configure!");
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -24,10 +23,12 @@ namespace ConsultorioAPI.App_Start
 
         public static void Register(HttpConfiguration config)
         {
+            // Permite que requests Cross-Origin sejam feitas
             var cors = new EnableCorsAttribute(
                 origins: "*",
                 headers: "*",
-                methods: "*");
+                methods: "*",
+                exposedHeaders: "*");
             config.EnableCors(cors);
 
             config.SuppressDefaultHostAuthentication();
