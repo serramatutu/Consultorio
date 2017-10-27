@@ -9,10 +9,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ConsultorioAPI.Controllers
 {
-    [RoutePrefix("api/conta")]
+    [RoutePrefix("conta")]
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;
@@ -22,12 +23,10 @@ namespace ConsultorioAPI.Controllers
             _repo = new AuthRepository();
         }
 
-        /// <summary>
-        /// Cadastra um usuário
-        /// </summary>
-        // POST api/conta/cadastrar
+        // POST conta/cadastrar
         [AllowAnonymous]
-        [Route("cadastrar")]
+        [HttpPost]
+        [Route("cadastro")]
         public async Task<IHttpActionResult> Cadastrar([FromBody]UserModel userModel)
         {
             if (!ModelState.IsValid)
