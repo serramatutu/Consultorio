@@ -1,4 +1,5 @@
 ﻿using ConsultorioAPI.Data;
+using ConsultorioAPI.Database;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 using System.Security.Claims;
@@ -19,7 +20,7 @@ namespace ConsultorioAPI.Providers
 
             using (AuthRepository _repo = new AuthRepository())
             {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+                ConsultorioUser user = await _repo.FindUser(context.UserName, context.Password);
 
                 if (user == null)
                 {

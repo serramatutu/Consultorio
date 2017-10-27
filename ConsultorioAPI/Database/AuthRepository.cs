@@ -1,4 +1,5 @@
-﻿using ConsultorioAPI.Database.Contexts;
+﻿using ConsultorioAPI.Database;
+using ConsultorioAPI.Database.Contexts;
 using ConsultorioAPI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -11,17 +12,17 @@ namespace ConsultorioAPI.Data
     {
         private AuthDbContext _ctx;
 
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<ConsultorioUser> _userManager;
 
         public AuthRepository()
         {
             _ctx = new AuthDbContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            _userManager = new UserManager<ConsultorioUser>(new ConsultorioUserStore(_ctx));
         }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
-            IdentityUser user = new IdentityUser
+            ConsultorioUser user = new ConsultorioUser
             {
                 UserName = userModel.UserName
             };
@@ -31,9 +32,9 @@ namespace ConsultorioAPI.Data
             return result;
         }
 
-        public async Task<IdentityUser> FindUser(string userName, string password)
+        public async Task<ConsultorioUser> FindUser(string userName, string password)
         {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
+            ConsultorioUser user = await _userManager.FindAsync(userName, password);
 
             return user;
         }
