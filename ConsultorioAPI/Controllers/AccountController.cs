@@ -27,6 +27,10 @@ namespace ConsultorioAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("cadastro")]
+        [EnableCors(Globals.CLIENT_URL, 
+                    "*", 
+                    "POST", 
+                    SupportsCredentials = false)]
         public async Task<IHttpActionResult> Cadastrar([FromBody]UserModel userModel)
         {
             if (!ModelState.IsValid)
