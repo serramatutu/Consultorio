@@ -6,4 +6,5 @@ app.controller('indexController', ['$scope', '$location', 'authService', functio
     }
 
     $scope.auth = authService.auth;
+    $scope.isCollapsed = true;
 }]);

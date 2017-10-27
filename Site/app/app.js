@@ -1,4 +1,4 @@
-﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap']);
 
 // Configura as rotas do site
 app.config(function ($routeProvider, $locationProvider) {

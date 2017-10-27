@@ -3,38 +3,29 @@
 <head>
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
     <title>Consultório</title>
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link href="content/css/site.css" rel="stylesheet" />
     <link href="node_modules/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="indexController">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                </button>
-                <a class="navbar-brand" href="#/home">Home</a>
-            </div>
-            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
-                <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!auth.isAuthenticated"><a href="">Welcome {{auth.userName}}</a></li>
-                    <li data-ng-hide="!auth.isAuthenticated"><a href="" data-ng-click="logOut()">Logout</a></li>
-                    <li data-ng-hide="auth.isAuthenticated"> <a href="#/login">Login</a></li>
-                    <li data-ng-hide="auth.isAuthenticated"> <a href="#/cadastro">Sign Up</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="jumbotron">
-        <div class="container">
-            <div class="page-header text-center">
-                <h1>AngularJS Authentication</h1>
-            </div>
-            <p>This single page application is built using AngularJS, it is using OAuth bearer token authentication, ASP.NET Web API 2, OWIN middleware, and ASP.NET Identity to generate tokens and register users.</p>
-        </div>
-    </div>
+    <nav class="navbar navbar-light bg-light" role="navigation" data-ng-controller="indexController">
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation" ng-click="isCollapsed = !isCollapsed">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#"> Consultório </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" uib-collapse="isCollapsed">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active" data-ng-hide="!auth.isAuthenticated"><a href="">Bem Vindo {{auth.userName}}</a></li>
+                  <li class="nav-item active" data-ng-hide="!auth.isAuthenticated"><a href="" data-ng-click="logOut()">Logout</a></li>
+                  <li class="nav-item active" data-ng-hide="auth.isAuthenticated"> <a href="#/login">Login</a></li>
+                  <li class="nav-item active" data-ng-hide="auth.isAuthenticated"> <a href="#/cadastro">Sign Up</a></li>
+              </ul>
+          </div>
+    </nav>
+
     <div class="container">
         <div data-ng-view="">
         </div>
@@ -44,13 +35,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="text-muted">Consultopper</p>
+                    <p class="text-muted">Consultorio ®</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- 3rd party libraries -->
     <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-bootstrap-npm/dist/angular-bootstrap.js"></script>
+    <script src="node_modules/angular-bootstrap-npm/dist/angular-bootstrap-tpls.js "></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
