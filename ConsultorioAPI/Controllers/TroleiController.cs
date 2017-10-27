@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace ConsultorioAPI.Controllers
 {
+    [RoutePrefix("trolei")]
     public class TroleiController : ApiController
     {
-        // GET api/<controller>
-        //[Authorize]
-        [Route("")]
-        public IEnumerable<string> Get()
+        // GET api/trolei/ola
+        [Route("ola")]
+        public IHttpActionResult Get()
         {
-            return new string[] { "oi", "ola" };
+            return Ok(new string[] { "Ola", "Oi" });
         }
     }
 }

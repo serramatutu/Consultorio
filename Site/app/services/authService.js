@@ -9,11 +9,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'constsProvide
     };
 
     var _cadastrar = function (registration) {
-
         _logOut();
 
-        console.log(registration);
-        return $http.post(constantsProvider.apiDomain + 'api/account/register', registration).then(function success(response) {
+        return $http.post(constantsProvider.apiDomain + 'conta/cadastro', registration).then(function success(response) {
             return response;
         });
 
