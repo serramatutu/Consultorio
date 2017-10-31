@@ -55,7 +55,7 @@ namespace ConsultorioAPI.Database
 
             if (users == null)
                 return null;
-            return users.FirstAsync(); // Retorna o primeiro usuário encontrado
+            return users.FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
         }
 
         public Task<ConsultorioUser> FindByNameAsync(string userName)
@@ -65,7 +65,7 @@ namespace ConsultorioAPI.Database
 
             if (users == null)
                 return null;
-            return users.FirstAsync(); // Retorna o primeiro usuário encontrado
+            return users.FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
         }
 
         public Task<string> GetPasswordHashAsync(ConsultorioUser user)

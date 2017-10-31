@@ -14,9 +14,9 @@ namespace ConsultorioAPI.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ConsultorioUser>().ToTable("Usuario"); // Always ignore EntityAspect
+            modelBuilder.Entity<ConsultorioUser>().ToTable("Usuario");
         }
 
-        public virtual IDbSet<ConsultorioUser> Users { get; set; }
+        public virtual DbSet<ConsultorioUser> Users { get; set; }
     }
 }

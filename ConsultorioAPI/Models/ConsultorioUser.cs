@@ -53,23 +53,23 @@ namespace ConsultorioAPI.Models
         /// <summary>
         /// Se a autenticação de dois fatores (ex: token no celular) está habilitada
         /// </summary>
-        public virtual bool TwoFactorEnabled { get; set; }
+        public virtual bool TwoFactorEnabled { get; set; } = false;
 
         /// <summary>
         /// Caso o usuário esteja bloqueado do sistema (por exemplo, por muitas tentativas inválidas de logon),
         /// armazena até quando ele estará bloqueado.
         /// </summary>
-        public virtual DateTime? LockoutEndDateUtc { get; set; }
+        public virtual DateTime? LockoutEndDateUtc { get; set; } = null;
 
         /// <summary>
         /// Se ele está bloqueado
         /// </summary>
-        public virtual bool LockoutEnabled { get; set; }
+        public virtual bool LockoutEnabled { get; set; } = false;
 
         /// <summary>
         /// O número de vezes que o login falhou
         /// </summary>
-        public virtual int AccessFailedCount { get; set; }
+        public virtual int AccessFailedCount { get; set; } = 0;
 
         public virtual List<IdentityUserClaim> Claims { get; private set; }
     }

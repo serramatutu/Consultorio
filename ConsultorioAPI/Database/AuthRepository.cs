@@ -3,6 +3,7 @@ using ConsultorioAPI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 
 namespace ConsultorioAPI.Data
@@ -15,18 +16,20 @@ namespace ConsultorioAPI.Data
 
         public AuthRepository()
         {
-            _ctx = new ConsultorioDbContext();
+            _ctx = new ConsultorioDbContext("ConexaoBD"); // Utiliza a connection string do BD para criar contexto de conexão
             _userManager = new UserManager<ConsultorioUser>(new ConsultorioUserStore(_ctx));
         }
 
-        public async Task<IdentityResult> RegisterUser(ConsultorioUser userModel)
+        public async Task<IdentityResult> RegisterUser(CadastroUserModel data)
         {
             ConsultorioUser user = new ConsultorioUser
             {
-                UserName = userModel.UserName
+                UserName = data.UserName,
+                Email = data.Email,
+                PhoneNumber = data.Telefone
             };
 
-            var result = await _userManager.CreateAsync(user, userModel.Senha);
+            var result = await _userManager.CreateAsync(user, data.Senha);
 
             return result;
         }

@@ -10,13 +10,13 @@
 </head>
 <body>
     <nav class="navbar navbar-light bg-light" role="navigation" data-ng-controller="indexController">
-          <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          <button class="navbar-toggler" type="button"
+          data-target="#coisasDaNave" aria-controls="navbarSupportedContent"
           aria-expanded="false" aria-label="Toggle navigation" ng-click="isCollapsed = !isCollapsed">
             <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand" href="#"> Consultório </a>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent" uib-collapse="isCollapsed">
+          <div class="navbar-collapse" id="coisasDaNave" uib-collapse="isCollapsed">
               <ul class="navbar-nav mr-auto">
                   <li class="nav-item active" data-ng-hide="!auth.isAuthenticated"><a href="">Bem Vindo {{auth.userName}}</a></li>
                   <li class="nav-item active" data-ng-hide="!auth.isAuthenticated"><a href="" data-ng-click="logOut()">Logout</a></li>

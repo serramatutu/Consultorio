@@ -1,5 +1,6 @@
 ﻿using ConsultorioAPI.Data;
 using ConsultorioAPI.Database;
+using ConsultorioAPI.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 using System.Security.Claims;
