@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,14 +26,9 @@ namespace ConsultorioAPI.Models
         public virtual string Email { get; set; }
 
         /// <summary>
-        /// Se o email está confirmado
-        /// </summary>
-        public virtual bool EmailConfirmed { get; set; }
-
-        /// <summary>
         /// Hash da senha do usuário
         /// </summary>
-        public virtual string PasswordHash { get; set; }
+        public virtual string HashSenha { get; set; }
 
         /// <summary>
         /// Um valor aleatório que representa as credenciais do usuário. 
@@ -43,42 +39,15 @@ namespace ConsultorioAPI.Models
         /// <summary>
         /// Telefone do usuário
         /// </summary>
-        public virtual string PhoneNumber { get; set; }
+        public virtual string Telefone { get; set; }
 
-        /// <summary>
-        /// Se o telefone foi confirmado
-        /// </summary>
-        public virtual bool PhoneNumberConfirmed { get; set; }
-
-        /// <summary>
-        /// Se a autenticação de dois fatores (ex: token no celular) está habilitada
-        /// </summary>
-        public virtual bool TwoFactorEnabled { get; set; } = false;
-
-        /// <summary>
-        /// Caso o usuário esteja bloqueado do sistema (por exemplo, por muitas tentativas inválidas de logon),
-        /// armazena até quando ele estará bloqueado.
-        /// </summary>
-        public virtual DateTime? LockoutEndDateUtc { get; set; } = null;
-
-        /// <summary>
-        /// Se ele está bloqueado
-        /// </summary>
-        public virtual bool LockoutEnabled { get; set; } = false;
-
-        /// <summary>
-        /// O número de vezes que o login falhou
-        /// </summary>
-        public virtual int AccessFailedCount { get; set; } = 0;
-
-        public virtual List<IdentityUserClaim> Claims { get; private set; }
+        public virtual List<UserRole> Roles { get; private set; }
     }
 
-    public class IdentityUserClaim
+    public class UserRole
     {
-        public virtual string Id { get; set; }
-        public virtual string UserId { get; set; }
-        public virtual string ClaimType { get; set; }
-        public virtual string ClaimValue { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }

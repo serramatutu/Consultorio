@@ -18,9 +18,11 @@ namespace ConsultorioAPI.Database
           IUserSecurityStampStore<ConsultorioUser>
     {
         UserStore<IdentityUser> userStore;
+        ConsultorioDbContext _ctx;
 
-        public ConsultorioUserStore(DbContext ctx)
+        public ConsultorioUserStore(ConsultorioDbContext ctx)
         {
+            _ctx = ctx;
             userStore = new UserStore<IdentityUser>(ctx);
         }
 
@@ -29,18 +31,16 @@ namespace ConsultorioAPI.Database
 
         public Task CreateAsync(ConsultorioUser user)
         {
-            var context = (ConsultorioDbContext)userStore.Context;
-            context.Users.Add(user);
-            context.Configuration.ValidateOnSaveEnabled = false;
-            return context.SaveChangesAsync();
+            _ctx.Users.Add(user);
+            //_ctx.Configuration.ValidateOnSaveEnabled = false;
+            return _ctx.SaveChangesAsync();
         }
 
         public Task DeleteAsync(ConsultorioUser user)
         {
-            var context = (ConsultorioDbContext)userStore.Context;
-            context.Users.Remove(user);
-            context.Configuration.ValidateOnSaveEnabled = false;
-            return context.SaveChangesAsync();
+            _ctx.Users.Remove(user);
+            _ctx.Configuration.ValidateOnSaveEnabled = false;
+            return _ctx.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -50,8 +50,7 @@ namespace ConsultorioAPI.Database
 
         public Task<ConsultorioUser> FindByIdAsync(string userId)
         {
-            var context = (ConsultorioDbContext)userStore.Context;
-            IQueryable<ConsultorioUser> users = context.Users.Where(u => u.Id.ToLower() == userId.ToLower());
+            IQueryable<ConsultorioUser> users = _ctx.Users.Where(u => u.Id.ToLower() == userId.ToLower());
 
             if (users == null)
                 return null;
@@ -60,8 +59,7 @@ namespace ConsultorioAPI.Database
 
         public Task<ConsultorioUser> FindByNameAsync(string userName)
         {
-            var context = (ConsultorioDbContext)userStore.Context;
-            IQueryable<ConsultorioUser> users = context.Users.Where(u => u.UserName.ToLower() == userName.ToLower());
+            IQueryable<ConsultorioUser> users = _ctx.Users.Where(u => u.UserName.ToLower() == userName.ToLower());
 
             if (users == null)
                 return null;
@@ -112,11 +110,10 @@ namespace ConsultorioAPI.Database
 
         public Task UpdateAsync(ConsultorioUser user)
         {
-            var context = (ConsultorioDbContext)userStore.Context;
-            context.Users.Attach(user);
-            context.Entry(user).State = EntityState.Modified;
-            context.Configuration.ValidateOnSaveEnabled = false;
-            return context.SaveChangesAsync();
+            _ctx.Users.Attach(user);
+            _ctx.Entry(user).State = EntityState.Modified;
+            _ctx.Configuration.ValidateOnSaveEnabled = false;
+            return _ctx.SaveChangesAsync();
         }
 
         public Task<IList<Claim>> GetClaimsAsync(ConsultorioUser user)
