@@ -32,7 +32,7 @@ namespace ConsultorioAPI.Controllers
                     "*", 
                     "POST", 
                     SupportsCredentials = false)]
-        public async Task<IHttpActionResult> Cadastrar([FromBody]UserModel userModel)
+        public async Task<IHttpActionResult> Cadastrar([FromBody]CadastroUserModel userModel)
         {
             if (!ModelState.IsValid)
             {

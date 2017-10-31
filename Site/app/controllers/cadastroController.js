@@ -5,8 +5,12 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
 
     $scope.registration = {
         userName: "",
-        password: "",
-        confirmPassword: ""
+        senha: "",
+        confSenha: "",
+        nomeCompleto: "",
+        dataNasc: "",
+        email: "",
+        telefone: ""
     };
 
     $scope.cadastrar = function () {

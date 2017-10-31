@@ -14,7 +14,6 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'constsProvide
         return $http.post(constantsProvider.apiDomain + 'conta/cadastro', registration).then(function success(response) {
             return response;
         });
-
     };
 
     var _login = function (loginData) {

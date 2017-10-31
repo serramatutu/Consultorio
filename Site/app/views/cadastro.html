@@ -1,10 +1,18 @@
 ﻿<form class="form-login" role="form">
-    <h2 class="form-login-heading">Cadastre-se</h2>
-    <input type="text" class="form-control" placeholder="Usuário" data-ng-model="registration.userName" required autofocus>
-    <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.password" required>
-    <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="registration.confirmPassword" required>
-    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
     <div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
         {{message}}
     </div>
+    <h2>Cadastre-se</h2>
+    <hr />
+    <h1>Informações de login</h1>
+    <input type="text" class="form-control" placeholder="Usuário" data-ng-model="registration.userName" required autofocus>
+    <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.senha" required>
+    <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="registration.confSenha" required>
+    <hr />
+    <h1>Informações pessoais</h1>
+    <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
+    <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="registration.dataNasc" required />
+    <input type="email" class="form-control" placeholder="E-mail" data-ng-model="registration.email" required />
+    <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="registration.telefone" required />
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
 </form>
