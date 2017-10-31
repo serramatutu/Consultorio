@@ -26,7 +26,7 @@ namespace ConsultorioAPI.Data
             {
                 UserName = data.UserName,
                 Email = data.Email,
-                PhoneNumber = data.Telefone
+                Telefone = data.Telefone
             };
 
             var result = await _userManager.CreateAsync(user, data.Senha);

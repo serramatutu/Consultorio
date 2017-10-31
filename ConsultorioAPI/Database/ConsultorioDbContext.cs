@@ -22,6 +22,8 @@ namespace ConsultorioAPI.Database
 
         public virtual DbSet<ConsultorioUser> Users { get; set; }
 
+        public virtual DbSet<UserRole> Roles { get; set; }
+
         /// <summary>
         /// Erros decentes por favor ne
         /// </summary>

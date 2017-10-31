@@ -4,12 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 
 namespace ConsultorioAPI.Models
 {
     public class ConsultorioUser : IUser
     {
+        public ConsultorioUser()
+        {
+
+        }
+
         /// <summary>
         /// Id do usuário
         /// </summary>
@@ -42,12 +48,24 @@ namespace ConsultorioAPI.Models
         public virtual string Telefone { get; set; }
 
         public virtual List<UserRole> Roles { get; private set; }
+
+        public virtual List<Claim> Claims { get; private set; }
     }
 
     public class UserRole
     {
+        public UserRole(string name)
+        {
+            Name = name;
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
+    }
+
+    public class UserClaim
+    {
+
     }
 }
