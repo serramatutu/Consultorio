@@ -31,14 +31,14 @@ namespace ConsultorioAPI.Database
 
         public Task CreateAsync(ConsultorioUser user)
         {
-            _ctx.Users.Add(user);
+            _ctx.Usuarios.Add(user);
             //_ctx.Configuration.ValidateOnSaveEnabled = false;
             return _ctx.SaveChangesAsync();
         }
 
         public Task DeleteAsync(ConsultorioUser user)
         {
-            _ctx.Users.Remove(user);
+            _ctx.Usuarios.Remove(user);
             _ctx.Configuration.ValidateOnSaveEnabled = false;
             return _ctx.SaveChangesAsync();
         }
@@ -50,7 +50,7 @@ namespace ConsultorioAPI.Database
 
         public Task<ConsultorioUser> FindByIdAsync(string userId)
         {
-            IQueryable<ConsultorioUser> users = _ctx.Users.Where(u => u.Id.ToLower() == userId.ToLower());
+            IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.Id.ToLower() == userId.ToLower());
 
             if (users == null)
                 return null;
@@ -59,7 +59,7 @@ namespace ConsultorioAPI.Database
 
         public Task<ConsultorioUser> FindByNameAsync(string userName)
         {
-            IQueryable<ConsultorioUser> users = _ctx.Users.Where(u => u.UserName.ToLower() == userName.ToLower());
+            IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.UserName.ToLower() == userName.ToLower());
 
             if (users == null)
                 return null;
@@ -110,7 +110,7 @@ namespace ConsultorioAPI.Database
 
         public Task UpdateAsync(ConsultorioUser user)
         {
-            _ctx.Users.Attach(user);
+            _ctx.Usuarios.Attach(user);
             _ctx.Entry(user).State = EntityState.Modified;
             _ctx.Configuration.ValidateOnSaveEnabled = false;
             return _ctx.SaveChangesAsync();
@@ -126,7 +126,7 @@ namespace ConsultorioAPI.Database
         {
             if (!user.Claims.Any(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value)) // Checa se já não existe
             {
-                user.Claims.Add(new Models.IdentityUserClaim
+                user.Claims.Add(new IdentityUserClaim
                 {
                     ClaimType = claim.Type,
                     ClaimValue = claim.Value
@@ -144,7 +144,7 @@ namespace ConsultorioAPI.Database
 
         private static void SetConsultorioUser(ConsultorioUser user, IdentityUser identityUser)
         {
-            user.PasswordHash = identityUser.PasswordHash;
+            user.HashSenha = identityUser.PasswordHash;
             user.SecurityStamp = identityUser.SecurityStamp;
             user.Id = identityUser.Id;
             user.UserName = identityUser.UserName;
@@ -155,7 +155,7 @@ namespace ConsultorioAPI.Database
             return new IdentityUser
             {
                 Id = user.Id,
-                PasswordHash = user.PasswordHash,
+                PasswordHash = user.HashSenha,
                 SecurityStamp = user.SecurityStamp,
                 UserName = user.UserName
             };

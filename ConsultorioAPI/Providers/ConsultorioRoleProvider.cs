@@ -16,7 +16,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                foreach (var user in ctx.Users)
+                foreach (var user in ctx.Usuarios)
                     user.Roles.AddRange(roleNames.Select(x => new UserRole(x)));
             }
         }
@@ -53,7 +53,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Users.Where(
+                return ctx.Usuarios.Where(
                     x => x.UserName.Contains(usernameToMatch) && x.Roles.Exists(y => y.Name == roleName) // Encontra o usuário pelos critérios
                 ).Select(x => x.UserName).ToArray(); // Obtém apenas um vetor de nomes de usuários
             }
@@ -71,7 +71,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                var user = ctx.Users.FirstOrDefault(x => x.UserName == username);
+                var user = ctx.Usuarios.FirstOrDefault(x => x.UserName == username);
                 if (user == null)
                 {
                     return null;
@@ -88,7 +88,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Users.Where(x => x.Roles.Exists(y => y.Name == roleName)) // Seleciona os usuários caso contenham o role
+                return ctx.Usuarios.Where(x => x.Roles.Exists(y => y.Name == roleName)) // Seleciona os usuários caso contenham o role
                     .Select(x => x.UserName).ToArray(); // Seleciona os nomes destes usuários e transforma em vetor
             }
         }
@@ -97,7 +97,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Users.First(x => x.UserName == username).Roles.Exists(x => x.Name == roleName);
+                return ctx.Usuarios.First(x => x.UserName == username).Roles.Exists(x => x.Name == roleName);
             }
         }
 
@@ -105,7 +105,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                var users = ctx.Users.Where(x => usernames.Contains(x.UserName)); // Seleciona os usuários designados
+                var users = ctx.Usuarios.Where(x => usernames.Contains(x.UserName)); // Seleciona os usuários designados
 
                 foreach (var user in users)
                     user.Roles.RemoveAll(x => roleNames.Contains(x.Name)); // Remove os roles

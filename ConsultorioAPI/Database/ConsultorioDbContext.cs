@@ -11,7 +11,7 @@ namespace ConsultorioAPI.Database
         public ConsultorioDbContext(string connection = null) : base(connection)
         {
             System.Data.Entity.Database.SetInitializer(
-                new DropCreateDatabaseIfModelChanges<ConsultorioDbContext>()
+                new CreateDatabaseIfNotExists<ConsultorioDbContext>() // NÃO MEXA NISSO PELO AMOR DE JESUS CRISTO
             );
         }
 
@@ -20,7 +20,7 @@ namespace ConsultorioAPI.Database
             modelBuilder.Entity<ConsultorioUser>().ToTable("Usuario");
         }
 
-        public virtual DbSet<ConsultorioUser> Users { get; set; }
+        public virtual DbSet<ConsultorioUser> Usuarios { get; set; }
 
         public virtual DbSet<UserRole> Roles { get; set; }
 

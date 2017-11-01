@@ -24,6 +24,7 @@ namespace ConsultorioAPI.Data
         {
             ConsultorioUser user = new ConsultorioUser
             {
+                Id = data.UserName,
                 UserName = data.UserName,
                 Email = data.Email,
                 Telefone = data.Telefone
