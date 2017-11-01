@@ -65,9 +65,4 @@ namespace ConsultorioAPI.Models
 
         public string Name { get; set; }
     }
-
-    public class UserClaim
-    {
-
-    }
 }

@@ -27,6 +27,8 @@ app.config(function ($routeProvider, $locationProvider) {
 
     // Caso url não seja válida, redireciona para home
     $routeProvider.otherwise({ redirectTo: "/home" });
+
+    $locationProvider.html5Mode(true); //Remove '#' da URL.
 });
 
 // Configura os interceptadores
@@ -36,4 +38,15 @@ app.config(function ($httpProvider) {
 
 app.run(['authService', function (authService) {
     authService.fillAuthData();
+}]);
+
+// Não permite endereços não autorizados
+app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
+    $rootScope.$on('$routeChangeStart', function (event) {
+        if (!authService.isAuthenticated) { // Se não tiver logado
+            console.log('ROTA NÃO PERMITIDA PARA USUÁRIO ANÔNIMO');
+            event.preventDefault();
+            $location.path('/login');
+        }
+    });
 }]);
