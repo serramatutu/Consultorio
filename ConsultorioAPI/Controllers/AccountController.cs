@@ -11,10 +11,15 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Security;
 
 namespace ConsultorioAPI.Controllers
 {
     [RoutePrefix("conta")]
+    [EnableCors(Globals.CLIENT_URL,
+                    "*",
+                    "POST",
+                    SupportsCredentials = false)]
     public class AccountController : ApiController
     {
         private AuthRepository _repo = null;
@@ -28,10 +33,6 @@ namespace ConsultorioAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("cadastro")]
-        [EnableCors(Globals.CLIENT_URL, 
-                    "*", 
-                    "POST", 
-                    SupportsCredentials = false)]
         public async Task<IHttpActionResult> Cadastrar([FromBody]CadastroUserModel userModel)
         {
             if (!ModelState.IsValid)
@@ -39,8 +40,8 @@ namespace ConsultorioAPI.Controllers
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
-
+            IdentityResult result = await _repo.RegisterUser(userModel, "paciente");
+            
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)

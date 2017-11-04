@@ -7,11 +7,12 @@
     <link href="content/css/site.css" rel="stylesheet" />
     <link href="node_modules/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <base href="/">
 </head>
 <body>
     <nav class="navbar navbar-light bg-light" role="navigation" data-ng-controller="indexController">
           <button class="navbar-toggler" type="button"
-          data-target="#coisasDaNave" aria-controls="navbarSupportedContent"
+          aria-controls="coisasDaNave"
           aria-expanded="false" aria-label="Toggle navigation" ng-click="isCollapsed = !isCollapsed">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -20,8 +21,8 @@
               <ul class="navbar-nav mr-auto">
                   <li class="nav-item active" data-ng-hide="!auth.isAuthenticated"><a href="">Bem Vindo {{auth.userName}}</a></li>
                   <li class="nav-item active" data-ng-hide="!auth.isAuthenticated"><a href="" data-ng-click="logOut()">Logout</a></li>
-                  <li class="nav-item active" data-ng-hide="auth.isAuthenticated"> <a href="#/login">Login</a></li>
-                  <li class="nav-item active" data-ng-hide="auth.isAuthenticated"> <a href="#/cadastro">Sign Up</a></li>
+                  <li class="nav-item active" data-ng-hide="auth.isAuthenticated"> <a href="/login">Login</a></li>
+                  <li class="nav-item active" data-ng-hide="auth.isAuthenticated"> <a href="/cadastro">Sign Up</a></li>
               </ul>
           </div>
     </nav>

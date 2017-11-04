@@ -1,0 +1,10 @@
+﻿<form class="form" role="form">
+    <div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
+        {{message}}
+    </div>
+    <h2>Agende uma consulta</h2>
+    <hr />
+    <input type="date" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.data" required />
+    
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
+</form>

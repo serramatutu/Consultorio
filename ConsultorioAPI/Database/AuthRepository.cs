@@ -20,7 +20,7 @@ namespace ConsultorioAPI.Data
             _userManager = new UserManager<ConsultorioUser>(new ConsultorioUserStore(_ctx));
         }
 
-        public async Task<IdentityResult> RegisterUser(CadastroUserModel data)
+        public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)
         {
             ConsultorioUser user = new ConsultorioUser
             {
@@ -32,6 +32,9 @@ namespace ConsultorioAPI.Data
 
             var result = await _userManager.CreateAsync(user, data.Senha);
 
+            if (!string.IsNullOrEmpty(roleName))
+                _userManager.AddToRole(user.Id, role);
+            
             return result;
         }
 

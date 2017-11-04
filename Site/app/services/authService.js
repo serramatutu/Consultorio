@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', 'constsProvider',
-    function ($http, $q, localStorageService, constantsProvider) {
+app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService', 'constsProvider',
+    function ($rootScope, $http, $q, localStorageService, constantsProvider) {
     var authServiceFactory = {};
 
     var _auth = {
@@ -63,6 +63,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'constsProvide
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.auth = _auth;
+    $rootScope.auth = _auth;
 
     return authServiceFactory;
 }]);

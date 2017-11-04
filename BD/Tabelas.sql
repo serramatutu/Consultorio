@@ -21,3 +21,10 @@ CREATE TABLE Imagens (
 	id INT PRIMARY KEY NOT NULL,
 	foto VARBINARY(MAX) NOT NULL
 )
+
+(medico, paciente, dataInicio, dataFim, Anotacoes, situacao)
+CREATE TABLE Consulta (
+    id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    idMedico INT NOT NULL,
+    -- TERMINAR
+)
