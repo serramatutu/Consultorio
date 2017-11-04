@@ -45,9 +45,7 @@ namespace ConsultorioAPI.Controllers
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)
-            {
                 return errorResult;
-            }
 
             return Ok();
         }

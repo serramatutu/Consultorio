@@ -12,10 +12,10 @@ using System.Linq;
 namespace ConsultorioAPI.Database
 {
     public class ConsultorioUserStore
-        : IUserStore<ConsultorioUser>,
-          IUserClaimStore<ConsultorioUser>,
-          IUserPasswordStore<ConsultorioUser>,
-          IUserSecurityStampStore<ConsultorioUser>
+        : IUserStore<ConsultorioUser, int>,
+          IUserClaimStore<ConsultorioUser, int>,
+          IUserPasswordStore<ConsultorioUser, int>,
+          IUserSecurityStampStore<ConsultorioUser, int>
     {
         UserStore<IdentityUser> userStore;
         ConsultorioDbContext _ctx;
@@ -48,9 +48,9 @@ namespace ConsultorioAPI.Database
             userStore.Dispose();
         }
 
-        public Task<ConsultorioUser> FindByIdAsync(string userId)
+        public Task<ConsultorioUser> FindByIdAsync(int userId)
         {
-            IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.Id.ToLower() == userId.ToLower());
+            IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.Id == userId);
 
             if (users == null)
                 return null;
@@ -146,7 +146,7 @@ namespace ConsultorioAPI.Database
         {
             user.HashSenha = identityUser.PasswordHash;
             user.SecurityStamp = identityUser.SecurityStamp;
-            user.Id = identityUser.Id;
+            user.Id = Convert.ToInt32(identityUser.Id);
             user.UserName = identityUser.UserName;
         }
 
@@ -154,7 +154,7 @@ namespace ConsultorioAPI.Database
         {
             return new IdentityUser
             {
-                Id = user.Id,
+                Id = user.Id.ToString(),
                 PasswordHash = user.HashSenha,
                 SecurityStamp = user.SecurityStamp,
                 UserName = user.UserName

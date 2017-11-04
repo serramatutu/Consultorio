@@ -11,7 +11,7 @@ using System.Web;
 namespace ConsultorioAPI.Models
 {
     [Table("Usuarios")]
-    public class ConsultorioUser : IUser
+    public class ConsultorioUser : IUser<int>
     {
         public ConsultorioUser()
         {
@@ -21,7 +21,7 @@ namespace ConsultorioAPI.Models
         /// <summary>
         /// Id do usuário
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Username do usuário

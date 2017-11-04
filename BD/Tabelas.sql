@@ -3,9 +3,9 @@ CREATE TABLE Especialidade (
 	nome VARCHAR(15) NOT NULL
 )
 
-
 CREATE TABLE Medico (
 	id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	userId NVARCHAR(256) NOT NULL,
 	nome VARCHAR(40) NOT NULL,
 	dataNascimento DATETIME NOT NULL,
 	eMail VARCHAR(50) NOT NULL,
@@ -14,6 +14,7 @@ CREATE TABLE Medico (
 	especialidade INT NOT NULL,
 	foto IMAGE NOT NULL,
 
+	CONSTRAINT fk_MedicoUsuario FOREIGN KEY(userId) REFERENCES Usuario(id),
 	CONSTRAINT fk_MedicoEspecialidade FOREIGN KEY(especialidade) REFERENCES Especialidade(id)
 )
 
@@ -22,9 +23,13 @@ CREATE TABLE Imagens (
 	foto VARBINARY(MAX) NOT NULL
 )
 
-(medico, paciente, dataInicio, dataFim, Anotacoes, situacao)
 CREATE TABLE Consulta (
     id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     idMedico INT NOT NULL,
-    -- TERMINAR
+    dataInicio DATETIME NOT NULL,
+	dataFim DATETIME NOT NULL,
+	anotacoes NVARCHAR(500) NOT NULL,
+	situacao TINYINT NOT NULL
+
+	CONSTRAINT fk_ConsultaMedico FOREIGN KEY(idMedico) REFERENCES Medico(id)
 )

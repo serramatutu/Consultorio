@@ -12,19 +12,19 @@ namespace ConsultorioAPI.Data
     {
         private ConsultorioDbContext _ctx;
 
-        private UserManager<ConsultorioUser> _userManager;
+        private UserManager<ConsultorioUser, int> _userManager;
 
         public AuthRepository()
         {
             _ctx = new ConsultorioDbContext("ConexaoBD"); // Utiliza a connection string do BD para criar contexto de conexão
-            _userManager = new UserManager<ConsultorioUser>(new ConsultorioUserStore(_ctx));
+            _userManager = new UserManager<ConsultorioUser, int>(new ConsultorioUserStore(_ctx));
         }
 
         public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)
         {
             ConsultorioUser user = new ConsultorioUser
             {
-                Id = Guid.NewGuid().ToString("N"),
+                Id = Guid.NewGuid(),
                 UserName = data.UserName,
                 Email = data.Email,
                 Telefone = data.Telefone
