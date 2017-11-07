@@ -17,7 +17,7 @@ namespace ConsultorioAPI.Providers
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
                 foreach (var user in ctx.Usuarios)
-                    user.Roles.AddRange(roleNames.Select(x => new UserRole(x)));
+                    user.Papeis.AddRange(roleNames.Select(x => new PapelUsuario(x)));
             }
         }
 
@@ -30,7 +30,7 @@ namespace ConsultorioAPI.Providers
 
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                ctx.Roles.Add(new UserRole(roleName));
+                ctx.Papeis.Add(new PapelUsuario(roleName));
             }
         }
 
@@ -42,7 +42,7 @@ namespace ConsultorioAPI.Providers
                     throw new ProviderException("Não pôde deletar role populado.");
 
             using (ConsultorioDbContext ctx = new ConsultorioDbContext()) {
-                ctx.Roles.Remove(ctx.Roles.First(x => x.Name == roleName)); // Remove o role efetivamente
+                ctx.Papeis.Remove(ctx.Papeis.First(x => x.Nome == roleName)); // Remove o role efetivamente
                 return true;
             }
 
@@ -54,7 +54,7 @@ namespace ConsultorioAPI.Providers
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
                 return ctx.Usuarios.Where(
-                    x => x.UserName.Contains(usernameToMatch) && x.Roles.Exists(y => y.Name == roleName) // Encontra o usuário pelos critérios
+                    x => x.UserName.Contains(usernameToMatch) && x.Papeis.Exists(y => y.Nome == roleName) // Encontra o usuário pelos critérios
                 ).Select(x => x.UserName).ToArray(); // Obtém apenas um vetor de nomes de usuários
             }
         }
@@ -63,7 +63,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Roles.Select(x => x.Name).ToArray();
+                return ctx.Papeis.Select(x => x.Nome).ToArray();
             }
         }
 
@@ -78,7 +78,7 @@ namespace ConsultorioAPI.Providers
                 }
                 else
                 {
-                    string[] ret = user.Roles.Select(x => x.Name).ToArray();
+                    string[] ret = user.Papeis.Select(x => x.Nome).ToArray();
                     return ret;
                 }
             }
@@ -88,7 +88,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Usuarios.Where(x => x.Roles.Exists(y => y.Name == roleName)) // Seleciona os usuários caso contenham o role
+                return ctx.Usuarios.Where(x => x.Papeis.Exists(y => y.Nome == roleName)) // Seleciona os usuários caso contenham o role
                     .Select(x => x.UserName).ToArray(); // Seleciona os nomes destes usuários e transforma em vetor
             }
         }
@@ -97,7 +97,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Usuarios.First(x => x.UserName == username).Roles.Exists(x => x.Name == roleName);
+                return ctx.Usuarios.First(x => x.UserName == username).Papeis.Exists(x => x.Nome == roleName);
             }
         }
 
@@ -108,7 +108,7 @@ namespace ConsultorioAPI.Providers
                 var users = ctx.Usuarios.Where(x => usernames.Contains(x.UserName)); // Seleciona os usuários designados
 
                 foreach (var user in users)
-                    user.Roles.RemoveAll(x => roleNames.Contains(x.Name)); // Remove os roles
+                    user.Papeis.RemoveAll(x => roleNames.Contains(x.Nome)); // Remove os roles
             }
         }
 
@@ -116,7 +116,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Roles.Any(x => x.Name == roleName);
+                return ctx.Papeis.Any(x => x.Nome == roleName);
             }
         }
     }

@@ -12,12 +12,12 @@ namespace ConsultorioAPI.Data
     {
         private ConsultorioDbContext _ctx;
 
-        private UserManager<ConsultorioUser, int> _userManager;
+        private UserManager<ConsultorioUser, Guid> _userManager;
 
         public AuthRepository()
         {
             _ctx = new ConsultorioDbContext("ConexaoBD"); // Utiliza a connection string do BD para criar contexto de conexão
-            _userManager = new UserManager<ConsultorioUser, int>(new ConsultorioUserStore(_ctx));
+            _userManager = new UserManager<ConsultorioUser, Guid>(new ConsultorioUserStore(_ctx));
         }
 
         public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)
@@ -32,9 +32,9 @@ namespace ConsultorioAPI.Data
 
             var result = await _userManager.CreateAsync(user, data.Senha);
 
-            if (!string.IsNullOrEmpty(roleName))
+            if (!string.IsNullOrEmpty(role))
                 _userManager.AddToRole(user.Id, role);
-            
+
             return result;
         }
 

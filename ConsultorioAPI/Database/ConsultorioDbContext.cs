@@ -18,11 +18,19 @@ namespace ConsultorioAPI.Database
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ConsultorioUser>().ToTable("Usuario");
+            modelBuilder.Entity<PapelUsuario>().ToTable("Papel");
+
+            modelBuilder.Entity<ConsultorioUser>().HasMany(u => u.Papeis).WithMany(r => r.Usuarios).Map(m =>
+            {
+                m.ToTable("UsuarioPapel");
+                m.MapLeftKey("IdUsuario");
+                m.MapRightKey("IdPapel");
+            });
         }
 
         public virtual DbSet<ConsultorioUser> Usuarios { get; set; }
 
-        public virtual DbSet<UserRole> Roles { get; set; }
+        public virtual DbSet<PapelUsuario> Papeis { get; set; }
 
         /// <summary>
         /// Erros decentes por favor ne
@@ -62,7 +70,7 @@ namespace ConsultorioAPI.Database
 
             var msgCompleta = string.Join("; ", errorMessages);
 
-            var msgExcecao = string.Concat(ex.Message, " The validation errors are: ", msgCompleta);
+            var msgExcecao = string.Concat(ex.Message, " Erros : ", msgCompleta);
 
             throw new DbEntityValidationException(msgExcecao, ex.EntityValidationErrors);
         }
