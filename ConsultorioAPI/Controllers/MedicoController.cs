@@ -19,7 +19,7 @@ namespace ConsultorioAPI.Controllers
     public class MedicoController : ApiController
     {
         [Route("comentarconsulta")]
-        public async Task<IHttpActionResult> ComentarConsulta([FromBody]ComentarioConsulta comentario)
+        public async Task<IHttpActionResult> ComentarConsulta([FromBody]Consulta comentario)
         {
             throw new NotImplementedException();
         }

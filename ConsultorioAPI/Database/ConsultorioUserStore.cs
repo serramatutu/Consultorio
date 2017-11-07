@@ -12,11 +12,11 @@ using System.Linq;
 namespace ConsultorioAPI.Database
 {
     public class ConsultorioUserStore
-        : IUserStore<ConsultorioUser, Guid>,
-          IUserRoleStore<ConsultorioUser, Guid>,
-          IUserClaimStore<ConsultorioUser, Guid>,
-          IUserPasswordStore<ConsultorioUser, Guid>,
-          IUserSecurityStampStore<ConsultorioUser, Guid>
+        : IUserStore<LoginUsuario, Guid>,
+          IUserRoleStore<LoginUsuario, Guid>,
+          IUserClaimStore<LoginUsuario, Guid>,
+          IUserPasswordStore<LoginUsuario, Guid>,
+          IUserSecurityStampStore<LoginUsuario, Guid>
     {
         UserStore<IdentityUser> userStore;
         ConsultorioDbContext _ctx;
@@ -30,14 +30,14 @@ namespace ConsultorioAPI.Database
         public ConsultorioUserStore() : this (new ConsultorioDbContext())
         { }
 
-        public Task CreateAsync(ConsultorioUser user)
+        public Task CreateAsync(LoginUsuario user)
         {
             _ctx.Usuarios.Add(user);
             //_ctx.Configuration.ValidateOnSaveEnabled = false;
             return _ctx.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(ConsultorioUser user)
+        public Task DeleteAsync(LoginUsuario user)
         {
             _ctx.Usuarios.Remove(user);
             _ctx.Configuration.ValidateOnSaveEnabled = false;
@@ -49,25 +49,25 @@ namespace ConsultorioAPI.Database
             userStore.Dispose();
         }
 
-        public Task<ConsultorioUser> FindByIdAsync(Guid userId)
+        public Task<LoginUsuario> FindByIdAsync(Guid userId)
         {
-            IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.Id == userId);
+            IQueryable<LoginUsuario> users = _ctx.Usuarios.Where(u => u.Id == userId);
 
             if (users == null)
                 return null;
             return users.FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
         }
 
-        public Task<ConsultorioUser> FindByNameAsync(string userName)
+        public Task<LoginUsuario> FindByNameAsync(string userName)
         {
-            IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.UserName.ToLower() == userName.ToLower());
+            IQueryable<LoginUsuario> users = _ctx.Usuarios.Where(u => u.UserName.ToLower() == userName.ToLower());
 
             if (users == null)
                 return null;
             return users.FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
         }
 
-        public Task<string> GetPasswordHashAsync(ConsultorioUser user)
+        public Task<string> GetPasswordHashAsync(LoginUsuario user)
         {
             var identityUser = ToIdentityUser(user);
             var task = userStore.GetPasswordHashAsync(identityUser);
@@ -75,7 +75,7 @@ namespace ConsultorioAPI.Database
             return task;
         }
 
-        public Task<string> GetSecurityStampAsync(ConsultorioUser user)
+        public Task<string> GetSecurityStampAsync(LoginUsuario user)
         {
             var identityUser = ToIdentityUser(user);
             var task = userStore.GetSecurityStampAsync(identityUser);
@@ -83,7 +83,7 @@ namespace ConsultorioAPI.Database
             return task;
         }
 
-        public Task<bool> HasPasswordAsync(ConsultorioUser user)
+        public Task<bool> HasPasswordAsync(LoginUsuario user)
         {
             var identityUser = ToIdentityUser(user);
             var task = userStore.HasPasswordAsync(identityUser);
@@ -91,7 +91,7 @@ namespace ConsultorioAPI.Database
             return task;
         }
 
-        public Task SetPasswordHashAsync(ConsultorioUser user, string passwordHash)
+        public Task SetPasswordHashAsync(LoginUsuario user, string passwordHash)
         {
             var identityUser = ToIdentityUser(user);
             // Utiliza o do prório UserStore
@@ -100,7 +100,7 @@ namespace ConsultorioAPI.Database
             return task;
         }
 
-        public Task SetSecurityStampAsync(ConsultorioUser user, string stamp)
+        public Task SetSecurityStampAsync(LoginUsuario user, string stamp)
         {
             var identityUser = ToIdentityUser(user);
             // Utiliza o do próprio userstore
@@ -109,7 +109,7 @@ namespace ConsultorioAPI.Database
             return task;
         }
 
-        public Task UpdateAsync(ConsultorioUser user)
+        public Task UpdateAsync(LoginUsuario user)
         {
             _ctx.Usuarios.Attach(user);
             _ctx.Entry(user).State = EntityState.Modified;
@@ -117,13 +117,13 @@ namespace ConsultorioAPI.Database
             return _ctx.SaveChangesAsync();
         }
 
-        public Task<IList<Claim>> GetClaimsAsync(ConsultorioUser user)
+        public Task<IList<Claim>> GetClaimsAsync(LoginUsuario user)
         {
             IList<Claim> result = user.Claims.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
             return Task.FromResult(result);
         }
 
-        public Task AddClaimAsync(ConsultorioUser user, Claim claim)
+        public Task AddClaimAsync(LoginUsuario user, Claim claim)
         {
             if (!user.Claims.Any(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value)) // Checa se já não existe
             {
@@ -137,13 +137,13 @@ namespace ConsultorioAPI.Database
             return Task.FromResult(0);
         }
 
-        public Task RemoveClaimAsync(ConsultorioUser user, Claim claim)
+        public Task RemoveClaimAsync(LoginUsuario user, Claim claim)
         {
             user.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
             return Task.FromResult(0);
         }
 
-        private static void SetConsultorioUser(ConsultorioUser user, IdentityUser identityUser)
+        private static void SetConsultorioUser(LoginUsuario user, IdentityUser identityUser)
         {
             user.HashSenha = identityUser.PasswordHash;
             user.SecurityStamp = identityUser.SecurityStamp;
@@ -151,7 +151,7 @@ namespace ConsultorioAPI.Database
             user.UserName = identityUser.UserName;
         }
 
-        private IdentityUser ToIdentityUser(ConsultorioUser user)
+        private IdentityUser ToIdentityUser(LoginUsuario user)
         {
             return new IdentityUser
             {
@@ -162,19 +162,19 @@ namespace ConsultorioAPI.Database
             };
         }
 
-        public Task AddToRoleAsync(ConsultorioUser user, string roleName)
+        public Task AddToRoleAsync(LoginUsuario user, string roleName)
         {
             _ctx.Set<PapelUsuario>().Where(x => x.Nome == roleName).Single().Usuarios.Add(user);
             return _ctx.SaveChangesAsync();
         }
 
-        public Task RemoveFromRoleAsync(ConsultorioUser user, string roleName)
+        public Task RemoveFromRoleAsync(LoginUsuario user, string roleName)
         {
-            _ctx.Set<ConsultorioUser>().Where(x => x.Id.Equals(user.Id)).Single().Papeis.RemoveAll(x => x.Nome == roleName);
+            _ctx.Set<LoginUsuario>().Where(x => x.Id.Equals(user.Id)).Single().Papeis.RemoveAll(x => x.Nome == roleName);
             return _ctx.SaveChangesAsync();
         }
 
-        public Task<IList<string>> GetRolesAsync(ConsultorioUser user)
+        public Task<IList<string>> GetRolesAsync(LoginUsuario user)
         {
             return new Task<IList<string>>(() =>
             {
@@ -182,7 +182,7 @@ namespace ConsultorioAPI.Database
             });
         }
 
-        public Task<bool> IsInRoleAsync(ConsultorioUser user, string roleName)
+        public Task<bool> IsInRoleAsync(LoginUsuario user, string roleName)
         {
             return new Task<bool>(() =>
             {

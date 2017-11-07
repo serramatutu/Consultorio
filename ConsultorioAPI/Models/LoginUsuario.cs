@@ -11,10 +11,10 @@ using System.Web.ModelBinding;
 
 namespace ConsultorioAPI.Models
 {
-    [Table("Usuarios")]
-    public class ConsultorioUser : IUser<Guid>
+    [Table("Usuario")]
+    public class LoginUsuario : IUser<Guid>
     {
-        public ConsultorioUser()
+        public LoginUsuario()
         {
 
         }
@@ -63,8 +63,9 @@ namespace ConsultorioAPI.Models
 
         public int Id { get; set; }
 
+        [Column(TypeName = "varchar(30)")]
         public string Nome { get; set; }
 
-        public virtual List<ConsultorioUser> Usuarios { get; set; }
+        public virtual List<LoginUsuario> Usuarios { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace ConsultorioAPI.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ConsultorioUser>().ToTable("Usuario");
+            modelBuilder.Entity<LoginUsuario>().ToTable("Usuario");
             modelBuilder.Entity<PapelUsuario>().ToTable("Papel");
 
-            modelBuilder.Entity<ConsultorioUser>().HasMany(u => u.Papeis).WithMany(r => r.Usuarios).Map(m =>
+            modelBuilder.Entity<LoginUsuario>().HasMany(u => u.Papeis).WithMany(r => r.Usuarios).Map(m =>
             {
                 m.ToTable("UsuarioPapel");
                 m.MapLeftKey("IdUsuario");
@@ -28,9 +28,17 @@ namespace ConsultorioAPI.Database
             });
         }
 
-        public virtual DbSet<ConsultorioUser> Usuarios { get; set; }
+        public virtual DbSet<LoginUsuario> Usuarios { get; set; }
+
+        public virtual DbSet<Medico> Medicos { get; set; }
+
+        public virtual DbSet<Paciente> Pacientes { get; set; }
 
         public virtual DbSet<PapelUsuario> Papeis { get; set; }
+
+        public virtual DbSet<Consulta> Consultas { get; set; }
+
+        public virtual DbSet<Especialidade> Especialidades { get; set; }
 
         /// <summary>
         /// Erros decentes por favor ne

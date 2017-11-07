@@ -21,7 +21,7 @@ namespace ConsultorioAPI.Providers
 
             using (AuthRepository _repo = new AuthRepository())
             {
-                ConsultorioUser user = await _repo.FindUser(context.UserName, context.Password);
+                LoginUsuario user = await _repo.FindUser(context.UserName, context.Password);
 
                 if (user == null)
                 {

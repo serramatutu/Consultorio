@@ -222,8 +222,8 @@
     <Compile Include="Globals.cs" />
     <Compile Include="Models\AgendamentoConsulta.cs" />
     <Compile Include="Models\CadastroUserModel.cs" />
-    <Compile Include="Models\ComentarioConsulta.cs" />
-    <Compile Include="Models\ConsultorioUser.cs" />
+    <Compile Include="Models\Consulta.cs" />
+    <Compile Include="Models\LoginUsuario.cs" />
     <Compile Include="Models\Especialidade.cs" />
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\Paciente.cs" />
