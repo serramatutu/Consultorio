@@ -12,10 +12,11 @@ using System.Linq;
 namespace ConsultorioAPI.Database
 {
     public class ConsultorioUserStore
-        : IUserStore<ConsultorioUser, int>,
-          IUserClaimStore<ConsultorioUser, int>,
-          IUserPasswordStore<ConsultorioUser, int>,
-          IUserSecurityStampStore<ConsultorioUser, int>
+        : IUserStore<ConsultorioUser, Guid>,
+          IUserRoleStore<ConsultorioUser, Guid>,
+          IUserClaimStore<ConsultorioUser, Guid>,
+          IUserPasswordStore<ConsultorioUser, Guid>,
+          IUserSecurityStampStore<ConsultorioUser, Guid>
     {
         UserStore<IdentityUser> userStore;
         ConsultorioDbContext _ctx;
@@ -48,7 +49,7 @@ namespace ConsultorioAPI.Database
             userStore.Dispose();
         }
 
-        public Task<ConsultorioUser> FindByIdAsync(int userId)
+        public Task<ConsultorioUser> FindByIdAsync(Guid userId)
         {
             IQueryable<ConsultorioUser> users = _ctx.Usuarios.Where(u => u.Id == userId);
 
@@ -146,7 +147,7 @@ namespace ConsultorioAPI.Database
         {
             user.HashSenha = identityUser.PasswordHash;
             user.SecurityStamp = identityUser.SecurityStamp;
-            user.Id = Convert.ToInt32(identityUser.Id);
+            user.Id = Guid.Parse(identityUser.Id);
             user.UserName = identityUser.UserName;
         }
 
@@ -159,6 +160,34 @@ namespace ConsultorioAPI.Database
                 SecurityStamp = user.SecurityStamp,
                 UserName = user.UserName
             };
+        }
+
+        public Task AddToRoleAsync(ConsultorioUser user, string roleName)
+        {
+            _ctx.Set<PapelUsuario>().Where(x => x.Nome == roleName).Single().Usuarios.Add(user);
+            return _ctx.SaveChangesAsync();
+        }
+
+        public Task RemoveFromRoleAsync(ConsultorioUser user, string roleName)
+        {
+            _ctx.Set<ConsultorioUser>().Where(x => x.Id.Equals(user.Id)).Single().Papeis.RemoveAll(x => x.Nome == roleName);
+            return _ctx.SaveChangesAsync();
+        }
+
+        public Task<IList<string>> GetRolesAsync(ConsultorioUser user)
+        {
+            return new Task<IList<string>>(() =>
+            {
+                return user.Papeis.Select(x => x.Nome).ToList();
+            });
+        }
+
+        public Task<bool> IsInRoleAsync(ConsultorioUser user, string roleName)
+        {
+            return new Task<bool>(() =>
+            {
+                return user.Papeis.Exists(x => x.Nome == roleName);
+            });
         }
     }
 }
