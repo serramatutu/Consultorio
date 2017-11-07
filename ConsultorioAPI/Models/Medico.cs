@@ -24,6 +24,6 @@ namespace ConsultorioAPI.Models
 
         public virtual DateTime DataNasc { get; set; }
 
-        public virtual Bitmap Foto { get; set; }
+        //public virtual Bitmap Foto { get; set; }
     }
 }

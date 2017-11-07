@@ -18,6 +18,10 @@ namespace ConsultorioAPI.Database
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<LoginUsuario>().ToTable("Usuario");
+            modelBuilder.Entity<Medico>().ToTable("Medico");
+            modelBuilder.Entity<Paciente>().ToTable("Paciente");
+            modelBuilder.Entity<Consulta>().ToTable("Consulta");
+            modelBuilder.Entity<Especialidade>().ToTable("Especialidade");
             modelBuilder.Entity<PapelUsuario>().ToTable("Papel");
 
             modelBuilder.Entity<LoginUsuario>().HasMany(u => u.Papeis).WithMany(r => r.Usuarios).Map(m =>

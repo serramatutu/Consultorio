@@ -9,6 +9,8 @@ namespace ConsultorioAPI.Models
 {
     public class Paciente
     {
+        public virtual Guid Id { get; set; }
+
         [Column("IdUsuario")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
@@ -17,7 +19,7 @@ namespace ConsultorioAPI.Models
 
         public virtual DateTime DataNasc { get; set; }
 
-        public virtual Bitmap Foto { get; set; }
+        //public virtual Bitmap Foto { get; set; }
 
         [Column(TypeName = "varchar(50)")]
         public virtual string Endereco { get; set; }

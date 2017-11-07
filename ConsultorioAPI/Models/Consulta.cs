@@ -67,5 +67,7 @@ namespace ConsultorioAPI.Models
         public virtual Medico MedicoResponsavel { get; set; }
 
         public virtual Paciente Paciente { get; set; }
+
+        public virtual StatusConsulta Status { get; set; }
     }
 }
