@@ -1,4 +1,4 @@
-﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap']);
+﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'ngAnimate']);
 
 // Configura as rotas do site
 app.config(function ($routeProvider, $locationProvider) {
@@ -59,6 +59,12 @@ app.config(function ($httpProvider) {
 
 app.run(['authService', function (authService) {
     authService.fillAuthData();
+}]);
+
+app.run(['$rootScope', '$location', function ($rootScope, $location) {
+    $rootScope.$on('$locationChangeStart', function () {
+        $rootScope.path = $location.path();
+    });
 }]);
 
 // Não permite endereços não autorizados

@@ -1,2 +1,13 @@
 ﻿body {
 }
+.navbar-collapse.in {
+    overflow-y: hidden;
+}
+.horizontal-collapse {
+    height: 70px;
+}
+
+.navbar-items-right{
+    float: right;
+    text-align: right
+}

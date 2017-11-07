@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "angular": "^1.6.6",
+    "angular-animate": "^1.6.6",
     "angular-bootstrap-npm": "^0.14.3",
     "angular-loading-bar": "^0.9.0",
     "angular-local-storage": "^0.7.1",
