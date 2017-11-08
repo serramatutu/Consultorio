@@ -27,26 +27,26 @@ namespace ConsultorioAPI.Models
         /// <summary>
         /// Username do usuário
         /// </summary>
-        [Column(TypeName = "varchar(20)")]
+        [Column(TypeName = "nvarchar"), MaxLength(20)]
         public string UserName { get; set; }
 
         /// <summary>
         /// Email do usuário
         /// </summary>
-        [Column(TypeName = "varchar(35)")]
+        [Column(TypeName = "varchar"), MaxLength(35)]
         public virtual string Email { get; set; }
 
         /// <summary>
         /// Hash da senha do usuário
         /// </summary>
-        [Column(TypeName = "varchar(64)")]
+        [Column(TypeName = "char"), MaxLength(68)]
         public virtual string HashSenha { get; set; }
 
         /// <summary>
         /// Um valor aleatório que representa as credenciais do usuário. 
         /// É modificado sempre que suas credenciais mudam também
         /// </summary>
-        [Column(TypeName = "varchar(64)")]
+        [Column(TypeName = "varchar"), MaxLength(64)]
         public virtual string SecurityStamp { get; set; }
 
         public virtual List<PapelUsuario> Papeis { get; private set; }
@@ -63,7 +63,7 @@ namespace ConsultorioAPI.Models
 
         public int Id { get; set; }
 
-        [Column(TypeName = "varchar(30)")]
+        [Column(TypeName = "nvarchar"), MaxLength(30)]
         public string Nome { get; set; }
 
         public virtual List<LoginUsuario> Usuarios { get; set; }

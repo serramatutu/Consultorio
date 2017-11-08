@@ -22,12 +22,6 @@ namespace ConsultorioAPI.Controllers
                     SupportsCredentials = false)]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
-
-        public AccountController()
-        {
-            _repo = new AuthRepository();
-        }
 
         // POST conta/cadastrar
         [AllowAnonymous]
@@ -40,7 +34,11 @@ namespace ConsultorioAPI.Controllers
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel, "paciente");
+            IdentityResult result = null;
+            using (var repo = new AuthRepository())
+            {
+                result = await repo.RegisterUser(userModel, "paciente");
+            }
             
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -48,16 +46,6 @@ namespace ConsultorioAPI.Controllers
                 return errorResult;
 
             return Ok();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _repo.Dispose();
-            }
-
-            base.Dispose(disposing);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

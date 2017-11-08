@@ -16,7 +16,7 @@ namespace ConsultorioAPI.Data
 
         public AuthRepository()
         {
-            _ctx = new ConsultorioDbContext("ConexaoBD"); // Utiliza a connection string do BD para criar contexto de conexão
+            _ctx = new ConsultorioDbContext(); // Utiliza a connection string do BD para criar contexto de conexão
             _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(_ctx));
         }
 
@@ -31,7 +31,7 @@ namespace ConsultorioAPI.Data
 
             var result = await _userManager.CreateAsync(user, data.Senha);
 
-            if (!string.IsNullOrEmpty(role))
+            if (!string.IsNullOrEmpty(role) && result.Succeeded)
                 _userManager.AddToRole(user.Id, role);
 
             return result;

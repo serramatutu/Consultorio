@@ -61,7 +61,7 @@ namespace ConsultorioAPI.Models
         /// <summary>
         /// Motivo pela qual foi cancelada, prescrições etc
         /// </summary>
-        [Column(TypeName = "nvarchar")]
+        [Column(TypeName = "ntext")]
         public virtual string Comentario { get; set; }
 
         public virtual Medico MedicoResponsavel { get; set; }

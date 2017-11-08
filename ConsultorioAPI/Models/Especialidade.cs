@@ -8,6 +8,7 @@ namespace ConsultorioAPI.Models
 {
     public class Especialidade
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; set; }
 
         [Column(TypeName = "varchar(20)")]

@@ -176,18 +176,12 @@ namespace ConsultorioAPI.Database
 
         public Task<IList<string>> GetRolesAsync(LoginUsuario user)
         {
-            return new Task<IList<string>>(() =>
-            {
-                return user.Papeis.Select(x => x.Nome).ToList();
-            });
+            return Task.FromResult(user.Papeis.Select(x => x.Nome).ToList() as IList<string>);
         }
 
         public Task<bool> IsInRoleAsync(LoginUsuario user, string roleName)
         {
-            return new Task<bool>(() =>
-            {
-                return user.Papeis.Exists(x => x.Nome == roleName);
-            });
+            return Task.FromResult(user.Papeis.Exists(x => x.Nome == roleName));
         }
     }
 }

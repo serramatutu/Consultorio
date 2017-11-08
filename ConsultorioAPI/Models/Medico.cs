@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace ConsultorioAPI.Models
 
         public virtual Especialidade Especialidade { get; set; }
 
-        [Column(TypeName = "varchar(14)")]
+        [Column(TypeName = "varchar"), MaxLength(14)]
         public virtual string Celular { get; set; }
 
-        [Column(TypeName = "varchar(14)")]
+        [Column(TypeName = "varchar"), MaxLength(14)]
         public virtual string Telefone { get; set; }
 
         public virtual DateTime DataNasc { get; set; }
