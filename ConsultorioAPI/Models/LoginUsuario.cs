@@ -15,13 +15,12 @@ namespace ConsultorioAPI.Models
     public class LoginUsuario : IUser<Guid>
     {
         public LoginUsuario()
-        {
-
-        }
+        { }
 
         /// <summary>
         /// Id do usuário
         /// </summary>
+        [Key]
         public Guid Id { get; set; }
 
         /// <summary>
@@ -49,23 +48,25 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "varchar"), MaxLength(64)]
         public virtual string SecurityStamp { get; set; }
 
-        public virtual List<PapelUsuario> Papeis { get; private set; }
-
-        public virtual List<IdentityUserClaim> Claims { get; private set; }
+        public virtual ICollection<PapelUsuario> Papeis { get; private set; }
     }
 
     public class PapelUsuario
     {
+        public PapelUsuario()
+        { }
+
         public PapelUsuario(string name)
         {
             Nome = name;
         }
 
+        [Key]
         public int Id { get; set; }
 
         [Column(TypeName = "nvarchar"), MaxLength(30)]
         public string Nome { get; set; }
 
-        public virtual List<LoginUsuario> Usuarios { get; set; }
+        public virtual ICollection<LoginUsuario> Usuarios { get; set; }
     }
 }

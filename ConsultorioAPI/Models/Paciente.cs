@@ -10,6 +10,9 @@ namespace ConsultorioAPI.Models
 {
     public class Paciente
     {
+        public Paciente()
+        { }
+        [Key]
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]

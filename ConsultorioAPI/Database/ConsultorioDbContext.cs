@@ -20,7 +20,7 @@ namespace ConsultorioAPI.Database
             //);
         }
 
-        public ConsultorioDbContext() : base("ConexaoBD")
+        public ConsultorioDbContext() : this("ConexaoBD")
         { }
 
         public ConsultorioDbContext(string connection = null) : base(connection)
@@ -28,6 +28,7 @@ namespace ConsultorioAPI.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            System.Data.Entity.Database.SetInitializer<ConsultorioDbContext>(null); // Bugado mas vai
             modelBuilder.Entity<LoginUsuario>().ToTable("Usuario");
             //modelBuilder.Entity<Medico>().ToTable("Medico");
             //modelBuilder.Entity<Paciente>().ToTable("Paciente");

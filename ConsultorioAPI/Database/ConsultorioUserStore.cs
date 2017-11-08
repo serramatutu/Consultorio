@@ -8,13 +8,13 @@ using System.Data.Entity;
 using ConsultorioAPI.Models;
 using System.Security.Claims;
 using System.Linq;
+using ConsultorioAPI.Util;
 
 namespace ConsultorioAPI.Database
 {
     public class ConsultorioUserStore
         : IUserStore<LoginUsuario, Guid>,
           IUserRoleStore<LoginUsuario, Guid>,
-          IUserClaimStore<LoginUsuario, Guid>,
           IUserPasswordStore<LoginUsuario, Guid>,
           IUserSecurityStampStore<LoginUsuario, Guid>
     {
@@ -55,7 +55,7 @@ namespace ConsultorioAPI.Database
 
             if (users == null)
                 return null;
-            return users.FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
+            return users.Include(u => u.Papeis).FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
         }
 
         public Task<LoginUsuario> FindByNameAsync(string userName)
@@ -64,7 +64,7 @@ namespace ConsultorioAPI.Database
 
             if (users == null)
                 return null;
-            return users.FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
+            return users.Include(u => u.Papeis).FirstOrDefaultAsync(); // Retorna o primeiro usuário encontrado (ou null se não encontrar)
         }
 
         public Task<string> GetPasswordHashAsync(LoginUsuario user)
@@ -117,32 +117,6 @@ namespace ConsultorioAPI.Database
             return _ctx.SaveChangesAsync();
         }
 
-        public Task<IList<Claim>> GetClaimsAsync(LoginUsuario user)
-        {
-            IList<Claim> result = user.Claims.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
-            return Task.FromResult(result);
-        }
-
-        public Task AddClaimAsync(LoginUsuario user, Claim claim)
-        {
-            if (!user.Claims.Any(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value)) // Checa se já não existe
-            {
-                user.Claims.Add(new IdentityUserClaim
-                {
-                    ClaimType = claim.Type,
-                    ClaimValue = claim.Value
-                });
-            }
-
-            return Task.FromResult(0);
-        }
-
-        public Task RemoveClaimAsync(LoginUsuario user, Claim claim)
-        {
-            user.Claims.RemoveAll(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
-            return Task.FromResult(0);
-        }
-
         private static void SetConsultorioUser(LoginUsuario user, IdentityUser identityUser)
         {
             user.HashSenha = identityUser.PasswordHash;
@@ -181,7 +155,7 @@ namespace ConsultorioAPI.Database
 
         public Task<bool> IsInRoleAsync(LoginUsuario user, string roleName)
         {
-            return Task.FromResult(user.Papeis.Exists(x => x.Nome == roleName));
+            return Task.FromResult(user.Papeis.Any(x => x.Nome == roleName));
         }
     }
 }

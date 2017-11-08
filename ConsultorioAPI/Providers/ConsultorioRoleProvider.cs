@@ -1,5 +1,6 @@
 ﻿using ConsultorioAPI.Database;
 using ConsultorioAPI.Models;
+using ConsultorioAPI.Util;
 using System;
 using System.Collections.Generic;
 using System.Configuration.Provider;
@@ -17,7 +18,8 @@ namespace ConsultorioAPI.Providers
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
                 foreach (var user in ctx.Usuarios)
-                    user.Papeis.AddRange(roleNames.Select(x => new PapelUsuario(x)));
+                    foreach (var roleName in roleNames)
+                        user.Papeis.Add(new PapelUsuario(roleName));
             }
         }
 
@@ -54,7 +56,7 @@ namespace ConsultorioAPI.Providers
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
                 return ctx.Usuarios.Where(
-                    x => x.UserName.Contains(usernameToMatch) && x.Papeis.Exists(y => y.Nome == roleName) // Encontra o usuário pelos critérios
+                    x => x.UserName.Contains(usernameToMatch) && x.Papeis.Where(y => y.Nome == roleName).Any() // Encontra o usuário pelos critérios
                 ).Select(x => x.UserName).ToArray(); // Obtém apenas um vetor de nomes de usuários
             }
         }
@@ -88,7 +90,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Usuarios.Where(x => x.Papeis.Exists(y => y.Nome == roleName)) // Seleciona os usuários caso contenham o role
+                return ctx.Usuarios.Where(x => x.Papeis.Any(y => y.Nome == roleName)) // Seleciona os usuários caso contenham o role
                     .Select(x => x.UserName).ToArray(); // Seleciona os nomes destes usuários e transforma em vetor
             }
         }
@@ -97,7 +99,7 @@ namespace ConsultorioAPI.Providers
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())
             {
-                return ctx.Usuarios.First(x => x.UserName == username).Papeis.Exists(x => x.Nome == roleName);
+                return ctx.Usuarios.First(x => x.UserName == username).Papeis.Any(x => x.Nome == roleName);
             }
         }
 
