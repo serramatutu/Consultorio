@@ -12,6 +12,17 @@
     text-align: right
 }
 
+.navbar-items-left{
+    float: left;
+    text-align: left
+}
+
 .not-padd{
     padding: 0
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

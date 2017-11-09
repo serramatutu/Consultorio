@@ -28,7 +28,7 @@ namespace ConsultorioAPI.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // System.Data.Entity.Database.SetInitializer<ConsultorioDbContext>(null); // Bugado mas vai
+            //System.Data.Entity.Database.SetInitializer<ConsultorioDbContext>(null); // Bugado mas vai
 
             modelBuilder.Entity<LoginUsuario>().ToTable("Usuario");
             modelBuilder.Entity<Medico>().ToTable("Medico");

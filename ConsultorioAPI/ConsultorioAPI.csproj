@@ -213,9 +213,12 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\MedicoController.cs" />
     <Compile Include="Controllers\PacienteController.cs" />
-    <Compile Include="Database\AuthRepository.cs" />
     <Compile Include="Database\ConsultorioDbContext.cs" />
     <Compile Include="Database\ConsultorioUserStore.cs" />
+    <Compile Include="Database\Repositories\AuthRepository.cs" />
+    <Compile Include="Database\Repositories\ConsultaRepository.cs" />
+    <Compile Include="Database\Repositories\PacienteRepository.cs" />
+    <Compile Include="Database\Repositories\ResultadoOperacao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

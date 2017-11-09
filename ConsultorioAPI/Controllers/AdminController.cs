@@ -1,5 +1,6 @@
 ﻿using ConsultorioAPI.Data;
 using ConsultorioAPI.Models;
+using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;

@@ -13,7 +13,7 @@ namespace ConsultorioAPI.Data
 
         public AuthRepository()
         {
-            _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(new ConsultorioDbContext));
+            _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(new ConsultorioDbContext()));
         }
 
         public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)

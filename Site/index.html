@@ -10,7 +10,7 @@
     <base href="/">
 </head>
 <body>
-    <nav class="navbar navbar-default" role="navigation" data-ng-controller="indexController">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController">
 
         <!--  Colapse navbar  -->
         <div class="navbar-header">
@@ -25,7 +25,7 @@
 
         <!-- Navbar Items -->
         <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
-            <ul class="nav navbar-nav" style="float: left">
+            <ul class="nav navbar-nav navbar-items-left">
                 <li><a href="/" ng-click="">Sobre</a></li>
                 <li><a href="/" ng-click="">Dúvidas frequentes</a></li>
                 <li><a href="/" ng-click="">Fale conosco</a></li>
@@ -43,20 +43,20 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         <div data-ng-view="">
         </div>
     </div>
-    <hr />
-    <div id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="text-muted">Consultorio ©</a></p>
-                </div>
+
+    <nav class="navbar navbar-fixed-bottom navbar-default" id="footer">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+              <p class="text-muted navbar-text">Consultorio ©</a></p>
             </div>
         </div>
-    </div>
+      </div>
+    </nav>
     <!-- 3rd party libraries -->
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
