@@ -1,4 +1,5 @@
-﻿using ConsultorioAPI.Models;
+﻿using ConsultorioAPI.Database.Repositories;
+using ConsultorioAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,25 @@ namespace ConsultorioAPI.Controllers
     public class MedicoController : ApiController
     {
         [Route("comentarconsulta")]
-        public async Task<IHttpActionResult> ComentarConsulta([FromBody]Consulta comentario)
+        public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var repo = new ConsultaRepository();
+            ResultadoOperacao r = await repo.ComentarConsulta(comentario, idConsulta);
+            return GetErrorResult(r);
+        }
+
+        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
+        {
+            if (r == null || r.ErroInterno)
+                return InternalServerError();
+
+            if (r.Sucesso)
+                return Ok();
+
+            return BadRequest(r.Mensagem);
         }
     }
 }
