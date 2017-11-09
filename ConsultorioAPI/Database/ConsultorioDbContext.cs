@@ -47,9 +47,9 @@ namespace ConsultorioAPI.Database
 
         public virtual DbSet<LoginUsuario> Usuarios { get; set; }
 
-        public virtual DbSet<Medico> Medicos { get; set; }
+        //public virtual DbSet<Medico> Medicos { get; set; }
 
-        public virtual DbSet<Paciente> Pacientes { get; set; }
+        //public virtual DbSet<Paciente> Pacientes { get; set; }
 
         public virtual DbSet<PapelUsuario> Papeis { get; set; }
 

@@ -16,6 +16,7 @@ namespace ConsultorioAPI.Models
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]
+        [ForeignKey("Id")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
         public virtual Especialidade Especialidade { get; set; }
@@ -29,6 +30,7 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "varchar"), MaxLength(7)]
         public virtual string CRM { get; set; }
 
+        [DataType(DataType.Date)]
         public virtual DateTime DataNasc { get; set; }
 
         public virtual ICollection<Consulta> Consultas { get; set; }

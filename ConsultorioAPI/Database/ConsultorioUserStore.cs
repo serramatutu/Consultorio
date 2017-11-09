@@ -19,7 +19,7 @@ namespace ConsultorioAPI.Database
           IUserSecurityStampStore<LoginUsuario, Guid>
     {
         UserStore<IdentityUser> userStore;
-        ConsultorioDbContext _ctx;
+        readonly ConsultorioDbContext _ctx;
 
         public ConsultorioUserStore(ConsultorioDbContext ctx)
         {

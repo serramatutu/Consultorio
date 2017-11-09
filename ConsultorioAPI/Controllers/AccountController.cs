@@ -24,11 +24,8 @@ namespace ConsultorioAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
 
-            IdentityResult result = null;
-            using (var repo = new AuthRepository())
-            {
-                result = await repo.RegisterUser(userModel, "paciente");
-            }
+            var repo = new AuthRepository();
+            IdentityResult result = await repo.RegisterUser(userModel, "paciente");
             
             IHttpActionResult errorResult = GetErrorResult(result);
 

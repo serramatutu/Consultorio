@@ -19,26 +19,26 @@ namespace ConsultorioAPI.Controllers
     [Authorize(Roles = "medico")]
     public class MedicoController : ApiController
     {
-        [Route("comentarconsulta")]
-        public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //[Route("comentarconsulta")]
+        //public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            var repo = new ConsultaRepository();
-            ResultadoOperacao r = await repo.ComentarConsulta(comentario, idConsulta);
-            return GetErrorResult(r);
-        }
+        //    var repo = new ConsultaRepository();
+        //    ResultadoOperacao r = await repo.ComentarConsulta(comentario, idConsulta);
+        //    return GetErrorResult(r);
+        //}
 
-        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
-        {
-            if (r == null || r.ErroInterno)
-                return InternalServerError();
+        //protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
+        //{
+        //    if (r == null || r.ErroInterno)
+        //        return InternalServerError();
 
-            if (r.Sucesso)
-                return Ok();
+        //    if (r.Sucesso)
+        //        return Ok();
 
-            return BadRequest(r.Mensagem);
-        }
+        //    return BadRequest(r.Mensagem);
+        //}
     }
 }

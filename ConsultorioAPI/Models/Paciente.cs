@@ -16,11 +16,13 @@ namespace ConsultorioAPI.Models
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]
+        [ForeignKey("Id")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
         [Column(TypeName = "varchar"), MaxLength(14)]
         public virtual string Telefone { get; set; }
 
+        [DataType(DataType.Date)]
         public virtual DateTime DataNasc { get; set; }
 
         //public virtual Bitmap Foto { get; set; }

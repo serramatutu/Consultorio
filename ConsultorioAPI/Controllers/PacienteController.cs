@@ -19,42 +19,42 @@ namespace ConsultorioAPI.Controllers
     [Authorize(Roles = "paciente")]
     public class PacienteController : ApiController
     {
-        [Route("agendarconsulta")]
-        public async Task<IHttpActionResult> AgendarConsulta([FromBody]AgendamentoConsulta agendamento)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //[Route("agendarconsulta")]
+        //public async Task<IHttpActionResult> AgendarConsulta([FromBody]AgendamentoConsulta agendamento)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            var consultaRepo = new ConsultaRepository();
-            var pacienteRepo = new PacienteRepository();
+        //    var consultaRepo = new ConsultaRepository();
+        //    var pacienteRepo = new PacienteRepository();
 
-            var resultado = await consultaRepo.AgendarConsulta(agendamento,
-                            pacienteRepo.GetPacienteFromUsername(User.Identity.Name));
+        //    var resultado = await consultaRepo.AgendarConsulta(agendamento,
+        //                    pacienteRepo.GetPacienteFromUsername(User.Identity.Name));
 
-            return GetErrorResult(resultado);
-        }
+        //    return GetErrorResult(resultado);
+        //}
 
-        [Route("cancelarconsulta")]
-        public async Task<IHttpActionResult> CancelarConsulta([FromBody]Guid idConsulta)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //[Route("cancelarconsulta")]
+        //public async Task<IHttpActionResult> CancelarConsulta([FromBody]Guid idConsulta)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            var repo = new ConsultaRepository();
-            ResultadoOperacao resultado = await repo.CancelarConsulta(idConsulta);
+        //    var repo = new ConsultaRepository();
+        //    ResultadoOperacao resultado = await repo.CancelarConsulta(idConsulta);
 
-            return GetErrorResult(resultado);
-        }
+        //    return GetErrorResult(resultado);
+        //}
 
-        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
-        {
-            if (r == null || r.ErroInterno)
-                return InternalServerError();
+        //protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
+        //{
+        //    if (r == null || r.ErroInterno)
+        //        return InternalServerError();
 
-            if (r.Sucesso)
-                return Ok();
+        //    if (r.Sucesso)
+        //        return Ok();
 
-            return BadRequest(r.Mensagem);
-        }
+        //    return BadRequest(r.Mensagem);
+        //}
     }
 }

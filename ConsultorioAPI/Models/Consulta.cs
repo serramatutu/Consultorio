@@ -23,6 +23,8 @@ namespace ConsultorioAPI.Models
         public virtual Guid Id { get; set; }
 
         protected DateTime _dataHora;
+
+        [DataType(DataType.DateTime)]
         public virtual DateTime DataHora
         {
             get
@@ -69,8 +71,10 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "ntext")]
         public virtual string Comentario { get; set; }
 
+        [ForeignKey("Id")]
         public virtual Medico MedicoResponsavel { get; set; }
 
+        [ForeignKey("Id")]
         public virtual Paciente Paciente { get; set; }
 
         public virtual StatusConsulta Status { get; set; }

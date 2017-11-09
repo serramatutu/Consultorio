@@ -19,22 +19,20 @@ namespace ConsultorioAPI.Providers
         {
             //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (AuthRepository _repo = new AuthRepository())
-            {
-                LoginUsuario user = await _repo.FindUser(context.UserName, context.Password);
+            AuthRepository repo = new AuthRepository();
+            LoginUsuario user = await repo.FindUser(context.UserName, context.Password);
 
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "Usuário ou senha está incorreto");
+                return;
             }
 
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
+            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //identity.AddClaim(new Claim("sub", context.UserName));
+            //identity.AddClaim(new Claim("role", "user"));
 
-            context.Validated(identity);
+            //context.Validated(identity);
         }
     }
 }
