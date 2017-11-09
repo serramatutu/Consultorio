@@ -1,23 +1,19 @@
 ﻿using ConsultorioAPI.Database;
 using ConsultorioAPI.Models;
+using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 
 namespace ConsultorioAPI.Data
 {
     public class AuthRepository : IDisposable
     {
-        private ConsultorioDbContext _ctx;
-
         private UserManager<LoginUsuario, Guid> _userManager;
 
         public AuthRepository()
         {
-            _ctx = new ConsultorioDbContext(); // Utiliza a connection string do BD para criar contexto de conexão
-            _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(_ctx));
+            _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(new ConsultorioDbContext));
         }
 
         public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)
@@ -46,7 +42,6 @@ namespace ConsultorioAPI.Data
 
         public void Dispose()
         {
-            _ctx.Dispose();
             _userManager.Dispose();
         }
     }

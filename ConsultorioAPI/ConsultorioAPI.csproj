@@ -220,8 +220,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Globals.cs" />
-    <Compile Include="Models\AgendamentoConsulta.cs" />
-    <Compile Include="Models\CadastroUserModel.cs" />
+    <Compile Include="Models\ViewModels\AgendamentoConsulta.cs" />
+    <Compile Include="Models\ViewModels\CadastroUserModel.cs" />
     <Compile Include="Models\Consulta.cs" />
     <Compile Include="Models\LoginUsuario.cs" />
     <Compile Include="Models\Especialidade.cs" />

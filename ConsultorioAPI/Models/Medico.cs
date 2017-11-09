@@ -26,7 +26,12 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "varchar"), MaxLength(14)]
         public virtual string Telefone { get; set; }
 
+        [Column(TypeName = "varchar"), MaxLength(7)]
+        public virtual string CRM { get; set; }
+
         public virtual DateTime DataNasc { get; set; }
+
+        public virtual ICollection<Consulta> Consultas { get; set; }
 
         //public virtual Bitmap Foto { get; set; }
     }

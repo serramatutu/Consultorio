@@ -1,17 +1,9 @@
 ﻿using ConsultorioAPI.Data;
-using ConsultorioAPI.Database;
-using ConsultorioAPI.Models;
+using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Security;
 
 namespace ConsultorioAPI.Controllers
 {
@@ -30,9 +22,7 @@ namespace ConsultorioAPI.Controllers
         public async Task<IHttpActionResult> Cadastrar([FromBody]CadastroUserModel userModel)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
-            }
 
             IdentityResult result = null;
             using (var repo = new AuthRepository())

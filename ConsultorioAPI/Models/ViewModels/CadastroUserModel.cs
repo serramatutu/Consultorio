@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ConsultorioAPI.Models
+namespace ConsultorioAPI.Models.ViewModels
 {
     public class CadastroUserModel
     {

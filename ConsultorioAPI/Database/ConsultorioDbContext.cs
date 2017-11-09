@@ -28,12 +28,13 @@ namespace ConsultorioAPI.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            System.Data.Entity.Database.SetInitializer<ConsultorioDbContext>(null); // Bugado mas vai
+            // System.Data.Entity.Database.SetInitializer<ConsultorioDbContext>(null); // Bugado mas vai
+
             modelBuilder.Entity<LoginUsuario>().ToTable("Usuario");
-            //modelBuilder.Entity<Medico>().ToTable("Medico");
-            //modelBuilder.Entity<Paciente>().ToTable("Paciente");
-            //modelBuilder.Entity<Consulta>().ToTable("Consulta");
-            //modelBuilder.Entity<Especialidade>().ToTable("Especialidade");
+            modelBuilder.Entity<Medico>().ToTable("Medico");
+            modelBuilder.Entity<Paciente>().ToTable("Paciente");
+            modelBuilder.Entity<Consulta>().ToTable("Consulta");
+            modelBuilder.Entity<Especialidade>().ToTable("Especialidade");
             modelBuilder.Entity<PapelUsuario>().ToTable("Papel");
 
             modelBuilder.Entity<LoginUsuario>().HasMany(u => u.Papeis).WithMany(r => r.Usuarios).Map(m =>
@@ -46,15 +47,15 @@ namespace ConsultorioAPI.Database
 
         public virtual DbSet<LoginUsuario> Usuarios { get; set; }
 
-        //public virtual DbSet<Medico> Medicos { get; set; }
+        public virtual DbSet<Medico> Medicos { get; set; }
 
-        //public virtual DbSet<Paciente> Pacientes { get; set; }
+        public virtual DbSet<Paciente> Pacientes { get; set; }
 
         public virtual DbSet<PapelUsuario> Papeis { get; set; }
 
-        //public virtual DbSet<Consulta> Consultas { get; set; }
+        public virtual DbSet<Consulta> Consultas { get; set; }
 
-        //public virtual DbSet<Especialidade> Especialidades { get; set; }
+        public virtual DbSet<Especialidade> Especialidades { get; set; }
 
         /// <summary>
         /// Erros decentes por favor ne
