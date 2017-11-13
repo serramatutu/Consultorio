@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+app.controller('loginController', ['$scope', '$window', 'authService', function ($scope, $window, authService) {
     $scope.loginData = {
         userName: "",
         password: ""
@@ -10,7 +10,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
     $scope.login = function () {
         // Quando logou, redireciona para a dashboard
         authService.login($scope.loginData).then(function (response) {
-            $location.path('/dashboard');
+            $window.location.href = '/dashboard.html';
         },
         function (err) {
             $scope.message = err.error_description;

@@ -3,6 +3,7 @@ using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConsultorioAPI.Data
@@ -16,7 +17,12 @@ namespace ConsultorioAPI.Data
             _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(ctx));
         }
 
-        public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)
+        public async Task<IList<string>> GetPapeisAsync(Guid idUsuario)
+        {
+            return await _userManager.GetRolesAsync(idUsuario);
+        }
+
+        public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string papel)
         {
             LoginUsuario user = new LoginUsuario
             {
@@ -27,8 +33,8 @@ namespace ConsultorioAPI.Data
 
             var result = await _userManager.CreateAsync(user, data.Senha);
 
-            if (!string.IsNullOrEmpty(role) && result.Succeeded)
-                _userManager.AddToRole(user.Id, role);
+            if (!string.IsNullOrEmpty(papel) && result.Succeeded)
+                _userManager.AddToRole(user.Id, papel);
 
             return result;
         }

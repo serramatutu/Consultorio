@@ -28,7 +28,7 @@ namespace ConsultorioAPI.App_Start
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString(ROUTE),
-                Provider = new ApplicationOAuthProvider(),
+                Provider = new ConsultorioOAuthProvider(),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(TOKEN_EXPIRATION),
                 // TODO: HTTPS
                 AllowInsecureHttp = true
