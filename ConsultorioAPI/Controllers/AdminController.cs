@@ -1,4 +1,5 @@
 ﻿using ConsultorioAPI.Data;
+using ConsultorioAPI.Database;
 using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -25,26 +26,54 @@ namespace ConsultorioAPI.Controllers
 
         public AdminController()
         {
-            _repo = new AuthRepository();
+            _repo = new AuthRepository(new ConsultorioDbContext());
         }
 
         [Route("cadastrarmedico")]
         public async Task<IHttpActionResult> CadastrarMedico([FromBody]CadastroUserModel userModel, [FromBody]Medico medico)
         {
-            throw new NotImplementedException();
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
-            //}
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
+            }
 
-            //IdentityResult result = await _repo.RegisterUser(userModel, "medico");
+            IdentityResult result = await _repo.RegisterUser(userModel, "medico");
 
-            //IHttpActionResult errorResult = GetErrorResult(result);
+            IHttpActionResult errorResult = GetErrorResult(result);
 
-            //if (errorResult != null)
-            //    return errorResult;
+            if (errorResult != null)
+                return errorResult;
 
-            //return Ok();
+            return Ok();
+        }
+
+        private IHttpActionResult GetErrorResult(IdentityResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
+
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    foreach (string error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    // No ModelState errors are available to send, so just return an empty BadRequest.
+                    return BadRequest();
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return null;
         }
 
         [Route("cadastrarespecialidade")]

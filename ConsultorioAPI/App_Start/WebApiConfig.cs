@@ -19,6 +19,7 @@ namespace ConsultorioAPI.App_Start
 
             // Respostas em formato JSON
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
 
         public static void Register(HttpConfiguration config)

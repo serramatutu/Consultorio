@@ -1,4 +1,5 @@
 ﻿using ConsultorioAPI.Data;
+using ConsultorioAPI.Database;
 using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace ConsultorioAPI.Controllers
                     SupportsCredentials = false)]
     public class AccountController : ApiController
     {
+        AuthRepository _repo = new AuthRepository(new ConsultorioDbContext());
 
         // POST conta/cadastrar
         [AllowAnonymous]
@@ -24,8 +26,7 @@ namespace ConsultorioAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
 
-            var repo = new AuthRepository();
-            IdentityResult result = await repo.RegisterUser(userModel, "paciente");
+            IdentityResult result = await _repo.RegisterUser(userModel, "paciente");
             
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -62,6 +63,12 @@ namespace ConsultorioAPI.Controllers
             }
 
             return null;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _repo.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

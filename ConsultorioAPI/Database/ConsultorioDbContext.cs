@@ -1,10 +1,8 @@
 ﻿using ConsultorioAPI.Models;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.Entity.Migrations;
 
 namespace ConsultorioAPI.Database
 {
@@ -47,9 +45,9 @@ namespace ConsultorioAPI.Database
 
         public virtual DbSet<LoginUsuario> Usuarios { get; set; }
 
-        //public virtual DbSet<Medico> Medicos { get; set; }
+        public virtual DbSet<Medico> Medicos { get; set; }
 
-        //public virtual DbSet<Paciente> Pacientes { get; set; }
+        public virtual DbSet<Paciente> Pacientes { get; set; }
 
         public virtual DbSet<PapelUsuario> Papeis { get; set; }
 

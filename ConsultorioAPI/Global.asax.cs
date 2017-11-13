@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Web.Http;
 using ConsultorioAPI.App_Start;
 using System.Web;
+using ConsultorioAPI.Database;
 
 namespace ConsultorioAPI
 {
@@ -15,6 +16,7 @@ namespace ConsultorioAPI
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             GlobalConfiguration.Configuration.EnsureInitialized();
+            System.Data.Entity.Database.SetInitializer<ConsultorioDbContext>(null); // Bugado mas vai
         }
 
         protected void Session_Start(object sender, EventArgs e)

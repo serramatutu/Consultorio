@@ -19,7 +19,7 @@ namespace ConsultorioAPI.Providers
         {
             //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            AuthRepository repo = new AuthRepository();
+            AuthRepository repo = new AuthRepository(new ConsultorioDbContext());
             LoginUsuario user = await repo.FindUser(context.UserName, context.Password);
 
             if (user == null)

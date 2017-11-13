@@ -12,11 +12,11 @@ namespace ConsultorioAPI.Models
     {
         public Paciente()
         { }
+
         [Key]
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]
-        [ForeignKey("Id")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
         [Column(TypeName = "varchar"), MaxLength(14)]

@@ -8,15 +8,16 @@ using System.Web;
 
 namespace ConsultorioAPI.Models
 {
+    [Table("Medico")]
     public class Medico
     {
         public Medico()
         { }
+
         [Key]
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]
-        [ForeignKey("Id")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
         public virtual Especialidade Especialidade { get; set; }

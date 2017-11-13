@@ -27,9 +27,6 @@ namespace ConsultorioAPI.Database
             userStore = new UserStore<IdentityUser>(ctx);
         }
 
-        public ConsultorioUserStore() : this (new ConsultorioDbContext())
-        { }
-
         public Task CreateAsync(LoginUsuario user)
         {
             _ctx.Usuarios.Add(user);

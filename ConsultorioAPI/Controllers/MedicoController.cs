@@ -1,4 +1,5 @@
-﻿using ConsultorioAPI.Database.Repositories;
+﻿using ConsultorioAPI.Database;
+using ConsultorioAPI.Database.Repositories;
 using ConsultorioAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -19,26 +20,33 @@ namespace ConsultorioAPI.Controllers
     [Authorize(Roles = "medico")]
     public class MedicoController : ApiController
     {
-        //[Route("comentarconsulta")]
-        //public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+        ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
 
-        //    var repo = new ConsultaRepository();
-        //    ResultadoOperacao r = await repo.ComentarConsulta(comentario, idConsulta);
-        //    return GetErrorResult(r);
-        //}
+        [Route("comentarconsulta")]
+        public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
-        //{
-        //    if (r == null || r.ErroInterno)
-        //        return InternalServerError();
+            ResultadoOperacao r = await _consultaRepo.ComentarConsulta(comentario, idConsulta);
+            return GetErrorResult(r);
+        }
 
-        //    if (r.Sucesso)
-        //        return Ok();
+        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
+        {
+            if (r == null || r.ErroInterno)
+                return InternalServerError();
 
-        //    return BadRequest(r.Mensagem);
-        //}
+            if (r.Sucesso)
+                return Ok();
+
+            return BadRequest(r.Mensagem);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _consultaRepo.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

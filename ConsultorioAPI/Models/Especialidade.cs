@@ -7,6 +7,7 @@ using System.Web;
 
 namespace ConsultorioAPI.Models
 {
+    [Table("Especialidade")]
     public class Especialidade
     {
         public Especialidade()
@@ -16,7 +17,7 @@ namespace ConsultorioAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; set; }
 
-        [Column(TypeName = "varchar(20)")]
+        [Column(TypeName = "varchar"), MaxLength(20)]
         public virtual string Nome { get; set; }
     }
 }

@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace ConsultorioAPI.Data
 {
-    public class AuthRepository
+    public class AuthRepository : IDisposable
     {
+        private UserManager<LoginUsuario, Guid> _userManager;
+
+        public AuthRepository(ConsultorioDbContext ctx)
+        {
+            _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(ctx));
+        }
+
         public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string role)
         {
             LoginUsuario user = new LoginUsuario
@@ -18,25 +25,39 @@ namespace ConsultorioAPI.Data
                 Email = data.Email
             };
 
-            using (var userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(new ConsultorioDbContext())))
-            {
-                var result = await userManager.CreateAsync(user, data.Senha);
+            var result = await _userManager.CreateAsync(user, data.Senha);
 
-                if (!string.IsNullOrEmpty(role) && result.Succeeded)
-                    userManager.AddToRole(user.Id, role);
+            if (!string.IsNullOrEmpty(role) && result.Succeeded)
+                _userManager.AddToRole(user.Id, role);
 
-                return result;
-            }
+            return result;
         }
 
         public async Task<LoginUsuario> FindUser(string userName, string senha)
         {
-            using (var userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(new ConsultorioDbContext())))
-            {
-                LoginUsuario user = await userManager.FindAsync(userName, senha);
+            LoginUsuario user = await _userManager.FindAsync(userName, senha);
 
-                return user;
+            return user;
+        }
+
+        protected bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    _userManager.Dispose();
+                }
             }
+            disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

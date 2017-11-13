@@ -9,11 +9,12 @@ namespace ConsultorioAPI.Models
 {
     public enum StatusConsulta
     {
-        Agendada,
-        Cancelada,
-        Realizada
+        Agendada = 0,
+        Cancelada = 1,
+        Realizada = 2
     }
 
+    [Table("Consulta")]
     public class Consulta
     {
         public Consulta()
@@ -71,12 +72,26 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "ntext")]
         public virtual string Comentario { get; set; }
 
-        [ForeignKey("Id")]
         public virtual Medico MedicoResponsavel { get; set; }
 
-        [ForeignKey("Id")]
         public virtual Paciente Paciente { get; set; }
 
-        public virtual StatusConsulta Status { get; set; }
+        /// <summary>
+        /// Acessor do Id do Status, para ser colocado no banco
+        /// </summary>
+        public virtual int IdStatus
+        {
+            get
+            {
+                return (int)Status;
+            }
+            set
+            {
+                Status = (StatusConsulta)value;
+            }
+        }
+
+        [EnumDataType(typeof(StatusConsulta))]
+        public StatusConsulta Status { get; set; }
     }
 }

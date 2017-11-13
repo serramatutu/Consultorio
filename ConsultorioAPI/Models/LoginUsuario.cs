@@ -62,6 +62,7 @@ namespace ConsultorioAPI.Models
         }
 
         [Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column(TypeName = "nvarchar"), MaxLength(30)]
