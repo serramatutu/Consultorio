@@ -1,4 +1,5 @@
 ﻿body {
+    padding-bottom: 50px
 }
 .navbar-collapse.in {
     overflow-y: hidden;
@@ -7,12 +8,12 @@
     height: 70px;
 }
 
-.navbar-items-right{
+.align-right{
     float: right;
     text-align: right
 }
 
-.navbar-items-left{
+.align-left{
     float: left;
     text-align: left
 }
@@ -25,4 +26,22 @@
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+.center{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    text-align: center;
+}
+
+#home{
+    background-image: url(../../imagens/background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#footer{
+    margin-top: 15px;
 }

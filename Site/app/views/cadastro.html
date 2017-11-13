@@ -1,41 +1,44 @@
-<div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
-    {{message}}
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h1>Cadastre-se</h1>
-  </div>
-</div>
-<div class="col-0 col-md-1"></div>
-<form class="form-login" role="form">
-  <div class="row">
-    <div class="col-md-5">
-      <h3>Informações de login</h3>
-      <input type="text" class="form-control" placeholder="Usuário" data-ng-model="registration.userName" required autofocus />
-      <input type="email" class="form-control" placeholder="E-mail" data-ng-model="registration.email" required />
-      <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.senha" required />
-      <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="registration.confSenha" required />
+<div class="row" style="margin: 0; vertical-align: middle">
+    <div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
+        {{message}}
     </div>
-    <div class="col-md-5">
-      <h3>Informações Pessoais</h3>
-      <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
-      <input type="text" class="form-control" placeholder="Endereço" data-ng-model="registration.endereco" required/>
-      <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="registration.dataNasc" required />
-      <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="registration.telefone" required />
-      <input type="tel" class="form-control" placeholder="Celular" data-ng-model="registration.celular" required />
-        <div class="col-xs-4 not-padd">
-            <button type="button" name="button" class="btn btn-info" style="width: -webkit-fill-available">Escolher Arquivo</button>
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Cadastre-se</h1>
+      </div>
+    </div>
+    <div class="col-0 col-md-1"></div>
+    <form class="form-login" role="form">
+      <div class="row">
+        <div class="col-md-5">
+          <h3>Informações de login</h3>
+          <input type="text" class="form-control" placeholder="Usuário" data-ng-model="registration.userName" required autofocus />
+          <input type="email" class="form-control" placeholder="E-mail" data-ng-model="registration.email" required />
+          <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.senha" required />
+          <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="registration.confSenha" required />
         </div>
-        <div class="col-xs-8 not-padd">
-            <input name="foto" type="text"class="form-control" readonly="true" placeholder="Foto" data-ng-model="registration.foto" style="float: right;" required>
+        <div class="col-md-5">
+          <h3>Informações Pessoais</h3>
+          <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
+          <input type="text" class="form-control" placeholder="Endereço" data-ng-model="registration.endereco" required/>
+          <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="registration.dataNasc" required />
+          <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="registration.telefone" required />
+          <input type="tel" class="form-control" placeholder="Celular" data-ng-model="registration.celular" required />
+            <div class="col-xs-4 not-padd">
+                <input id="fileInput" type="file" style="display:none;" onchange="angular.element(this).scope().selecionouArq()" />
+                <button type="button" name="button" class="btn btn-info" style="width: -webkit-fill-available" onclick="document.getElementById('fileInput').click()">Escolher Arquivo</button>
+            </div>
+            <div class="col-xs-8 not-padd">
+                <input id="foto" type="text" class="form-control" readonly="true" placeholder="Foto" data-ng-model="registration.foto" style="float: right;" required>
+            </div>
         </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10 ">
-      <hr>
-      <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
-    </div>
-  </div>
-</form>
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 ">
+          <hr>
+          <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
+        </div>
+      </div>
+    </form>
+</div>

@@ -5,7 +5,6 @@ app.controller('indexController', ['$scope', '$rootScope', '$location', 'authSer
         $location.path('/home');
     }
 
-    console.log($location.path());
     $scope.authService = authService;
     $scope.isCollapsed = true;
 }]);

@@ -37,4 +37,8 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
             $location.path('/login');
         }, 2000);
     }
+
+    $scope.selecionouArq = function(e) {
+
+    }
 }]);

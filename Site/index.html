@@ -10,7 +10,7 @@
     <base href="/">
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController" style="margin: 0">
 
         <!--  Colapse navbar  -->
         <div class="navbar-header">
@@ -25,20 +25,20 @@
 
         <!-- Navbar Items -->
         <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
-            <ul class="nav navbar-nav navbar-items-left">
+            <ul class="nav navbar-nav align-left">
                 <li><a href="/" ng-click="">Sobre</a></li>
                 <li><a href="/" ng-click="">Dúvidas frequentes</a></li>
                 <li><a href="/" ng-click="">Fale conosco</a></li>
             </ul>
-            <ul data-ng-hide="authService.auth.isAuthenticated" class="nav navbar-nav navbar-items-right">
+            <ul data-ng-hide="authService.auth.isAuthenticated" class="nav navbar-nav align-right">
                 <li><a href="/login">Login</a></li>
                 <li><a href="/cadastro">Cadastro</a></li>
             </ul>
-            <ul data-ng-hide="!authService.auth.isAuthenticated" class="nav navbar-nav navbar-items-right">
+            <ul data-ng-hide="!authService.auth.isAuthenticated" class="nav navbar-nav align-right">
                 <li><a href="#">{{authService.auth.userName}}</a></li>
                 <li><a href="/agenda">Sua agenda</a></li>
                 <li><a href="/exames">Seus Exames</a></li>
-                <li class="navbar-left"><a href="/" ng-click="authService.logout()">Logout</a></li>
+                <li class="navbar-left"><a href="/" ng-click="logOut()">Logout</a></li>
             </ul>
         </div>
     </nav>
