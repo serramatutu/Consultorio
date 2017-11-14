@@ -1,6 +1,7 @@
 ﻿using ConsultorioAPI.Database;
 using ConsultorioAPI.Database.Repositories;
 using ConsultorioAPI.Models;
+using ConsultorioAPI.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,10 @@ namespace ConsultorioAPI.Controllers
                     "POST, GET",
                     SupportsCredentials = false)]
     [Authorize(Roles = "medico")]
-    public class MedicoController : ApiController
+    public class MedicoController : BaseConsultorioController<Medico>
     {
         ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
+        MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
 
         [Route("comentarconsulta")]
         public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
@@ -32,21 +34,23 @@ namespace ConsultorioAPI.Controllers
             return GetErrorResult(r);
         }
 
-        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
+        [Route("agenda")]
+        public async Task<IHttpActionResult> GetAgenda()
         {
-            if (r == null || r.ErroInterno)
-                return InternalServerError();
-
-            if (r.Sucesso)
-                return Ok();
-
-            return BadRequest(r.Mensagem);
+            var consultas = _consultaRepo.GetConsultasDeMedico(GetUsuarioAtual().Id).OrderBy(x => x.DataHora);
+            return Ok(consultas.Select(x => new DisplayConsulta(x)));
         }
 
         protected override void Dispose(bool disposing)
         {
             _consultaRepo.Dispose();
+            _medicoRepo.Dispose();
             base.Dispose(disposing);
+        }
+
+        protected override Medico GetUsuarioAtual()
+        {
+            throw new NotImplementedException();
         }
     }
 }

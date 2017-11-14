@@ -16,7 +16,7 @@ namespace ConsultorioAPI.Controllers
                     "*",
                     "POST",
                     SupportsCredentials = false)]
-    public class AccountController : ApiController
+    public class AccountController : BaseConsultorioController<LoginUsuario>
     {
         AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
@@ -50,51 +50,16 @@ namespace ConsultorioAPI.Controllers
             return Ok();
         }
 
-        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
-        {
-            if (r == null || r.ErroInterno)
-                return InternalServerError();
-
-            if (r.Sucesso)
-                return Ok();
-
-            return BadRequest(r.Mensagem);
-        }
-
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return null;
-        }
-
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();
             _pacienteRepo.Dispose();
             base.Dispose(disposing);
+        }
+
+        protected override LoginUsuario GetUsuarioAtual()
+        {
+            throw new NotImplementedException();
         }
     }
 }

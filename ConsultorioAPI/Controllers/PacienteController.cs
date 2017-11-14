@@ -17,7 +17,7 @@ namespace ConsultorioAPI.Controllers
                     SupportsCredentials = false)]
     //[Authorize(Roles = "paciente")]
     [Authorize(Roles = "paciente")]
-    public class PacienteController : ApiController
+    public class PacienteController : BaseConsultorioController<Paciente>
     {
         ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
@@ -25,7 +25,7 @@ namespace ConsultorioAPI.Controllers
         [Route("agenda")]
         public async Task<IHttpActionResult> GetAgenda()
         {
-            var consultas = _consultaRepo.GetConsultasDeUsuario(GetUsuarioAtual().Id);//.OrderBy(x => x.DataHora);
+            var consultas = _consultaRepo.GetConsultasDeUsuario(GetUsuarioAtual().Id).OrderBy(x => x.DataHora);
             return Ok(consultas.Select(x => new DisplayConsulta(x)));
         }
 
@@ -52,27 +52,16 @@ namespace ConsultorioAPI.Controllers
             return GetErrorResult(resultado);
         }
 
-        protected Paciente GetUsuarioAtual()
-        {
-            return _pacienteRepo.GetPacienteFromUsername(User.Identity.Name);
-        }
-
-        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
-        {
-            if (r == null || r.ErroInterno)
-                return InternalServerError();
-
-            if (r.Sucesso)
-                return Ok();
-
-            return BadRequest(r.Mensagem);
-        }
-
         protected override void Dispose(bool disposing)
         {
             _consultaRepo.Dispose();
             _pacienteRepo.Dispose();
             base.Dispose(disposing);
+        }
+
+        protected override Paciente GetUsuarioAtual()
+        {
+            return _pacienteRepo.GetPacienteFromUsername(User.Identity.Name);
         }
     }
 }

@@ -167,6 +167,16 @@ namespace ConsultorioAPI.Database.Repositories
             return _ctx.Consultas.Where(x => x.Paciente.Id.Equals(idUsuario)).ToArray();
         }
 
+        public Consulta[] GetConsultasDeMedico(Guid idMedico)
+        {
+            return _ctx.Consultas.Where(x => x.MedicoResponsavel.Id.Equals(idMedico)).ToArray();
+        }
+
+        public Consulta[] GetConsultasDeMedico(string CRM)
+        {
+            return _ctx.Consultas.Where(x => x.MedicoResponsavel.CRM == CRM).ToArray();
+        }
+
         protected Consulta GetConsulta(Guid idConsulta)
         {
             return _ctx.Consultas.FirstOrDefault(x => x.Id.Equals(idConsulta));

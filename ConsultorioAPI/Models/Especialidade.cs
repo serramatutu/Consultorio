@@ -13,6 +13,11 @@ namespace ConsultorioAPI.Models
         public Especialidade()
         { }
 
+        public Especialidade(string nome)
+        {
+            Nome = nome;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; set; }

@@ -211,12 +211,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseConsultorioController.cs" />
     <Compile Include="Controllers\MedicoController.cs" />
     <Compile Include="Controllers\PacienteController.cs" />
     <Compile Include="Database\ConsultorioDbContext.cs" />
     <Compile Include="Database\ConsultorioUserStore.cs" />
     <Compile Include="Database\Repositories\AuthRepository.cs" />
     <Compile Include="Database\Repositories\ConsultaRepository.cs" />
+    <Compile Include="Database\Repositories\ConsultorioBaseRepository.cs" />
+    <Compile Include="Database\Repositories\EspecialidadeRepository.cs" />
+    <Compile Include="Database\Repositories\MedicoRepository.cs" />
     <Compile Include="Database\Repositories\PacienteRepository.cs" />
     <Compile Include="Database\Repositories\ResultadoOperacao.cs" />
     <Compile Include="Global.asax.cs">

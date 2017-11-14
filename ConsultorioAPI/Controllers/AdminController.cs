@@ -1,5 +1,6 @@
 ﻿using ConsultorioAPI.Data;
 using ConsultorioAPI.Database;
+using ConsultorioAPI.Database.Repositories;
 using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -22,12 +23,8 @@ namespace ConsultorioAPI.Controllers
                     SupportsCredentials = false)]
     public class AdminController : ApiController
     {
-        private AuthRepository _repo = null;
-
-        public AdminController()
-        {
-            _repo = new AuthRepository(new ConsultorioDbContext());
-        }
+        private AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
+        private EspecialidadeRepository _especialidadeRepo = new EspecialidadeRepository(new ConsultorioDbContext());
 
         [Route("cadastrarmedico")]
         public async Task<IHttpActionResult> CadastrarMedico([FromBody]CadastroUserModel userModel, [FromBody]Medico medico)
@@ -37,7 +34,7 @@ namespace ConsultorioAPI.Controllers
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel, "medico");
+            IdentityResult result = await _authRepo.RegisterUser(userModel, "medico");
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -45,6 +42,12 @@ namespace ConsultorioAPI.Controllers
                 return errorResult;
 
             return Ok();
+        }
+
+        [Route("cadastrarespecialidade")]
+        public async Task<IHttpActionResult> CadastrarEspecialidade([FromBody]string nomeEspecialidade)
+        {
+            return GetErrorResult(await _especialidadeRepo.CreateAsync(nomeEspecialidade));
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
@@ -76,10 +79,15 @@ namespace ConsultorioAPI.Controllers
             return null;
         }
 
-        [Route("cadastrarespecialidade")]
-        public async Task<IHttpActionResult> CadastrarEspecialidade([FromBody]Especialidade esp)
+        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
         {
-            throw new NotImplementedException();
+            if (r == null || r.ErroInterno)
+                return InternalServerError();
+
+            if (r.Sucesso)
+                return Ok();
+
+            return BadRequest(r.Mensagem);
         }
     }
 }
