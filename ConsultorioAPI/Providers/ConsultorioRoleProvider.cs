@@ -12,7 +12,6 @@ namespace ConsultorioAPI.Providers
 {
     public class ConsultorioRoleProvider : RoleProvider
     {
-
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
             using (ConsultorioDbContext ctx = new ConsultorioDbContext())

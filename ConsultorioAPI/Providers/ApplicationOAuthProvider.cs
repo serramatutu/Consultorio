@@ -34,10 +34,10 @@ namespace ConsultorioAPI.Providers
                 var papeis = await repo.GetPapeisAsync(user.Id) as List<string>;
 
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                foreach(string papel in papeis)
+                identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+                foreach (string papel in papeis)
                 {
-                    identity.AddClaim(new Claim("sub", context.UserName));
-                    identity.AddClaim(new Claim("role", papel));
+                    identity.AddClaim(new Claim(ClaimTypes.Role, papel));
                 }
 
                 context.Validated(identity);

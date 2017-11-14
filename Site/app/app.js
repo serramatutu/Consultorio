@@ -5,7 +5,7 @@ app.config(function ($routeProvider, $locationProvider) {
     // Permite apenas entrada de usuário logado
     var permitirLogado = function ($location, $q, authService) {
         var d = $q.defer();
-        if (authService.isAuthenticated) {
+        if (authService.auth.isAuthenticated) {
             d.resolve(); // Caso esteja logado
         } else {
             d.reject(); // Caso não esteja logado

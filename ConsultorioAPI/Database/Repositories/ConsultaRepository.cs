@@ -1,6 +1,7 @@
 ﻿using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,8 +64,16 @@ namespace ConsultorioAPI.Database.Repositories
         /// <param name="a">Dados do agendamento</param>
         /// <param name="p">Paciente da consulta</param>
         /// <returns>Se o agendamento teve sucesso</returns>
-        public async Task<ResultadoOperacao> AgendarConsulta(AgendamentoConsulta a, Paciente p)
+        public async Task<ResultadoOperacao> AgendarConsulta(AgendamentoConsulta a, Guid idPaciente)
         {
+            Paciente p = _ctx.Pacientes.FirstOrDefault(x => x.Id.Equals(idPaciente));
+            if (p == null)
+                return new ResultadoOperacao()
+                {
+                    Sucesso = false,
+                    Mensagem = "Paciente inválido"
+                };
+
             ResultadoOperacao r = AgendamentoInvalido(a);
             if (!r.Sucesso)
                 return r;
@@ -103,10 +112,17 @@ namespace ConsultorioAPI.Database.Repositories
         /// Cancela uma consulta
         /// </summary>
         /// <param name="idConsulta">Id da consulta a ser cancelada</param>
-        public async Task<ResultadoOperacao> CancelarConsulta(Guid idConsulta)
+        public async Task<ResultadoOperacao> CancelarConsulta(Guid idConsulta, Guid idPaciente)
         {
             Consulta c = GetConsulta(idConsulta);
             if (c == null)
+                return new ResultadoOperacao()
+                {
+                    Sucesso = false,
+                    Mensagem = "Consulta inexistente"
+                };
+
+            if (!c.Paciente.Id.Equals(idPaciente)) // Um paciente não pode cancelar uma consulta que não é dele
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,
@@ -144,6 +160,11 @@ namespace ConsultorioAPI.Database.Repositories
                 return ResultadoOperacao.ErroBD;
 
             return ResultadoOperacao.Ok;
+        }
+
+        public Consulta[] GetConsultasDeUsuario(Guid idUsuario)
+        {
+            return _ctx.Consultas.Where(x => x.Paciente.Id.Equals(idUsuario)).ToArray();
         }
 
         protected Consulta GetConsulta(Guid idConsulta)

@@ -1,7 +1,9 @@
 ﻿using ConsultorioAPI.Database;
 using ConsultorioAPI.Database.Repositories;
+using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -13,11 +15,19 @@ namespace ConsultorioAPI.Controllers
                     "*",
                     "POST, GET",
                     SupportsCredentials = false)]
+    //[Authorize(Roles = "paciente")]
     [Authorize(Roles = "paciente")]
     public class PacienteController : ApiController
     {
         ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
+
+        [Route("agenda")]
+        public async Task<IHttpActionResult> GetAgenda()
+        {
+            var consultas = _consultaRepo.GetConsultasDeUsuario(GetUsuarioAtual().Id);//.OrderBy(x => x.DataHora);
+            return Ok(consultas.Select(x => new DisplayConsulta(x)));
+        }
 
         [Route("agendarconsulta")]
         public async Task<IHttpActionResult> AgendarConsulta([FromBody]AgendamentoConsulta agendamento)
@@ -26,7 +36,7 @@ namespace ConsultorioAPI.Controllers
                 return BadRequest(ModelState);
 
             var resultado = await _consultaRepo.AgendarConsulta(agendamento,
-                            _pacienteRepo.GetPacienteFromUsername(User.Identity.Name));
+                            GetUsuarioAtual().Id);
 
             return GetErrorResult(resultado);
         }
@@ -37,9 +47,14 @@ namespace ConsultorioAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ResultadoOperacao resultado = await _consultaRepo.CancelarConsulta(idConsulta);
+            ResultadoOperacao resultado = await _consultaRepo.CancelarConsulta(idConsulta, GetUsuarioAtual().Id);
 
             return GetErrorResult(resultado);
+        }
+
+        protected Paciente GetUsuarioAtual()
+        {
+            return _pacienteRepo.GetPacienteFromUsername(User.Identity.Name);
         }
 
         protected IHttpActionResult GetErrorResult(ResultadoOperacao r)

@@ -25,7 +25,7 @@
 
         <!-- Navbar Items -->
         <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
-            <ul class="nav navbar-nav align-left">
+            <ul class="nav navbar-nav align-left" data-ng-hide="authService.auth.isAuthenticated">
                 <li><a href="/" ng-click="">Sobre</a></li>
                 <li><a href="/" ng-click="">Dúvidas frequentes</a></li>
                 <li><a href="/" ng-click="">Fale conosco</a></li>
