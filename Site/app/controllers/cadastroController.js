@@ -10,7 +10,8 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
         nomeCompleto: "",
         dataNasc: "",
         email: "",
-        telefone: ""
+        telefone: "",
+        endereco: ""
     };
 
     $scope.cadastrar = function () {

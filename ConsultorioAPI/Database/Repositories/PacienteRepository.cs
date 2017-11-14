@@ -1,18 +1,33 @@
 ﻿using ConsultorioAPI.Models;
+using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 
 namespace ConsultorioAPI.Database.Repositories
 {
     public class PacienteRepository : IDisposable
     {
         ConsultorioDbContext _ctx;
+        UserManager<LoginUsuario, Guid> _userManager;
 
         public PacienteRepository(ConsultorioDbContext ctx)
         {
             _ctx = ctx;
+            _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(ctx));
+        }
+
+        public async Task<ResultadoOperacao> CreateAsync(Paciente p, string userName, string senha)
+        {
+            p.DadosLogin = await _userManager.FindAsync(userName, senha);
+            _ctx.Pacientes.Add(p);
+
+            int ar = await _ctx.SaveChangesAsync();
+
+            if (ar < 1)
+                return ResultadoOperacao.ErroBD;
+
+            return ResultadoOperacao.Ok;
         }
 
         public Paciente GetPacienteFromUsername(string username)
@@ -32,6 +47,7 @@ namespace ConsultorioAPI.Database.Repositories
             {
                 if (disposing)
                 {
+                    _userManager.Dispose();
                     _ctx.Dispose();
                 }
             }

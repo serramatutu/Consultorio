@@ -14,7 +14,7 @@
                 return new ResultadoOperacao()
                 {
                     Sucesso = true,
-                    ErroInterno = true
+                    ErroInterno = false
                 };
             }
         }

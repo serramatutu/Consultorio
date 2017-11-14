@@ -43,5 +43,10 @@ namespace ConsultorioAPI.Models.ViewModels
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "telefone")]
         public string Telefone { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "endereco")]
+        public string Endereco { get; set; }
     }
 }

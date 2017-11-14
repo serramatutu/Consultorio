@@ -1,13 +1,10 @@
 ﻿using ConsultorioAPI.Database;
 using ConsultorioAPI.Database.Repositories;
-using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.Results;
 
 namespace ConsultorioAPI.Controllers
 {

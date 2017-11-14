@@ -11,7 +11,7 @@ namespace ConsultorioAPI.Models.ViewModels
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "horário")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataHora { get; set; }
 
         [Required]

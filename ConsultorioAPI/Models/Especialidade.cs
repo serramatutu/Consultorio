@@ -17,6 +17,7 @@ namespace ConsultorioAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int Id { get; set; }
 
+        [Required]
         [Column(TypeName = "varchar"), MaxLength(20)]
         public virtual string Nome { get; set; }
     }

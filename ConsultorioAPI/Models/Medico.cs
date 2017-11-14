@@ -20,18 +20,24 @@ namespace ConsultorioAPI.Models
         [Column("IdUsuario")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
+        [Required]
         public virtual Especialidade Especialidade { get; set; }
 
         [Column(TypeName = "varchar"), MaxLength(14)]
+        [Required]
         public virtual string Celular { get; set; }
 
         [Column(TypeName = "varchar"), MaxLength(14)]
+        [Required]
         public virtual string Telefone { get; set; }
 
         [Column(TypeName = "varchar"), MaxLength(7)]
+        [Required]
         public virtual string CRM { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public virtual DateTime DataNasc { get; set; }
 
         public virtual ICollection<Consulta> Consultas { get; set; }

@@ -27,18 +27,21 @@ namespace ConsultorioAPI.Models
         /// Username do usuário
         /// </summary>
         [Column(TypeName = "nvarchar"), MaxLength(20)]
+        [Required]
         public string UserName { get; set; }
 
         /// <summary>
         /// Email do usuário
         /// </summary>
         [Column(TypeName = "varchar"), MaxLength(35)]
+        [Required]
         public virtual string Email { get; set; }
 
         /// <summary>
         /// Hash da senha do usuário
         /// </summary>
         [Column(TypeName = "char"), MaxLength(68)]
+        [Required]
         public virtual string HashSenha { get; set; }
 
         /// <summary>
@@ -46,6 +49,7 @@ namespace ConsultorioAPI.Models
         /// É modificado sempre que suas credenciais mudam também
         /// </summary>
         [Column(TypeName = "varchar"), MaxLength(64)]
+        [Required]
         public virtual string SecurityStamp { get; set; }
 
         public virtual ICollection<PapelUsuario> Papeis { get; private set; }

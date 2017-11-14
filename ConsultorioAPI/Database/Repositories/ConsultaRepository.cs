@@ -69,15 +69,28 @@ namespace ConsultorioAPI.Database.Repositories
             if (!r.Sucesso)
                 return r;
 
-            Consulta c = new Consulta()
+            Consulta c = null;
+            try
             {
-                Id = Guid.NewGuid(),
-                DataHora = a.DataHora,
-                Duracao = a.Duracao,
-                Status = StatusConsulta.Agendada,
-                MedicoResponsavel = _ctx.Medicos.FirstOrDefault(x => x.CRM == a.CRMMedicoResponsavel),
-                Paciente = p
-            };
+                c = new Consulta()
+                {
+                    Id = Guid.NewGuid(),
+                    Duracao = a.Duracao,
+                    DataHora = a.DataHora,
+                    Status = StatusConsulta.Agendada,
+                    MedicoResponsavel = _ctx.Medicos.FirstOrDefault(x => x.CRM == a.CRMMedicoResponsavel),
+                    Paciente = p
+                };
+            }
+            catch (ArgumentException e)
+            {
+                return new ResultadoOperacao()
+                {
+                    Sucesso = false,
+                    Mensagem = e.Message
+                };
+            }
+            
 
             _ctx.Consultas.Add(c);
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha

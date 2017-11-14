@@ -20,14 +20,18 @@ namespace ConsultorioAPI.Models
         public virtual LoginUsuario DadosLogin { get; set; }
 
         [Column(TypeName = "varchar"), MaxLength(14)]
+        [Required]
         public virtual string Telefone { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required]
         public virtual DateTime DataNasc { get; set; }
 
         //public virtual Bitmap Foto { get; set; }
 
         [Column(TypeName = "nvarchar"), MaxLength(50)]
+        [Required]
         public virtual string Endereco { get; set; }
     }
 }

@@ -25,7 +25,9 @@ namespace ConsultorioAPI.Models
 
         protected DateTime _dataHora;
 
+        [Required]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public virtual DateTime DataHora
         {
             get
@@ -37,17 +39,20 @@ namespace ConsultorioAPI.Models
                 if (value < DateTime.Now)
                     throw new ArgumentException("Não pode marcar consulta no passado");
 
-                if (value.Hour < 9 || value.Hour > 17 || (value.Hour > 12 && value.Hour < 14))
-                    throw new ArgumentException("Horario invalido");
+                var dataFim = value.AddMinutes(Duracao);
+
+                if (value.Hour < 9 || dataFim.Hour > 17 || (dataFim.Hour > 12 && value.Hour < 14))
+                    throw new ArgumentException("Horário de consulta inválido");
 
                 _dataHora = value;
             }
         }
 
-        protected int _duracao;
+        protected int _duracao = 30;
         /// <summary>
         /// Duração em minutos
         /// </summary>
+        [Required]
         public virtual int Duracao
         {
             get
@@ -72,26 +77,14 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "ntext")]
         public virtual string Comentario { get; set; }
 
+        [Required]
         public virtual Medico MedicoResponsavel { get; set; }
 
+        [Required]
         public virtual Paciente Paciente { get; set; }
 
-        /// <summary>
-        /// Acessor do Id do Status, para ser colocado no banco
-        /// </summary>
-        public virtual int IdStatus
-        {
-            get
-            {
-                return (int)Status;
-            }
-            set
-            {
-                Status = (StatusConsulta)value;
-            }
-        }
-
+        [Required]
         [EnumDataType(typeof(StatusConsulta))]
-        public StatusConsulta Status { get; set; }
+        public virtual StatusConsulta Status { get; set; }
     }
 }

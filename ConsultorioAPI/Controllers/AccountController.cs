@@ -1,7 +1,10 @@
 ﻿using ConsultorioAPI.Data;
 using ConsultorioAPI.Database;
+using ConsultorioAPI.Database.Repositories;
+using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -15,7 +18,8 @@ namespace ConsultorioAPI.Controllers
                     SupportsCredentials = false)]
     public class AccountController : ApiController
     {
-        AuthRepository _repo = new AuthRepository(new ConsultorioDbContext());
+        AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
+        PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
 
         // POST conta/cadastrar
         [AllowAnonymous]
@@ -26,14 +30,35 @@ namespace ConsultorioAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
 
-            IdentityResult result = await _repo.RegisterUser(userModel, "paciente");
-            
-            IHttpActionResult errorResult = GetErrorResult(result);
+            IdentityResult r1 = await _authRepo.RegisterUser(userModel, "paciente");
+            IHttpActionResult e1 = GetErrorResult(r1);
+            if (e1 != null)
+                return e1;
 
-            if (errorResult != null)
-                return errorResult;
+            ResultadoOperacao r2 = await _pacienteRepo.CreateAsync(
+                new Paciente() {
+                    DataNasc = userModel.DataNasc,
+                    Endereco = userModel.Endereco,
+                    Telefone = userModel.Telefone,
+                    Id = Guid.NewGuid()
+                }, userModel.UserName, userModel.Senha);
+
+            IHttpActionResult e2 = GetErrorResult(r2);
+            if (e2 != null)
+                return e2;
 
             return Ok();
+        }
+
+        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
+        {
+            if (r == null || r.ErroInterno)
+                return InternalServerError();
+
+            if (r.Sucesso)
+                return Ok();
+
+            return BadRequest(r.Mensagem);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
@@ -67,7 +92,8 @@ namespace ConsultorioAPI.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _repo.Dispose();
+            _authRepo.Dispose();
+            _pacienteRepo.Dispose();
             base.Dispose(disposing);
         }
     }
