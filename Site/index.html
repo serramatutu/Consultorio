@@ -11,7 +11,6 @@
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController" style="margin: 0">
-
         <!--  Colapse navbar  -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
@@ -52,11 +51,12 @@
       <div class="container">
         <div class="row">
             <div class="col-md-6">
-              <p class="text-muted navbar-text">Consultorio ©</a></p>
+              <p class="text-muted navbar-text">Consultorio ©</p>
             </div>
         </div>
       </div>
     </nav>
+
     <!-- 3rd party libraries -->
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
@@ -68,14 +68,16 @@
     <!-- Load app main script -->
     <script src="app/app.js"></script>
     <!-- Load services -->
-    <script src="app/services/constsProviderService.js"></script>
-    <script src="app/services/authInterceptorService.js"></script>
-    <script src="app/services/authService.js"></script>
+    <script src="app/common/services/constsProviderService.js"></script>
+    <script src="app/common/services/authInterceptorService.js"></script>
+    <script src="app/common/services/authService.js"></script>
     <!-- Load controllers -->
-    <script src="app/controllers/indexController.js"></script>
-    <script src="app/controllers/homeController.js"></script>
-    <script src="app/controllers/loginController.js"></script>
-    <script src="app/controllers/cadastroController.js"></script>
-    <script src="app/controllers/dashboardController.js"></script>
+    <script src="app/common/controllers/indexController.js"></script>
+    <script src="app/common/controllers/homeController.js"></script>
+    <script src="app/common/controllers/loginController.js"></script>
+    <script src="app/common/controllers/cadastroController.js"></script>
+
+    <script src="app/paciente/controllers/dashboardController.js"></script>
+    <script src="app/paciente/controllers/agendamentoController.js"></script>
 </body>
 </html>

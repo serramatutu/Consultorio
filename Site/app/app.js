@@ -16,22 +16,22 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when("/home", {
         controller: "homeController",
-        templateUrl: "/app/views/home.html"
+        templateUrl: "/app/common/views/home.html"
     });
 
     $routeProvider.when("/login", {
         controller: "loginController",
-        templateUrl: "/app/views/login.html"
+        templateUrl: "/app/common/views/login.html"
     });
 
     $routeProvider.when("/cadastro", {
         controller: "cadastroController",
-        templateUrl: "/app/views/cadastro.html"
+        templateUrl: "/app/common/views/cadastro.html"
     });
 
     $routeProvider.when("/dashboard", {
         controller: "dashboardController",
-        templateUrl: "/app/views/dashboard.html",
+        templateUrl: "/app/paciente/views/dashboard.html",
         resolve: {
             loggedIn: permitirLogado
         }
@@ -39,7 +39,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when("/agendar", {
         controller: "agendamentoController",
-        templateUrl: "/app/views/agendar.html",
+        templateUrl: "/app/paciente/agendar/agendar.html",
         resolve: {
             loggedIn: permitirLogado
         }
@@ -66,14 +66,3 @@ app.run(['$rootScope', '$location', function ($rootScope, $location) {
         $rootScope.path = $location.path();
     });
 }]);
-
-// Não permite endereços não autorizados
-//app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
-//    $rootScope.$on('$routeChangeStart', function (event) {
-//        if (!authService.isAuthenticated) { // Se não tiver logado
-//            console.log('ROTA NÃO PERMITIDA PARA USUÁRIO ANÔNIMO');
-//            event.preventDefault();
-//            $location.path('/login');
-//        }
-//    });
-//}]);

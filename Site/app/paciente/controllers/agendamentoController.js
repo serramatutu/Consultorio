@@ -10,4 +10,4 @@ app.controller('agendamentoConroller', ['$scope', 'authService', function ($scop
     $scope.agendar = function() {
 
     }
-});
+}]);
