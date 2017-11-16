@@ -15,7 +15,7 @@ namespace ConsultorioAPI.Controllers
     [RoutePrefix("info")]
     [EnableCors(Globals.CLIENT_URL,
                     "*",
-                    "POST, GET",
+                    "POST, GET, OPTIONS",
                     SupportsCredentials = false)]
     [Authorize(Roles = "paciente, medico, admin")]
     public class InformationController : BaseConsultorioController
@@ -27,6 +27,7 @@ namespace ConsultorioAPI.Controllers
         private MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
 
         [Route("getmedicos")]
+        [HttpPost]
         public async Task<IHttpActionResult> GetMedicos([FromBody]string[] especialidades)
         {
             return Ok(_medicoRepo.GetMedicos(especialidades).Select(x => new DisplayMedico(x)));

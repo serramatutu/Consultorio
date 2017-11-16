@@ -25,6 +25,7 @@ namespace ConsultorioAPI.Controllers
         MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
 
         [Route("comentarconsulta")]
+        [HttpPost]
         public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
         {
             if (!ModelState.IsValid)
@@ -35,6 +36,7 @@ namespace ConsultorioAPI.Controllers
         }
 
         [Route("agenda")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetAgenda()
         {
             var consultas = _consultaRepo.GetConsultasDeMedico(GetUsuarioAtual().Id).OrderBy(x => x.DataHora);

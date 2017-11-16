@@ -27,6 +27,7 @@ namespace ConsultorioAPI.Controllers
         private EspecialidadeRepository _especialidadeRepo = new EspecialidadeRepository(new ConsultorioDbContext());
 
         [Route("cadastrarmedico")]
+        [HttpPost]
         public async Task<IHttpActionResult> CadastrarMedico([FromBody]CadastroUserModel userModel, [FromBody]Medico medico)
         {
             if (!ModelState.IsValid)
@@ -45,6 +46,7 @@ namespace ConsultorioAPI.Controllers
         }
 
         [Route("cadastrarespecialidade")]
+        [HttpPost]
         public async Task<IHttpActionResult> CadastrarEspecialidade([FromBody]string nomeEspecialidade)
         {
             return GetErrorResult(await _especialidadeRepo.CreateAsync(nomeEspecialidade));

@@ -23,6 +23,7 @@ namespace ConsultorioAPI.Controllers
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
 
         [Route("agenda")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetAgenda()
         {
             var consultas = _consultaRepo.GetConsultasDeUsuario(GetUsuarioAtual().Id).OrderBy(x => x.DataHora);
@@ -30,6 +31,7 @@ namespace ConsultorioAPI.Controllers
         }
 
         [Route("agendarconsulta")]
+        [HttpPost]
         public async Task<IHttpActionResult> AgendarConsulta([FromBody]AgendamentoConsulta agendamento)
         {
             if (!ModelState.IsValid)
@@ -42,6 +44,7 @@ namespace ConsultorioAPI.Controllers
         }
 
         [Route("cancelarconsulta")]
+        [HttpPost]
         public async Task<IHttpActionResult> CancelarConsulta([FromBody]Guid idConsulta)
         {
             if (!ModelState.IsValid)
