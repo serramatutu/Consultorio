@@ -21,7 +21,7 @@ namespace ConsultorioAPI.Controllers
                     "*",
                     "POST, GET",
                     SupportsCredentials = false)]
-    public class AdminController : ApiController
+    public class AdminController : BaseConsultorioController
     {
         private AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
         private EspecialidadeRepository _especialidadeRepo = new EspecialidadeRepository(new ConsultorioDbContext());
@@ -48,46 +48,6 @@ namespace ConsultorioAPI.Controllers
         public async Task<IHttpActionResult> CadastrarEspecialidade([FromBody]string nomeEspecialidade)
         {
             return GetErrorResult(await _especialidadeRepo.CreateAsync(nomeEspecialidade));
-        }
-
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return null;
-        }
-
-        protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
-        {
-            if (r == null || r.ErroInterno)
-                return InternalServerError();
-
-            if (r.Sucesso)
-                return Ok();
-
-            return BadRequest(r.Mensagem);
         }
     }
 }

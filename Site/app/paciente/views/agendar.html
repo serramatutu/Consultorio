@@ -4,7 +4,10 @@
     </div>
     <h2>Agende uma consulta</h2>
     <hr />
-    <input type="date" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.data" required />
+    <input type="datetime-local" min="" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.data" id="dataConsulta" required />
+    <input type="number" min="30" max="60" class="form-control" placeholder="Duração da cunsulta" 
+           data-ng-model="consulta.duracao" required />
+    <select ng-model="selectedClient" ng-options="medico.CRM for medico in medicos"></select>
     
-    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="agendar()">Submit</button>
 </form>

@@ -17,7 +17,7 @@ namespace ConsultorioAPI.Controllers
                     SupportsCredentials = false)]
     //[Authorize(Roles = "paciente")]
     [Authorize(Roles = "paciente")]
-    public class PacienteController : BaseConsultorioController<Paciente>
+    public class PacienteController : BaseConsultorioController
     {
         ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
@@ -59,7 +59,7 @@ namespace ConsultorioAPI.Controllers
             base.Dispose(disposing);
         }
 
-        protected override Paciente GetUsuarioAtual()
+        protected Paciente GetUsuarioAtual()
         {
             return _pacienteRepo.GetPacienteFromUsername(User.Identity.Name);
         }

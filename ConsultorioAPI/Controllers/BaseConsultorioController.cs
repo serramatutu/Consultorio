@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace ConsultorioAPI.Controllers
 {
-    public abstract class BaseConsultorioController<TUsuario> : ApiController
+    public abstract class BaseConsultorioController : ApiController
     {
         protected IHttpActionResult GetErrorResult(ResultadoOperacao r)
         {
@@ -42,7 +42,5 @@ namespace ConsultorioAPI.Controllers
 
             return null;
         }
-
-        protected abstract TUsuario GetUsuarioAtual();
     }
 }

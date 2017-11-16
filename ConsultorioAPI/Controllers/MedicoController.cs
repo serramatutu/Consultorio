@@ -19,7 +19,7 @@ namespace ConsultorioAPI.Controllers
                     "POST, GET",
                     SupportsCredentials = false)]
     [Authorize(Roles = "medico")]
-    public class MedicoController : BaseConsultorioController<Medico>
+    public class MedicoController : BaseConsultorioController
     {
         ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
         MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
@@ -41,16 +41,16 @@ namespace ConsultorioAPI.Controllers
             return Ok(consultas.Select(x => new DisplayConsulta(x)));
         }
 
+        public Medico GetUsuarioAtual()
+        {
+            return _medicoRepo.GetMedico(User.Identity.Name);
+        }
+
         protected override void Dispose(bool disposing)
         {
             _consultaRepo.Dispose();
             _medicoRepo.Dispose();
             base.Dispose(disposing);
-        }
-
-        protected override Medico GetUsuarioAtual()
-        {
-            throw new NotImplementedException();
         }
     }
 }

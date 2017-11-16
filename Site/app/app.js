@@ -39,7 +39,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when("/agendar", {
         controller: "agendamentoController",
-        templateUrl: "/app/paciente/agendar/agendar.html",
+        templateUrl: "/app/paciente/views/agendar.html",
         resolve: {
             loggedIn: permitirLogado
         }
@@ -66,3 +66,8 @@ app.run(['$rootScope', '$location', function ($rootScope, $location) {
         $rootScope.path = $location.path();
     });
 }]);
+
+// Define as constantes do aplicativo
+app.run(['$rootScope', function ($rootScope) {
+    $rootScope.apiDomain = 'http://localhost:58949';
+}])

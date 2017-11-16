@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService', 'constsProvider',
-    function ($rootScope, $http, $q, localStorageService, constantsProvider) {
+app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
+    function ($rootScope, $http, $q, localStorageService) {
     var authServiceFactory = {};
 
     var _auth = {
@@ -11,7 +11,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService', 
     var _cadastrar = function (registration) {
         _logOut();
 
-        return $http.post(constantsProvider.apiDomain + 'conta/cadastro', registration).then(function success(response) {
+        return $http.post($rootScope.apiDomain + '/conta/cadastro', registration).then(function success(response) {
             return response;
         });
     };
@@ -22,7 +22,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService', 
 
         var deferred = $q.defer();
 
-        $http.post(constantsProvider.apiDomain + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(
+        $http.post($rootScope.apiDomain + '/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(
             function success(response) {
             localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
 

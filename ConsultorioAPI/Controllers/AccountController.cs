@@ -16,7 +16,7 @@ namespace ConsultorioAPI.Controllers
                     "*",
                     "POST",
                     SupportsCredentials = false)]
-    public class AccountController : BaseConsultorioController<LoginUsuario>
+    public class AccountController : BaseConsultorioController
     {
         AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
@@ -40,6 +40,7 @@ namespace ConsultorioAPI.Controllers
                     DataNasc = userModel.DataNasc,
                     Endereco = userModel.Endereco,
                     Telefone = userModel.Telefone,
+                    Nome = userModel.NomeCompleto,
                     Id = Guid.NewGuid()
                 }, userModel.UserName, userModel.Senha);
 
@@ -55,11 +56,6 @@ namespace ConsultorioAPI.Controllers
             _authRepo.Dispose();
             _pacienteRepo.Dispose();
             base.Dispose(disposing);
-        }
-
-        protected override LoginUsuario GetUsuarioAtual()
-        {
-            throw new NotImplementedException();
         }
     }
 }

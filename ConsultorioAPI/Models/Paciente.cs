@@ -19,6 +19,10 @@ namespace ConsultorioAPI.Models
         [Column("IdUsuario")]
         public virtual LoginUsuario DadosLogin { get; set; }
 
+        [Required]
+        [Column(TypeName = "varchar"), MaxLength(40)]
+        public virtual string Nome { get; set; }
+
         [Column(TypeName = "varchar"), MaxLength(14)]
         [Required]
         public virtual string Telefone { get; set; }
