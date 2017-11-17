@@ -13,7 +13,22 @@
         <div class="col-sm-8" style="overflow-y: scroll; height: calc(100vh - 101px)">
             <h2>Sua agenda</h2>
             <hr />
-            
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Médico</th>
+                    <th>Hora</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="consulta in consultas">
+                    <td>{{consulta.NomeMedico}}</td>
+                    <td>{{consulta.DataHora}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
     </div>
 </div>

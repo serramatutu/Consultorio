@@ -11,5 +11,11 @@ app.factory('informationService', ['$rootScope', '$http', function ($rootScope, 
         });
     }
 
+    service.getAgendaPaciente = function(callback){
+      $http.get($rootScope.apiDomain + '/paciente/agenda').then(function (response) {
+          callback(response.data);
+      });
+    }
+
     return service;
 }]);

@@ -13,6 +13,7 @@ namespace ConsultorioAPI.Models.ViewModels
             DataHora = c.DataHora;
             Duracao = c.Duracao;
             CRMMedicoResponsavel = c.MedicoResponsavel.CRM;
+            NomeMedico = c.MedicoResponsavel.Nome;
             Comentario = c.Comentario;
             Status = c.Status;
         }
@@ -30,6 +31,10 @@ namespace ConsultorioAPI.Models.ViewModels
         [Required]
         [Display(Name = "CRM")]
         public string CRMMedicoResponsavel { get; set; }
+
+        [Required]
+        [Display(Name = "nome médico responsável")]
+        public string NomeMedico { get; set; }
 
         [Required]
         [Display(Name = "Comentario")]
