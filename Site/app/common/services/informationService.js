@@ -6,7 +6,7 @@ app.factory('informationService', ['$rootScope', '$http', function ($rootScope, 
         if (!Array.isArray(especialidades))
             especialidades = [especialidades];
 
-        $http.get($rootScope.apiDomain + '/info/getmedicos', JSON.stringify(especialidades)).then(function (response) {
+        $http.post($rootScope.apiDomain + '/info/getmedicos', especialidades).then(function (response) {
             callback(response.data);
         });
     }

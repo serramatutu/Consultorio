@@ -2,22 +2,14 @@
 using ConsultorioAPI.Database;
 using ConsultorioAPI.Database.Repositories;
 using ConsultorioAPI.Models.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace ConsultorioAPI.Controllers
 {
     [RoutePrefix("info")]
-    [EnableCors(Globals.CLIENT_URL,
-                    "*",
-                    "POST, GET, OPTIONS",
-                    SupportsCredentials = false)]
-    [Authorize(Roles = "paciente, medico, admin")]
+    [Authorize/*(Roles = "paciente, medico, admin")*/]
     public class InformationController : BaseConsultorioController
     {
         private AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());

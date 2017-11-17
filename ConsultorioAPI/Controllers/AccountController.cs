@@ -7,15 +7,10 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace ConsultorioAPI.Controllers
 {
     [RoutePrefix("conta")]
-    [EnableCors(Globals.CLIENT_URL,
-                    "*",
-                    "POST",
-                    SupportsCredentials = false)]
     public class AccountController : BaseConsultorioController
     {
         AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
