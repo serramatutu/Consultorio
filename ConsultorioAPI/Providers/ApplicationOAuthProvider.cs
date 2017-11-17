@@ -1,14 +1,11 @@
 ﻿using ConsultorioAPI.Data;
 using ConsultorioAPI.Database;
 using ConsultorioAPI.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web.Http.Cors;
 
 namespace ConsultorioAPI.Providers
 {

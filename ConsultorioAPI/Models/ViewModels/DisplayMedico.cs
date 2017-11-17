@@ -13,6 +13,7 @@ namespace ConsultorioAPI.Models.ViewModels
             Telefone = m.Telefone;
             Especialidade = m.Especialidade.Nome;
             Nome = m.Nome;
+            CRM = m.CRM;
         }
 
         public virtual string Nome { get; set; }

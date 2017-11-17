@@ -3,21 +3,13 @@ using ConsultorioAPI.Database.Repositories;
 using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace ConsultorioAPI.Controllers
 {
     [RoutePrefix("medico")]
-    [EnableCors(Globals.CLIENT_URL,
-                    "*",
-                    "POST, GET",
-                    SupportsCredentials = false)]
     [Authorize(Roles = "medico")]
     public class MedicoController : BaseConsultorioController
     {

@@ -6,16 +6,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace ConsultorioAPI.Controllers
 {
     [RoutePrefix("paciente")]
-    [EnableCors(Globals.CLIENT_URL,
-                    "*",
-                    "POST, GET",
-                    SupportsCredentials = false)]
-    //[Authorize(Roles = "paciente")]
     [Authorize(Roles = "paciente")]
     public class PacienteController : BaseConsultorioController
     {
