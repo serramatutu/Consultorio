@@ -35,7 +35,7 @@
     text-align: center;
 }
 
-#home{
+#homeRow{
     background-image: url(../../imagens/background.jpg);
     background-position: center;
     background-repeat: no-repeat;
@@ -44,4 +44,12 @@
 
 #footer{
     margin-top: 15px;
+}
+
+.horizontal-collapse {
+  height: 70px;
+}
+
+.navbar-collapse.in {
+  overflow-y: hidden;
 }
