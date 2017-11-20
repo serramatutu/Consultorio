@@ -45,8 +45,8 @@
             {{authService.auth.userName}}
           </a>
           <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+              <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/conta">Sua conta</a></li>
-            <li><a href="/dashboard">Sua agenda</a></li>
             <li><a href="/exames">Seus exames</a></li>
             <li class="divider"></li>
             <li role="menuitem"><a href ng-click="logOut()">Logout</a></li>
@@ -103,5 +103,6 @@
 
     <script src="app/paciente/controllers/dashboardController.js"></script>
     <script src="app/paciente/controllers/agendamentoController.js"></script>
+    <script src="app/paciente/controllers/contaController.js"></script>
 </body>
 </html>

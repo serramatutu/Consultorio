@@ -46,6 +46,15 @@ namespace ConsultorioAPI.Controllers
             return Ok();
         }
 
+        // POST conta/cadastrar
+        [Authorize]
+        [HttpPost]
+        [Route("alterar")]
+        public async Task<IHttpActionResult> Alterar([FromBody]CadastroUserModel userModel)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();

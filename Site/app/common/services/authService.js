@@ -16,6 +16,12 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
         });
     };
 
+    var _alterar = function (userData) {
+        return $http.post($rootScope.apiDomain + '/conta/alterar', userData).then(function success(response) {
+            return response;
+        });
+    }
+
     var _login = function (loginData) {
 
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;

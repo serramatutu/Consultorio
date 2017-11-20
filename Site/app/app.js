@@ -1,7 +1,12 @@
 ﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'ngAnimate']);
 
 // Configura as rotas do site
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($provide, $routeProvider, $locationProvider) {
+    // Permite que se use o routeProvider em app.run
+    $provide.factory('$routeProvider', function () {
+        return $routeProvider;
+    });
+
     // Permite apenas entrada de usuário logado
     var permitirLogado = function ($location, $q, authService) {
         var d = $q.defer();
@@ -37,6 +42,14 @@ app.config(function ($routeProvider, $locationProvider) {
         }
     });
 
+    $routeProvider.when("/conta", {
+        controller: "contaController",
+        templateUrl: "/app/paciente/views/conta.html",
+        resolve: {
+            loggedIn: permitirLogado
+        }
+    });
+
     $routeProvider.when("/agendar", {
         controller: "agendamentoController",
         templateUrl: "/app/paciente/views/agendar.html",
@@ -45,21 +58,26 @@ app.config(function ($routeProvider, $locationProvider) {
         }
     });
 
-    // Caso url não seja válida, redireciona para o devido lugar
-    $routeProvider.otherwise('/home');
-
     // Habilitar isso depois
     $locationProvider.html5Mode(true); //Remove '#' da URL.
-});
+}).run(['$routeProvider', 'authService', function ($routeProvider, authService) {
+    authService.fillAuthData();
+
+    // Caso url não seja válida, redireciona para o devido lugar
+    $routeProvider.otherwise({ // TODO: Diferente para admin, paciente e medico
+        redirectTo: function () {
+            if (authService.auth.isAuthenticated)
+                return '/dashboard';
+
+            return '/home';
+        }
+    });
+}]);
 
 // Configura os interceptadores
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
-
-app.run(['authService', function (authService) {
-    authService.fillAuthData();
-}]);
 
 app.run(['$rootScope', '$location', function ($rootScope, $location) {
     $rootScope.$on('$locationChangeStart', function () {

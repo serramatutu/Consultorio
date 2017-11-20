@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace ConsultorioAPI.Models
 {
@@ -72,10 +69,16 @@ namespace ConsultorioAPI.Models
         }
 
         /// <summary>
-        /// Motivo pela qual foi cancelada, prescrições etc
+        /// Prescrições etc
         /// </summary>
         [Column(TypeName = "ntext")]
-        public virtual string Comentario { get; set; }
+        public virtual string ComentarioMedico { get; set; }
+
+        /// <summary>
+        /// Motivo pela qual foi cancelada, avaliações do médico etc
+        /// </summary>
+        [Column(TypeName = "ntext")]
+        public virtual string ComentarioPaciente { get; set; }
 
         [Required]
         public virtual Medico MedicoResponsavel { get; set; }

@@ -23,7 +23,7 @@ namespace ConsultorioAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ResultadoOperacao r = await _consultaRepo.ComentarConsulta(comentario, idConsulta);
+            ResultadoOperacao r = await _consultaRepo.ComentarConsultaMedico(comentario, idConsulta);
             return GetErrorResult(r);
         }
 

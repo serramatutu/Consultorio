@@ -14,7 +14,8 @@ namespace ConsultorioAPI.Models.ViewModels
             Duracao = c.Duracao;
             CRMMedicoResponsavel = c.MedicoResponsavel.CRM;
             NomeMedico = c.MedicoResponsavel.Nome;
-            Comentario = c.Comentario;
+            ComentarioMedico = c.ComentarioMedico;
+            ComentarioPaciente = c.ComentarioPaciente;
             Status = c.Status;
         }
 
@@ -37,11 +38,15 @@ namespace ConsultorioAPI.Models.ViewModels
         public string NomeMedico { get; set; }
 
         [Required]
-        [Display(Name = "Comentario")]
-        public string Comentario { get; set; }
+        [Display(Name = "comentario do médico")]
+        public string ComentarioMedico { get; set; }
 
         [Required]
-        [Display(Name = "Comentario")]
+        [Display(Name = "comentario do paciente")]
+        public string ComentarioPaciente { get; set; }
+
+        [Required]
+        [Display(Name = "status")]
         public StatusConsulta Status { get; set; }
     }
 }

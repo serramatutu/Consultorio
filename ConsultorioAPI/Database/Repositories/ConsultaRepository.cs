@@ -139,11 +139,11 @@ namespace ConsultorioAPI.Database.Repositories
         }
 
         /// <summary>
-        /// Modifica o comentário de uma consulta
+        /// Modifica o comentário de um médico de uma consulta
         /// </summary>
         /// <param name="comentario">Comentário novo</param>
         /// <param name="idConsulta">Consulta a ter seu comentário modificado</param>
-        public async Task<ResultadoOperacao> ComentarConsulta(string comentario, Guid idConsulta)
+        public async Task<ResultadoOperacao> ComentarConsultaMedico(string comentario, Guid idConsulta)
         {
             Consulta c = GetConsulta(idConsulta);
             if (c == null)
@@ -153,7 +153,31 @@ namespace ConsultorioAPI.Database.Repositories
                     Mensagem = "Consulta inexistente"
                 };
 
-            c.Comentario = comentario;
+            c.ComentarioMedico = comentario;
+            _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
+
+            if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
+                return ResultadoOperacao.ErroBD;
+
+            return ResultadoOperacao.Ok;
+        }
+
+        /// <summary>
+        /// Modifica o comentário um paciente de uma consulta
+        /// </summary>
+        /// <param name="comentario">Comentário novo</param>
+        /// <param name="idConsulta">Consulta a ter seu comentário modificado</param>
+        public async Task<ResultadoOperacao> ComentarConsultaPaciente(string comentario, Guid idConsulta)
+        {
+            Consulta c = GetConsulta(idConsulta);
+            if (c == null)
+                return new ResultadoOperacao()
+                {
+                    Sucesso = false,
+                    Mensagem = "Consulta inexistente"
+                };
+
+            c.ComentarioPaciente = comentario;
             _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
 
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
