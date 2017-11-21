@@ -14,8 +14,6 @@ app.controller('consultasController', ['$scope', 'informationService', 'authServ
                 response.data[i].DataHora = new Date(response.data[i].DataHora);
 
             $scope.consultas = response.data;
-
-            console.log(response.data);
         });
 
         $scope.util = util;

@@ -21,7 +21,6 @@ namespace ConsultorioAPI.Controllers
         public async Task<IHttpActionResult> GetAgenda()
         {
             var consultas = _consultaRepo.GetConsultasDeUsuario(GetUsuarioAtual().Id)
-                                         .Where(x => x.Status == StatusConsulta.Agendada)
                                          .OrderBy(x => x.DataHora);
             return Ok(consultas.Select(x => new DisplayConsulta(x)));
         }
