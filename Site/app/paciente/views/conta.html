@@ -1,18 +1,184 @@
-﻿<div class="container-fluid">
+<div class="container-fluid">
     <div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
         {{message}}
     </div>
     <h2>Editar suas informações</h2>
-    <form class="form" role="form">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5 table-responsive">
+            <h3>Informações de login</h3>
+
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th>Username:</th>
+                        <td>Nome do paciente aqui</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('username')">Alterar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>E-Mail:</th>
+                        <td>E-Mail do paciente aqui</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('email')">Alterar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Senha:</th>
+                        <td>Vários ******</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('senha')">Alterar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-5 table-responsive">
+            <h3>Informações pessoais</h3>
+
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th>Nome:</th>
+                        <td>Nome do paciente aqui</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('nome')">Alterar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Telefone:</th>
+                        <td>Telefone do paciente aqui</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('telefone')">Alterar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Celular:</th>
+                        <td>Celular do paciente aqui</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('celular')">Alterar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Endereço:</th>
+                        <td>Endereço do paciente aqui</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="open('endereco')">Alterar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+    <script type="text/ng-template" id="Nome.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar nome</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="text" name="value" placeholder="Digite o novo nome">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok(nome)">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="Email.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar e-mail</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="text" name="value" placeholder="Digite o novo e-mail">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok('email')">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="Telefone.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar telefone</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="tel" name="value" placeholder="Digite o novo telefone">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok('telefone')">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="Celular.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar celular</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="tel" name="value" placeholder="Digite o novo celular">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok('celular')">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="Endereco.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar endereço</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="text" name="value" placeholder="Digite o novo endereço">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok('endereco')">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="Senha.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar senha</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="password" name="value" placeholder="Digite a nova senha">
+            <br />
+            <input class="form-control" type="password" name="confValue" placeholder="Confirmar nova senha">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok('senha')">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="UserName.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Editar username</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <input class="form-control" type="text" name="value" placeholder="Digite o novo username">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok('username')">OK</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    <!-- <form class="form" role="form">
         <div class="row">
-            <div class="col-md-12">
-                <h3>Informações de login</h3>
-                <input type="text" class="form-control" placeholder="Usuário" data-ng-model="conta.userName" required autofocus />
-                <input type="email" class="form-control" placeholder="E-mail" data-ng-model="conta.email" required />
-                <input type="password" class="form-control" placeholder="Senha" data-ng-model="conta.senha" required />
-                <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="conta.confSenha" required />
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <h3>Informações de login</h3>
+                    <input type="text" class="form-control" placeholder="Usuário" data-ng-model="conta.userName" required autofocus />
+                    <input type="email" class="form-control" placeholder="E-mail" data-ng-model="conta.email" required />
+                    <input type="password" class="form-control" placeholder="Senha" data-ng-model="conta.senha" required />
+                    <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="conta.confSenha" required />
+                </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-sm-4">
                 <h3>Informações Pessoais</h3>
                 <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="conta.nomeCompleto" required />
                 <input type="text" class="form-control" placeholder="Endereço" data-ng-model="conta.endereco" required />
@@ -35,5 +201,5 @@
                 <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="alterar()">Submit</button>
             </div>
         </div>
-    </form>
+    </form> -->
 </div>
