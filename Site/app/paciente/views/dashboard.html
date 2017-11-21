@@ -21,13 +21,13 @@
                 <thead>
                   <tr>
                     <th>Médico</th>
-                    <th>Hora</th>
+                    <th>Horário</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="consulta in consultas">
                     <td>{{consulta.NomeMedico}}</td>
-                    <td>{{consulta.DataHora}}</td>
+                    <td>{{formatarData(consulta.DataHora)}}</td>
                   </tr>
                 </tbody>
               </table>

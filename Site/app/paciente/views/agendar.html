@@ -4,13 +4,13 @@
     </div>
     <h2>Agende uma consulta</h2>
     <hr />
-    <input type="datetime-local" min="" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.data" id="dataConsulta" required />
+    <input type="datetime-local" min="" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.dataHora" id="dataConsulta" required />
     <input type="number" min="30" max="60" class="form-control" placeholder="Duração da cunsulta" 
            data-ng-model="consulta.duracao" required />
     <select id="especialidadeMedico">
 
     </select>
-    <select ng-model="selectedClient" ng-options="medico.Nome + ' - CRM: '+ medico.CRM for medico in medicos"></select>
+    <select data-ng-model="consulta.crmMedicoResponsavel" ng-options="medico.Nome + ' - CRM: '+ medico.CRM for medico in medicos"></select>
     
     <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="agendar()">Submit</button>
 </form>

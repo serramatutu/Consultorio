@@ -19,9 +19,23 @@ app.config(function ($provide, $routeProvider, $locationProvider) {
         return d.promise;
     };
 
+    var naoPermitirLogado = function ($location, $q, authService) {
+        var d = $q.defer();
+        if (!authService.auth.isAuthenticated) {
+            d.resolve(); // Caso não esteja logado
+        } else {
+            d.reject(); // Caso esteja logado
+            $location.url('/dashboard');
+        }
+        return d.promise;
+    };
+
     $routeProvider.when("/home", {
         controller: "homeController",
-        templateUrl: "/app/common/views/home.html"
+        templateUrl: "/app/common/views/home.html",
+        resolve: {
+            loggedIn: naoPermitirLogado
+        }
     });
 
     $routeProvider.when("/login", {
@@ -31,7 +45,10 @@ app.config(function ($provide, $routeProvider, $locationProvider) {
 
     $routeProvider.when("/cadastro", {
         controller: "cadastroController",
-        templateUrl: "/app/common/views/cadastro.html"
+        templateUrl: "/app/common/views/cadastro.html",
+        resolve: {
+            loggedIn: naoPermitirLogado
+        }
     });
 
     $routeProvider.when("/dashboard", {

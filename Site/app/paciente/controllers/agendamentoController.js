@@ -1,18 +1,36 @@
 ﻿'use strict';
-app.controller('agendamentoController', ['$scope', 'informationService', 'authService', function ($scope, informationService, authService) {
+app.controller('agendamentoController', ['$scope', 'informationService', 'authService', 'pacienteService',
+    function ($scope, informationService, authService, pacienteService) {
     informationService.getMedicos([], function (data) {
         $scope.medicos = data;
     });
 
     $scope.savedSuccessfully = false;
-    $scope.agendamento = {
+    $scope.consulta = {
         dataHora: '',
         duracao: 0,
         crmMedicoResponsavel: ''
     };
 
-    $scope.agendar = function() {
+    $scope.agendar = function () {
+        $scope.consulta.crmMedicoResponsavel = $scope.consulta.crmMedicoResponsavel.CRM; // TODO: Desfazer essa gambiarra
+        pacienteService.agendarConsulta($scope.consulta).then(function success(response) {
+            $scope.savedSuccessfully = true;
+            $scope.message = 'Agendado com sucesso!';
+        }, function err(response) {
+            var errors = [];
+            var ms = response.data.ModelState || response.data.modelState;
+            if (!!ms)
+                for (var key in ms) {
+                    for (var i = 0; i < ms[key].length; i++) {
+                        errors.push(ms[key][i]);
+                    }
+                }
+            else
+                errors.push(response.data.Message);
 
+            $scope.message = "Não pôde agendar a consulta devido a: " + errors.join(' ');
+        });
     }
     
     $scope.$on('$viewContentLoaded', function () { // Data mínima é hoje

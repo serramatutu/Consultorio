@@ -47,7 +47,7 @@
           <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
               <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/conta">Sua conta</a></li>
-            <li><a href="/exames">Seus exames</a></li>
+            <li><a href="/consultas">Suas consultas</a></li>
             <li class="divider"></li>
             <li role="menuitem"><a href ng-click="logOut()">Logout</a></li>
           </ul>
@@ -89,6 +89,7 @@
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+    
     <!-- Load app main script -->
     <script src="app/app.js"></script>
     <!-- Load services -->
@@ -101,6 +102,7 @@
     <script src="app/common/controllers/loginController.js"></script>
     <script src="app/common/controllers/cadastroController.js"></script>
 
+    <script src="app/paciente/services/pacienteService.js"></script>
     <script src="app/paciente/controllers/dashboardController.js"></script>
     <script src="app/paciente/controllers/agendamentoController.js"></script>
     <script src="app/paciente/controllers/contaController.js"></script>
