@@ -1,44 +1,91 @@
-<div class="row" style="margin: 0; vertical-align: middle">
-    <div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
-        {{message}}
-    </div>
-    <div class="row">
-      <div class="col-md-12">
+<div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
+    {{message}}
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         <h1>Cadastre-se</h1>
-      </div>
-    </div>
-    <div class="col-0 col-md-1"></div>
-    <form class="form-login" role="form">
-      <div class="row">
-        <div class="col-md-5">
-          <h3>Informações de login</h3>
-          <input type="text" class="form-control" placeholder="Usuário" data-ng-model="registration.userName" required autofocus />
-          <input type="email" class="form-control" placeholder="E-mail" data-ng-model="registration.email" required />
-          <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.senha" required />
-          <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="registration.confSenha" required />
+        <hr>
         </div>
-        <div class="col-md-5">
-          <h3>Informações Pessoais</h3>
-          <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
-          <input type="text" class="form-control" placeholder="Endereço" data-ng-model="registration.endereco" required/>
-          <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="registration.dataNasc" required />
-          <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="registration.telefone" required />
-          <input type="tel" class="form-control" placeholder="Celular" data-ng-model="registration.celular" required />
-            <div class="col-xs-4 not-padd">
+</div>
+
+<form class="form" role="form">
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-5">
+        <h2>Informações de login</h2>
+        <br>
+        <div class="form-group row">
+            <label for="data" class="col-md-2 col-form-label">Username</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" placeholder="Usuário" data-ng-model="registration.userName" required autofocus />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="duracao" class="col-md-2 col-form-label">Email</label>
+            <div class="col-md-10">
+                <input type="email" class="form-control" placeholder="E-mail" data-ng-model="registration.email" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="especialidade" class="col-md-2 col-form-label">Senha</label>
+            <div class="col-md-10">
+                <input type="password" class="form-control" placeholder="Senha" data-ng-model="registration.senha" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="medico" class="col-md-2 col-form-label">Confirmar Senha</label>
+            <div class="col-md-10">
+                <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="registration.confSenha" required />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5">
+        <h2>Informações pessoais</h2>
+        <br>
+        <div class="form-group row">
+            <label for="data" class="col-md-2 col-form-label">Nome</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="duracao" class="col-md-2 col-form-label">Endereço</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" placeholder="Endereço" data-ng-model="registration.endereco" required/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="especialidade" class="col-md-2 col-form-label">Data de nascimento</label>
+            <div class="col-md-10">
+            <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="registration.dataNasc" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="medico" class="col-md-2 col-form-label">Telefone</label>
+            <div class="col-md-10">
+                <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="registration.telefone" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="medico" class="col-md-2 col-form-label">Celular</label>
+            <div class="col-md-10">
+                <input type="tel" class="form-control" placeholder="Celular" data-ng-model="registration.celular" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">
                 <input id="fileInput" type="file" style="display:none;" onchange="angular.element(this).scope().selecionouArq()" />
                 <button type="button" name="button" class="btn btn-info" style="width: -webkit-fill-available" onclick="document.getElementById('fileInput').click()">Escolher Arquivo</button>
             </div>
-            <div class="col-xs-8 not-padd">
+            <div class="col-sm-8">
                 <input id="foto" type="text" class="form-control" readonly="true" placeholder="Foto" data-ng-model="registration.foto" style="float: right;" required>
             </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 ">
-          <hr>
-          <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
-        </div>
-      </div>
-    </form>
-</div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="agendar()">Submit</button>
+    </div>
+</form>
