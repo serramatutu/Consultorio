@@ -9,7 +9,23 @@
         <div class="form-group row">
             <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
             <div class="col-md-10">
-                <select id="especialidade" class="form-control" ng-model="especialidade" ng-options="especialidade as especialidade.Nome for especialidade in especialidades"></select>
+                <select id="especialidade" class="form-control" ng-model="especialidade">
+                    <option value="{{undefined}}" selected="selected">Todos</option>
+                    <option ng-repeat="especialidade in especialidades" value="{{especialidade.Nome}}">
+                        {{especialidade.Nome}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="status" class="col-md-2 col-form-label">Status</label>
+            <div class="col-md-10">
+                <select id="status" class="form-control" ng-model="status">
+                    <option value="{{undefined}}" selected="selected">Todos</option>
+                    <option value="0">Agendada</option>
+                    <option value="1">Cancelada</option>
+                    <option value="2">Realizada</option>
+                </select>
             </div>
         </div>
         <div class="table-responsive row">
@@ -24,12 +40,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="consulta in consultas | filter:{Medico: {Especialidade:especialidade.Nome}}:true">
+                    <tr ng-repeat="consulta in consultas | filter:{Medico: {Especialidade:especialidade||undefined}}:true | filter:{Status: status||undefined}">
                         <td>{{consulta.Medico.Nome}}</td>
                         <td>{{util.formatarData(consulta.DataHora)}}</td>
                         <td>{{util.formatarHora(consulta.DataHora)}}</td>
                         <td>{{util.formatarHora(util.addMinutes(consulta.DataHora, consulta.Duracao))}}</td>
-                        <td>{{getNomeStatusConsulta(consulta.Status)}}</td>
+                        <td ng-class="{'text-primary': getNomeStatusConsulta(consulta.Status) == 'Agendada', 
+                                       'text-danger': getNomeStatusConsulta(consulta.Status) == 'Cancelada',
+                                       'text-success': getNomeStatusConsulta(consulta.Status) == 'Realizada'}">{{getNomeStatusConsulta(consulta.Status)}}</td>
                     </tr>
                 </tbody>
             </table>
