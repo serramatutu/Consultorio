@@ -27,5 +27,10 @@ namespace ConsultorioAPI.Database.Repositories
 
             return ResultadoOperacao.Ok;
         }
+
+        public Especialidade[] GetAll()
+        {
+            return _ctx.Especialidades.ToArray();
+        }
     }
 }

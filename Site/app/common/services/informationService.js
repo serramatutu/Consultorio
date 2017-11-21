@@ -6,15 +6,26 @@ app.factory('informationService', ['$rootScope', '$http', function ($rootScope, 
         if (!Array.isArray(especialidades))
             especialidades = [especialidades];
 
-        $http.post($rootScope.apiDomain + '/info/getmedicos', especialidades).then(function (response) {
-            callback(response.data);
-        });
+        return $http.post($rootScope.apiDomain + '/info/getmedicos', especialidades);
+    }
+
+    service.getEspecialidades = function (callback) {
+        return $http.get($rootScope.apiDomain + '/info/getespecialidades');
     }
 
     service.getAgendaPaciente = function(callback){
-      $http.get($rootScope.apiDomain + '/paciente/agenda').then(function (response) {
-          callback(response.data);
-      });
+       return $http.get($rootScope.apiDomain + '/paciente/agenda');
+    }
+
+    service.getNomeStatusConsulta = function (status) {
+        switch (status) {
+            case 0: return 'Agendada';
+                break;
+            case 1: return 'Cancelada';
+                break;
+            case 2: return 'Realizada';
+                break;
+        }
     }
 
     return service;

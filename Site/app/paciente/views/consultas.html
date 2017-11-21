@@ -1,1 +1,38 @@
-﻿
+﻿<div class="container-fluid">
+    <h2>Suas consultas</h2>
+    <hr />
+    <h3 ng-hide="consultas.length > 0">
+        Você não tem consultas para mostrar
+    </h3>
+    <div class="col-md-12" ng-show="consultas.length > 0">
+        <h4>Filtros</h4>
+        <div class="form-group row">
+            <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
+            <div class="col-md-10">
+                <select id="especialidade" class="form-control" ng-model="especialidade" ng-options="especialidade as especialidade.Nome for especialidade in especialidades"></select>
+            </div>
+        </div>
+        <div class="table-responsive row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Médico</th>
+                        <th>Data</th>
+                        <th>Hora de início</th>
+                        <th>Hora de término</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="consulta in consultas | filter:{Medico: {Especialidade:especialidade.Nome}}:true">
+                        <td>{{consulta.Medico.Nome}}</td>
+                        <td>{{util.formatarData(consulta.DataHora)}}</td>
+                        <td>{{util.formatarHora(consulta.DataHora)}}</td>
+                        <td>{{util.formatarHora(util.addMinutes(consulta.DataHora, consulta.Duracao))}}</td>
+                        <td>{{getNomeStatusConsulta(consulta.Status)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
