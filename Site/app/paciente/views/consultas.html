@@ -48,6 +48,9 @@
                         <td ng-class="{'text-primary': getNomeStatusConsulta(consulta.Status) == 'Agendada', 
                                        'text-danger': getNomeStatusConsulta(consulta.Status) == 'Cancelada',
                                        'text-success': getNomeStatusConsulta(consulta.Status) == 'Realizada'}">{{getNomeStatusConsulta(consulta.Status)}}</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-primary" ng-click="alterar()">Editar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -10,6 +10,7 @@ namespace ConsultorioAPI.Models.ViewModels
     {
         public DisplayConsulta(Consulta c)
         {
+            HashCode = c.GetHashCode();
             DataHora = c.DataHora;
             Duracao = c.Duracao;
             Medico = new DisplayMedico(c.MedicoResponsavel);
@@ -17,6 +18,10 @@ namespace ConsultorioAPI.Models.ViewModels
             ComentarioPaciente = c.ComentarioPaciente;
             Status = c.Status;
         }
+
+        [Required]
+        [Display(Name = "hashcode")]
+        public int HashCode { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]

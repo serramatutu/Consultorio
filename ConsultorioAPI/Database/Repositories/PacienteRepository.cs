@@ -1,6 +1,7 @@
 ﻿using ConsultorioAPI.Models;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,5 +45,69 @@ namespace ConsultorioAPI.Database.Repositories
                     _userManager.Dispose();
                     base.Dispose(disposing);
         }
+
+        #region Conta
+
+        public ResultadoOperacao AlterarNome(string username, string nome)
+        {
+            Paciente p = GetPacienteFromUsername(username);
+            if (p == null)
+                return ResultadoOperacao.NotFound;
+
+            p.Nome = nome;
+            _ctx.Entry(p).State = EntityState.Modified;
+
+            if (_ctx.SaveChanges() < 1)
+                return ResultadoOperacao.ErroBD;
+
+            return ResultadoOperacao.Ok;
+        }
+
+        public ResultadoOperacao AlterarEndereco(string username, string endereco)
+        {
+            Paciente p = GetPacienteFromUsername(username);
+            if (p == null)
+                return ResultadoOperacao.NotFound;
+
+            p.Endereco = endereco;
+            _ctx.Entry(p).State = EntityState.Modified;
+
+            if (_ctx.SaveChanges() < 1)
+                return ResultadoOperacao.ErroBD;
+
+            return ResultadoOperacao.Ok;
+        }
+
+        public ResultadoOperacao AlterarTelefone(string username, string telefone)
+        {
+            Paciente p = GetPacienteFromUsername(username);
+            if (p == null)
+                return ResultadoOperacao.NotFound;
+
+            p.Telefone = telefone;
+            _ctx.Entry(p).State = EntityState.Modified;
+
+            if (_ctx.SaveChanges() < 1)
+                return ResultadoOperacao.ErroBD;
+
+            return ResultadoOperacao.Ok;
+        }
+
+        public ResultadoOperacao AlterarDataNasc(string username, DateTime nasc)
+        {
+            Paciente p = GetPacienteFromUsername(username);
+            if (p == null)
+                return ResultadoOperacao.NotFound;
+
+            p.DataNasc = nasc;
+            _ctx.Entry(p).State = EntityState.Modified;
+
+            if (_ctx.SaveChanges() < 1)
+                return ResultadoOperacao.ErroBD;
+
+            return ResultadoOperacao.Ok;
+        }
+
+        #endregion
     }
 }

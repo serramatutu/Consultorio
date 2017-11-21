@@ -20,6 +20,22 @@
         }
 
         /// <summary>
+        /// Quando a operação não encontrou o recurso requerido
+        /// </summary>
+        public static ResultadoOperacao NotFound
+        {
+            get
+            {
+                return new ResultadoOperacao()
+                {
+                    Sucesso = false,
+                    ErroInterno = false,
+                    Mensagem = "Não encontrado"
+                };
+            }
+        }
+
+        /// <summary>
         /// Representa uma operação na qual ocorreu um erro no banco de dados
         /// </summary>
         public static ResultadoOperacao ErroBD

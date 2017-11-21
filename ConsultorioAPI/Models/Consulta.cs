@@ -89,5 +89,10 @@ namespace ConsultorioAPI.Models
         [Required]
         [EnumDataType(typeof(StatusConsulta))]
         public virtual StatusConsulta Status { get; set; }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

@@ -57,6 +57,58 @@ namespace ConsultorioAPI.Controllers
             base.Dispose(disposing);
         }
 
+        #region Conta
+
+        [Route("alterar/nome")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AlterarNome([FromBody]string nome)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            ResultadoOperacao resultado = _pacienteRepo.AlterarNome(User.Identity.Name, nome);
+
+            return GetErrorResult(resultado);
+        }
+
+        [Route("alterar/endereco")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AlterarEndereco([FromBody]string endereco)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            ResultadoOperacao resultado = _pacienteRepo.AlterarEndereco(User.Identity.Name, endereco);
+
+            return GetErrorResult(resultado);
+        }
+
+        [Route("alterar/datanasc")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AlterarNome([FromBody]DateTime dataNasc)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            ResultadoOperacao resultado = _pacienteRepo.AlterarDataNasc(User.Identity.Name, dataNasc);
+
+            return GetErrorResult(resultado);
+        }
+
+        [Route("alterar/datanasc")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AlterarTelefone([FromBody]string tel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            ResultadoOperacao resultado = _pacienteRepo.AlterarTelefone(User.Identity.Name, tel);
+
+            return GetErrorResult(resultado);
+        }
+
+        #endregion
+
         protected Paciente GetUsuarioAtual()
         {
             return _pacienteRepo.GetPacienteFromUsername(User.Identity.Name);
