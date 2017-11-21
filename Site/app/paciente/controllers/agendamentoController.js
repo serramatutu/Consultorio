@@ -1,8 +1,12 @@
 ﻿'use strict';
 app.controller('agendamentoController', ['$scope', 'informationService', 'authService', 'pacienteService',
     function ($scope, informationService, authService, pacienteService) {
-    informationService.getMedicos([], function (data) {
-        $scope.medicos = data;
+    informationService.getMedicos([]).then(function (response) {
+        $scope.medicos = response.data;
+    });
+
+    informationService.getEspecialidades().then(function (response) {
+        $scope.especialidades = response.data;
     });
 
     $scope.savedSuccessfully = false;
@@ -13,7 +17,7 @@ app.controller('agendamentoController', ['$scope', 'informationService', 'authSe
     };
 
     $scope.agendar = function () {
-        $scope.consulta.crmMedicoResponsavel = $scope.consulta.crmMedicoResponsavel.CRM; // TODO: Desfazer essa gambiarra
+        $scope.consulta.crmMedicoResponsavel = $scope.consulta.Medico.CRM; // TODO: Desfazer essa gambiarra
         pacienteService.agendarConsulta($scope.consulta).then(function success(response) {
             $scope.savedSuccessfully = true;
             $scope.message = 'Agendado com sucesso!';

@@ -25,6 +25,13 @@ namespace ConsultorioAPI.Controllers
             return Ok(_medicoRepo.GetMedicos(especialidades).Select(x => new DisplayMedico(x)));
         }
 
+        [Route("getespecialidades")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetEspecialidades()
+        {
+            return Ok(_especialidadeRepo.GetAll());
+        }
+
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();

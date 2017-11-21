@@ -67,6 +67,14 @@ app.config(function ($provide, $routeProvider, $locationProvider) {
         }
     });
 
+    $routeProvider.when("/consultas", {
+        controller: "consultasController",
+        templateUrl: "/app/paciente/views/consultas.html",
+        resolve: {
+            loggedIn: permitirLogado
+        }
+    });
+
     $routeProvider.when("/agendar", {
         controller: "agendamentoController",
         templateUrl: "/app/paciente/views/agendar.html",
