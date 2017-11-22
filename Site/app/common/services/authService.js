@@ -5,7 +5,8 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
 
     var _auth = {
         isAuthenticated: false,
-        userName: ""
+        userName: "",
+        roles: []
     };
 
     var _cadastrar = function (registration) {
@@ -34,6 +35,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
 
             _auth.isAuth = true;
             _auth.userName = loginData.userName;
+            _auth.roles = JSON.parse(response.data.roles);
 
             deferred.resolve(response);
 
@@ -61,7 +63,10 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
             _auth.isAuthenticated = true;
             _auth.userName = authData.userName;
         }
+    }
 
+    var _getUserData = function () {
+        return $http.get($rootScope.apiDomain + '/conta/getuserdata');
     }
 
     authServiceFactory.cadastrar = _cadastrar;
@@ -69,6 +74,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.auth = _auth;
+    authServiceFactory.getUserData = _getUserData;
     $rootScope.auth = _auth;
 
     return authServiceFactory;

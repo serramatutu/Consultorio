@@ -46,6 +46,13 @@ namespace ConsultorioAPI.Data
             return user;
         }
 
+        public async Task<LoginUsuario> FindUser(string userName)
+        {
+            LoginUsuario user = await _userManager.FindByNameAsync(userName);
+
+            return user;
+        }
+
         protected bool disposed = false;
 
         protected virtual void Dispose(bool disposing)

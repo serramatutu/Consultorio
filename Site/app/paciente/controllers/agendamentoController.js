@@ -17,7 +17,7 @@ app.controller('agendamentoController', ['$scope', 'informationService', 'authSe
     };
 
     $scope.agendar = function () {
-        $scope.consulta.crmMedicoResponsavel = $scope.consulta.Medico.CRM; // TODO: Desfazer essa gambiarra
+        $scope.consulta.crmMedicoResponsavel = $scope.consulta.crmMedicoResponsavel.CRM; // TODO: Desfazer essa gambiarrona
         pacienteService.agendarConsulta($scope.consulta).then(function success(response) {
             $scope.savedSuccessfully = true;
             $scope.message = 'Agendado com sucesso!';

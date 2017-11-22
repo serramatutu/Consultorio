@@ -5,6 +5,7 @@ using ConsultorioAPI.Models;
 using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -15,6 +16,7 @@ namespace ConsultorioAPI.Controllers
     {
         AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
         PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
+        MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
 
         // POST conta/cadastrar
         [AllowAnonymous]
@@ -46,19 +48,57 @@ namespace ConsultorioAPI.Controllers
             return Ok();
         }
 
-        // POST conta/cadastrar
+        [Route("getuserdata")]
+        [HttpGet]
         [Authorize]
-        [HttpPost]
-        [Route("alterar")]
-        public async Task<IHttpActionResult> Alterar([FromBody]CadastroUserModel userModel)
+        public async Task<IHttpActionResult> GetUserData()
         {
-            throw new NotImplementedException();
+            Dictionary<string, object> content = new Dictionary<string, object>();
+            LoginUsuario user = await _authRepo.FindUser(User.Identity.Name);
+            content.Add("LoginData", new DisplayUsuario(user));
+            foreach (var papel in user.Papeis)
+            {
+                switch (papel.Nome)
+                {
+                    case "paciente":
+                        content.Add("Paciente", new DisplayPaciente(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
+                        break;
+                    //case "admin":
+                    //    content.Add("Admin", new DisplayAdmin(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
+                    //    break;
+                    case "medico":
+                        content.Add("Medico", new DisplayMedico(_medicoRepo.GetMedico(User.Identity.Name)));
+                        break;
+                }
+            }
+
+            return Json(content);
         }
+
+        #region Alterar
+
+        // TODO: Modificação de dados e rejeição de tokens
+
+        //[Authorize]
+        //[HttpPost]
+        //[Route("alterar/username")]
+        //public async Task<IHttpActionResult> AlterarUserName([FromBody]string userName)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
+
+        //    _authRepo.AlterarUserName(User.Identity.Name, userName);
+
+        //    return Ok();
+        //}
+
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();
             _pacienteRepo.Dispose();
+            _medicoRepo.Dispose();
             base.Dispose(disposing);
         }
     }

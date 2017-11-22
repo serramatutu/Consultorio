@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('contaController', ['$scope', '$uibModal', function ($scope, $modal) {
+app.controller('contaController', ['$scope', '$uibModal', 'authService', function ($scope, $modal, authService) {
 
     $scope.open = function (modal) {
         switch (modal) {
@@ -93,34 +93,31 @@ app.controller('contaController', ['$scope', '$uibModal', function ($scope, $mod
 
     }
 
+    // Obtém as informações do usuário atual
+    authService.getUserData().then(function (response) {
+        $scope.loginData = response.data.LoginData;
+        $scope.userData = response.data.Paciente;
+    });
+
+    authService.get
+
     $scope.savedSuccessfully = false;
     $scope.message = "";
 
-    $scope.conta = {
-        userName: "",
-        senha: "",
-        confSenha: "",
-        nomeCompleto: "",
-        dataNasc: "",
-        email: "",
-        telefone: "",
-        endereco: ""
-    };
-
-    $scope.alterar = function () {
-        authService.alterar($scope.conta).then(function (response) {
-            $scope.savedSuccessfully = true;
-            $scope.message = "Alterado com sucesso!";
-        },
-            function (response) {
-                var errors = [];
-                var ms = response.data.ModelState || response.data.modelState;
-                for (var key in ms) {
-                    for (var i = 0; i < ms[key].length; i++) {
-                        errors.push(ms[key][i]);
-                    }
-                }
-                $scope.message = "Não pôde cadastrar o usuário devido a: " + errors.join(' ');
-            });
-    };
+    //$scope.alterar = function (campo) {
+    //    authService.alterar($scope).then(function (response) {
+    //        $scope.savedSuccessfully = true;
+    //        $scope.message = "Alterado com sucesso!";
+    //    },
+    //        function (response) {
+    //            var errors = [];
+    //            var ms = response.data.ModelState || response.data.modelState;
+    //            for (var key in ms) {
+    //                for (var i = 0; i < ms[key].length; i++) {
+    //                    errors.push(ms[key][i]);
+    //                }
+    //            }
+    //            $scope.message = "Não pôde cadastrar o usuário devido a: " + errors.join(' ');
+    //        });
+    //};
 }]);

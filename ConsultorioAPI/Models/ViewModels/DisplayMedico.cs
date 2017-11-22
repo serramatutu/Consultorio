@@ -14,6 +14,7 @@ namespace ConsultorioAPI.Models.ViewModels
             Especialidade = m.Especialidade.Nome;
             Nome = m.Nome;
             CRM = m.CRM;
+            DataNasc = m.DataNasc;
         }
 
         public virtual string Nome { get; set; }
@@ -25,5 +26,7 @@ namespace ConsultorioAPI.Models.ViewModels
         public virtual string Telefone { get; set; }
 
         public virtual string CRM { get; set; }
+
+        public virtual DateTime DataNasc { get; set; }
     }
 }
