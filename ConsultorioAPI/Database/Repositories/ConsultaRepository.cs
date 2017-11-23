@@ -154,6 +154,7 @@ namespace ConsultorioAPI.Database.Repositories
                     Mensagem = "Consulta inexistente"
                 };
 
+            var medico = c.Medico; // Força o LazyLoader pq a implementação do EF é ruim pra isso :( (se tirar dá erro)
             c.Diagnostico = diagnostico;
             _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
 
@@ -179,6 +180,14 @@ namespace ConsultorioAPI.Database.Repositories
                     Mensagem = "Consulta inexistente"
                 };
 
+            if (string.IsNullOrEmpty(c.Avaliacao.Comentario) || !c.Avaliacao.Nota.HasValue)
+                return new ResultadoOperacao()
+                {
+                    Sucesso = false,
+                    Mensagem = "Não pode avaliar uma consulta duas vezes"
+                };
+
+            var medico = c.Medico; // Força o LazyLoader pq a implementação do EF é ruim pra isso :( (se tirar dá erro)
             c.Avaliacao = avaliacao;
             _ctx.Entry(c).Property(x => x.Avaliacao).IsModified = true;
 

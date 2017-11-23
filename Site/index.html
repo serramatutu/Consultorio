@@ -41,23 +41,22 @@
     <!--  Colapse navbar  -->
       <div class="navbar-header">
         <span uib-dropdown on-toggle="toggled(open)">
-          <a href id="simple-dropdown" uib-dropdown-toggle class="navbar-brand">
-            {{authService.auth.userName}}
+          <a id="simple-dropdown" uib-dropdown-toggle class="navbar-brand">
+            Consultorio
           </a>
-          <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-              <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/conta">Sua conta</a></li>
-            <li><a href="/consultas">Suas consultas</a></li>
-            <li class="divider"></li>
-            <li role="menuitem"><a href ng-click="logOut()">Logout</a></li>
-          </ul>
         </span>
       </div>
 
       <!-- Navbar Items -->
       <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
+          <ul class="nav navbar-nav align-left">
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li><a href="/agendar">Agendar</a></li>
+              <li><a href="/consultas">Consultas</a></li>
+              <li><a href="/conta">Conta</a></li>
+          </ul>
         <ul class="nav navbar-nav align-right">
-          <li><a href="/agendar">Agendar Consulta</a></li>
+            <li><a href ng-click="logOut()">Logout</a></li>
         </ul>
       </div>
     </div>

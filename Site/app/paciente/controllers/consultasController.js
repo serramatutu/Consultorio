@@ -19,10 +19,8 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
         })
 
         informationService.getAgendaPaciente().then(function (response) {
-            for (let i = 0; i < response.data.length; i++) {
+            for (let i = 0; i < response.data.length; i++)
                 response.data[i].DataHora = new Date(response.data[i].DataHora);
-                console.log(response.data[i].DataHora)
-            }
 
             $scope.consultas = response.data;
         });
@@ -49,13 +47,12 @@ app.controller('editarConsultaModalController', ['$rootScope', '$scope', 'utilit
     $scope.consulta = consulta;
     $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
 
-    var avaliacao = informationService.getNomeStatusConsulta(consulta) == 'Realizada' ? {} : undefined;
-
     // Envia a avaliação do paciente ao servidor
-    $scope.avaliar = function () {
-        pacienteService.avaliarConsulta(consulta.Id, avaliacao).then(function () {
+    $scope.avaliarConsulta = function () {
+        pacienteService.avaliarConsulta(consulta.Id, $scope.consulta.Avaliacao).then(function () {
             $scope.$close();
-        })
+            $rootScope.$emit('consultaChanged', {});
+        });
     }
 
     // Cancela a consulta especificada

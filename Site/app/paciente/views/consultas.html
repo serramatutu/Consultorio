@@ -109,19 +109,27 @@
                 <div class="form-group row">
                     <label for="nota" class="col-sm-3 col-form-label">Nota do atendimento</label>
                     <div class="col-sm-9">
-                        <input id="nota" data-ng-model="avaliacao.nota" class="form-control" type="number" min="0" max="10" required>
+                        <input id="nota" class="form-control" 
+                               ng-model="consulta.Avaliacao.Nota"
+                               type="number" min="0" max="10" 
+                               value="0" 
+                               ng-readonly="!!consulta.Avaliacao.Nota" ng-required="!consulta.Avaliacao.Comentario">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="comentario">Feedback</label>
-                    <textarea id="comentario" data-ng-model="avaliacao.comentario" class="form-control" 
-                              placeholder="Conte-nos como foi sua experiência com {{consulta.Medico.Nome}}!" required></textarea>
+                    <textarea id="comentario" class="form-control" 
+                              placeholder="Conte-nos como foi sua experiência com {{consulta.Medico.Nome}}!" ng-required="!consulta.Avaliacao.Comentario"
+                              ng-readonly="!!consulta.Avaliacao.Comentario"
+                              ng-model="consulta.Avaliacao.Comentario"></textarea>
                 </div>
             </form>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="avaliarConsulta()" ng-show="getNomeStatusConsulta(consulta.Status) == 'Realizada'">Avaliar</button>
+        <button class="btn btn-primary" type="button" ng-click="avaliarConsulta()" ng-show="getNomeStatusConsulta(consulta.Status) == 'Realizada' && 
+                !consulta.Avaliacao.Nota && 
+                !consulta.Avaliacao.Comentario">Avaliar</button>
         <button class="btn btn-primary" type="button" ng-click="cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.Status) == 'Agendada'">Cancelar consulta</button>
         <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
     </div>
