@@ -75,14 +75,6 @@ app.config(function ($provide, $routeProvider, $locationProvider) {
         }
     });
 
-    $routeProvider.when("/agendar", {
-        controller: "agendamentoController",
-        templateUrl: "/app/paciente/views/agendar.html",
-        resolve: {
-            loggedIn: permitirLogado
-        }
-    });
-
     // Habilitar isso depois
     $locationProvider.html5Mode(true); //Remove '#' da URL.
 }).run(['$routeProvider', 'authService', function ($routeProvider, authService) {
