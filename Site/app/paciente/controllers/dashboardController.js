@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('dashboardController', ['$scope', 'informationService', 'utilitiesService', function ($scope, informationService, util) {
+app.controller('dashboardController', ['$scope', 'informationService', function ($scope, informationService) {
     $scope.isNavCollapsed = true;
     $scope.isCollapsed = false;
     $scope.isCollapsedHorizontal = true;
@@ -10,6 +10,4 @@ app.controller('dashboardController', ['$scope', 'informationService', 'utilitie
 
         $scope.consultas = response.data;
     });
-
-    $scope.formatarData = util.formatarData;
 }]);

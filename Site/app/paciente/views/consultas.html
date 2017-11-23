@@ -42,9 +42,9 @@
                 <tbody>
                     <tr ng-repeat="consulta in consultas | filter:{Medico: {Especialidade: {Nome: especialidade||undefined}}}:true | filter:{Status: status||undefined}">
                         <td>{{consulta.Medico.Nome}}</td>
-                        <td>{{util.formatarData(consulta.DataHora)}}</td>
-                        <td>{{util.formatarHora(consulta.DataHora)}}</td>
-                        <td>{{util.formatarHora(util.addMinutes(consulta.DataHora, consulta.Duracao))}}</td>
+                        <td>{{consulta.DataHora | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{consulta.DataHora | date: 'HH:mm'}}</td>
+                        <td>{{util.addMinutes(consulta.DataHora, consulta.Duracao) | date: 'HH:mm'}}</td>
                         <td ng-class="{'text-primary': getNomeStatusConsulta(consulta.Status) == 'Agendada', 
                                        'text-danger': getNomeStatusConsulta(consulta.Status) == 'Cancelada',
                                        'text-success': getNomeStatusConsulta(consulta.Status) == 'Realizada'}">{{getNomeStatusConsulta(consulta.Status)}}</td>
@@ -73,7 +73,7 @@
         <div class="form-group row">
             <label for="data" class="col-sm-3 col-form-label">Data</label>
             <div class="col-sm-3">
-                <input id="data" class="form-control" type="text" value="{{util.formatarData(consulta.DataHora)}}" readonly>
+                <input id="data" class="form-control" type="text" value="{{consulta.DataHora | date: 'dd/MM/yyyy'}}" readonly>
             </div>
             <label for="status" class="col-sm-3 col-form-label">Status</label>
             <div class="col-sm-3">
@@ -87,11 +87,11 @@
         <div class="form-group row">
             <label for="horainicio" class="col-sm-3 col-form-label">Hora de início</label>
             <div class="col-sm-3">
-                <input id="horainicio" class="form-control" type="text" value="{{util.formatarHora(consulta.DataHora)}}" readonly>
+                <input id="horainicio" class="form-control" type="text" value="{{consulta.DataHora | date: 'HH:mm'}}" readonly>
             </div>
             <label for="horafim" class="col-sm-3 col-form-label">Hora de término</label>
             <div class="col-sm-3">
-                <input id="horafim" class="form-control" type="text" value="{{util.formatarHora(util.addMinutes(consulta.DataHora, consulta.Duracao))}}" readonly>
+                <input id="horafim" class="form-control" type="text" value="{{util.addMinutes(consulta.DataHora, consulta.Duracao) | date: 'HH:mm'}}" readonly>
             </div>
         </div>
         <div class="form-group" ng-show="getNomeStatusConsulta(consulta.Status) == 'Realizada'">

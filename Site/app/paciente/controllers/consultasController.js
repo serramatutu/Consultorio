@@ -19,8 +19,10 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
         })
 
         informationService.getAgendaPaciente().then(function (response) {
-            for (let i = 0; i < response.data.length; i++)
+            for (let i = 0; i < response.data.length; i++) {
                 response.data[i].DataHora = new Date(response.data[i].DataHora);
+                console.log(response.data[i].DataHora)
+            }
 
             $scope.consultas = response.data;
         });

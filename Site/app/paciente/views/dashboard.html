@@ -31,7 +31,7 @@
                 <tbody>
                   <tr ng-repeat="consulta in consultas">
                     <td>{{consulta.Medico.Nome}}</td>
-                    <td>{{formatarData(consulta.DataHora)}}</td>
+                    <td>{{consulta.DataHora | date: 'dd/MM/yyyy - HH:mm'}}</td>
                   </tr>
                 </tbody>
               </table>

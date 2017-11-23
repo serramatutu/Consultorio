@@ -34,12 +34,13 @@ namespace ConsultorioAPI.Models
             }
             set
             {
-                if (value < DateTime.Now)
+                if (value < DateTime.UtcNow)
                     throw new ArgumentException("Não pode marcar consulta no passado");
 
                 var dataFim = value.AddMinutes(Duracao);
 
-                if (value.Hour < 9 || dataFim.Hour > 17 || (dataFim.Hour > 12 && value.Hour < 14))
+                // Horários em UTC
+                if (value.Hour < 11 || dataFim.Hour > 19 || (dataFim.Hour > 14 && value.Hour < 16))
                     throw new ArgumentException("Horário de consulta inválido");
 
                 _dataHora = value;
