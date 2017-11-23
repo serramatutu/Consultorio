@@ -115,22 +115,23 @@ namespace ConsultorioAPI.Database.Repositories
         public async Task<ResultadoOperacao> CancelarConsulta(Guid idConsulta, Guid idPaciente)
         {
             Consulta c = GetConsulta(idConsulta);
-            if (c == null)
+            if (c == null || !c.Paciente.Id.Equals(idPaciente))
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,
                     Mensagem = "Consulta inexistente"
                 };
 
-            if (!c.Paciente.Id.Equals(idPaciente)) // Um paciente não pode cancelar uma consulta que não é dele
+            if (c.Status != StatusConsulta.Agendada)
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,
-                    Mensagem = "Consulta inexistente"
+                    Mensagem = "Não é possível cancelar consulta não agendada"
                 };
 
+            var medico = c.Medico; // Força o LazyLoader pq a implementação do EF é ruim pra isso :( (se tirar dá erro)
             c.Status = StatusConsulta.Cancelada;
-            _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
+            _ctx.Entry(c).Property(x => x.Status).IsModified = true;
 
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
                 return ResultadoOperacao.ErroBD;
@@ -179,7 +180,7 @@ namespace ConsultorioAPI.Database.Repositories
                 };
 
             c.Avaliacao = avaliacao;
-            _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
+            _ctx.Entry(c).Property(x => x.Avaliacao).IsModified = true;
 
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
                 return ResultadoOperacao.ErroBD;

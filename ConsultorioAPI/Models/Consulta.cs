@@ -86,7 +86,6 @@ namespace ConsultorioAPI.Models
         [Required]
         public virtual Paciente Paciente { get; set; }
 
-        [Required]
         [EnumDataType(typeof(StatusConsulta))]
         public virtual StatusConsulta Status { get; set; }
 
