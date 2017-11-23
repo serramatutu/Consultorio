@@ -22,7 +22,7 @@ namespace ConsultorioAPI.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> GetMedicos([FromBody]string[] especialidades)
         {
-            return Ok(_medicoRepo.GetMedicos(especialidades).Select(x => new DisplayMedico(x)));
+            return Ok(_medicoRepo.GetMedicos(especialidades));
         }
 
         [Route("getespecialidades")]

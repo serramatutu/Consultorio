@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="consulta in consultas | filter:{Medico: {Especialidade:especialidade||undefined}}:true | filter:{Status: status||undefined}">
+                    <tr ng-repeat="consulta in consultas | filter:{Medico: {Especialidade: {Nome: especialidade||undefined}}}:true | filter:{Status: status||undefined}">
                         <td>{{consulta.Medico.Nome}}</td>
                         <td>{{util.formatarData(consulta.DataHora)}}</td>
                         <td>{{util.formatarHora(consulta.DataHora)}}</td>
@@ -49,7 +49,8 @@
                                        'text-danger': getNomeStatusConsulta(consulta.Status) == 'Cancelada',
                                        'text-success': getNomeStatusConsulta(consulta.Status) == 'Realizada'}">{{getNomeStatusConsulta(consulta.Status)}}</td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-primary" ng-click="alterar()">Editar</button>
+                            <button type="button" class="btn btn-xs btn-primary" 
+                                    ng-click="modalConsulta(consulta)">Editar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -57,3 +58,71 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="editarconsulta.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Avalie sua consulta!</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="form-group row">
+            <label for="medico" class="col-sm-3 col-form-label">Médico:</label>
+            <div class="col-sm-9">
+                <input id="medico" class="form-control" type="text" value="{{consulta.Medico.Nome}}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="data" class="col-sm-3 col-form-label">Data:</label>
+            <div class="col-sm-3">
+                <input id="data" class="form-control" type="text" value="{{util.formatarData(consulta.DataHora)}}" readonly>
+            </div>
+            <label for="status" class="col-sm-3 col-form-label">Status:</label>
+            <div class="col-sm-3">
+                <span id="status" class="label" 
+                      ng-class="{'label-primary': getNomeStatusConsulta(consulta.Status) == 'Agendada',
+                                 'label-danger': getNomeStatusConsulta(consulta.Status) == 'Cancelada',
+                                 'label-success': getNomeStatusConsulta(consulta.Status) == 'Realizada'}" 
+                      type="text">{{getNomeStatusConsulta(consulta.Status)}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="horainicio" class="col-sm-3 col-form-label">Horário de início</label>
+            <div class="col-sm-3">
+                <input id="horainicio" class="form-control" type="text" value="{{util.formatarHora(consulta.DataHora)}}" readonly>
+            </div>
+            <label for="horafim" class="col-sm-3 col-form-label">Horário de término</label>
+            <div class="col-sm-3">
+                <input id="horafim" class="form-control" type="text" value="{{util.formatarHora(util.addMinutes(consulta.DataHora, consulta.Duracao))}}" readonly>
+            </div>
+        </div>
+        <div class="form-group" ng-show="getNomeStatusConsulta(consulta.Status) == 'Realizada'">
+            <label for="diagnostico">Diagnóstico:</label>
+            <textarea id="diagnostico" class="form-control" readonly>
+                {{consulta.Diagnostico}}
+            </textarea>
+        </div>
+
+        <!-- Avaliação da consulta -->
+        <div id="avaliacao" ng-show="getNomeStatusConsulta(consulta.Status) == 'Realizada'">
+            <h3>Sua avaliação</h3>
+            <hr />
+            <form>
+                <div class="form-group row">
+                    <label for="nota" class="col-sm-3 col-form-label">Nota do atendimento</label>
+                    <div class="col-sm-9">
+                        <input id="nota" data-ng-model="avaliacao.nota" class="form-control" type="number" min="0" max="10" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comentario">Nota do atendimento</label>
+                    <textarea id="comentario" data-ng-model="avaliacao.comentario" class="form-control" 
+                              placeholder="Conte-nos como foi sua experiência com {{consulta.Medico.Nome}}!" required></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="avaliarConsulta()" ng-show="getNomeStatusConsulta(consulta.Status) == 'Realizada'">Avaliar</button>
+        <button class="btn btn-primary" type="button" ng-click="cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.Status) == 'Agendada'">Cancelar consulta</button>
+        <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
+    </div>
+</script>

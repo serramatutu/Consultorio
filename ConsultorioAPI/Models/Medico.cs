@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace ConsultorioAPI.Models
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]
+        [JsonIgnore]
         public virtual LoginUsuario DadosLogin { get; set; }
 
         [Required]
@@ -44,6 +46,7 @@ namespace ConsultorioAPI.Models
         [Required]
         public virtual DateTime DataNasc { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Consulta> Consultas { get; set; }
 
         //public virtual Bitmap Foto { get; set; }

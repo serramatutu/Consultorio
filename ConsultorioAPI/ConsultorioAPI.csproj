@@ -229,14 +229,13 @@
     </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="Models\ViewModels\AgendamentoConsulta.cs" />
+    <Compile Include="Models\ViewModels\AvaliacaoConsulta.cs" />
     <Compile Include="Models\ViewModels\CadastroUserModel.cs" />
     <Compile Include="Models\Consulta.cs" />
     <Compile Include="Models\LoginUsuario.cs" />
     <Compile Include="Models\Especialidade.cs" />
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\Paciente.cs" />
-    <Compile Include="Models\ViewModels\DisplayConsulta.cs" />
-    <Compile Include="Models\ViewModels\DisplayMedico.cs" />
     <Compile Include="Models\ViewModels\DisplayPaciente.cs" />
     <Compile Include="Models\ViewModels\DisplayUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

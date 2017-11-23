@@ -16,14 +16,24 @@ namespace ConsultorioAPI.Controllers
         ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
         MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
 
+        public class IdDiagnosticoConsulta
+        {
+            public IdDiagnosticoConsulta()
+            { }
+
+            public Guid IdConsulta { get; set; }
+            
+            public string Diagnostico { get; set; }
+        }
+
         [Route("comentarconsulta")]
         [HttpPost]
-        public async Task<IHttpActionResult> ComentarConsulta([FromBody]Guid idConsulta, [FromBody]string comentario)
+        public async Task<IHttpActionResult> ComentarConsulta([FromBody]IdDiagnosticoConsulta param)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ResultadoOperacao r = await _consultaRepo.ComentarConsultaMedico(comentario, idConsulta);
+            ResultadoOperacao r = await _consultaRepo.AlterarDiagnostico(param.Diagnostico, param.IdConsulta, GetUsuarioAtual().Id);
             return GetErrorResult(r);
         }
 
@@ -32,7 +42,7 @@ namespace ConsultorioAPI.Controllers
         public async Task<IHttpActionResult> GetAgenda()
         {
             var consultas = _consultaRepo.GetConsultasDeMedico(GetUsuarioAtual().Id).OrderBy(x => x.DataHora);
-            return Ok(consultas.Select(x => new DisplayConsulta(x)));
+            return Ok(consultas);
         }
 
         public Medico GetUsuarioAtual()

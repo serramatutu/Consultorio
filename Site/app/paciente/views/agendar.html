@@ -22,13 +22,19 @@
         <div class="form-group row">
             <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
             <div class="col-md-10">
-                <select id="especialidade" class="form-control" ng-model="especialidade" ng-options="especialidade as especialidade.Nome for especialidade in especialidades"></select>
+                <select id="especialidade" class="form-control" ng-model="especialidade">
+                    <option value="{{undefined}}" selected="selected">Todos</option>
+                    <option ng-repeat="especialidade in especialidades" value="{{especialidade.Nome}}">
+                        {{especialidade.Nome}}
+                    </option>
+                </select>
             </div>
         </div>
         <div class="form-group row">
             <label for="medico" class="col-md-2 col-form-label">Médico</label>
             <div class="col-md-10">
-                <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel" ng-options="medico as medico.Nome for medico in medicos | filter:{Especialidade:especialidade.Nome}:true"></select>
+                <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel" ng-options="medico as medico.Nome for medico in medicos | 
+                        filter:{Especialidade: {Nome: especialidade||undefined}}:true"></select>
             </div>
         </div>
 

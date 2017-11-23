@@ -67,7 +67,7 @@ namespace ConsultorioAPI.Controllers
                     //    content.Add("Admin", new DisplayAdmin(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
                     //    break;
                     case "medico":
-                        content.Add("Medico", new DisplayMedico(_medicoRepo.GetMedico(User.Identity.Name)));
+                        content.Add("Medico", _medicoRepo.GetMedico(User.Identity.Name));
                         break;
                 }
             }

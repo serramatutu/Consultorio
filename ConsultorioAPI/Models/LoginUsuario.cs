@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -42,6 +43,7 @@ namespace ConsultorioAPI.Models
         /// </summary>
         [Column(TypeName = "char"), MaxLength(68)]
         [Required]
+        [JsonIgnore]
         public virtual string HashSenha { get; set; }
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace ConsultorioAPI.Models
         /// </summary>
         [Column(TypeName = "varchar"), MaxLength(64)]
         [Required]
+        [JsonIgnore]
         public virtual string SecurityStamp { get; set; }
 
         public virtual ICollection<PapelUsuario> Papeis { get; private set; }

@@ -22,7 +22,7 @@ namespace ConsultorioAPI.Controllers
         {
             var consultas = _consultaRepo.GetConsultasDeUsuario(GetUsuarioAtual().Id)
                                          .OrderBy(x => x.DataHora);
-            return Ok(consultas.Select(x => new DisplayConsulta(x)));
+            return Ok(consultas);
         }
 
         [Route("agendarconsulta")]
@@ -46,6 +46,26 @@ namespace ConsultorioAPI.Controllers
                 return BadRequest(ModelState);
 
             ResultadoOperacao resultado = await _consultaRepo.CancelarConsulta(idConsulta, GetUsuarioAtual().Id);
+
+            return GetErrorResult(resultado);
+        }
+
+        public class IdConsultaAvaliacaoConsulta
+        {
+            public IdConsultaAvaliacaoConsulta()
+            { }
+            public Guid IdConsulta { get; set; }
+            public AvaliacaoConsulta Avaliacao { get; set; }
+        }
+
+        [Route("avaliarconsulta")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AvaliarConsulta([FromBody]IdConsultaAvaliacaoConsulta param)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            ResultadoOperacao resultado = await _consultaRepo.AvaliarConsulta(param.Avaliacao, param.IdConsulta, GetUsuarioAtual().Id);
 
             return GetErrorResult(resultado);
         }

@@ -43,7 +43,7 @@ namespace ConsultorioAPI.Database.Repositories
                 if (Math.Abs(diferenca) < (diferenca > 0 ? a.Duracao : c.Duracao))
                     achouConsulta = true;
 
-                return c.MedicoResponsavel.Id == medicoResponsavel.Id &&
+                return c.Medico.Id == medicoResponsavel.Id &&
                         c.Status != StatusConsulta.Cancelada && // Se a consulta está cancelada, o horário dela está disponível
                         achouConsulta;
             });
@@ -87,7 +87,7 @@ namespace ConsultorioAPI.Database.Repositories
                     Duracao = a.Duracao,
                     DataHora = a.DataHora,
                     Status = StatusConsulta.Agendada,
-                    MedicoResponsavel = _ctx.Medicos.FirstOrDefault(x => x.CRM == a.CRMMedicoResponsavel),
+                    Medico = _ctx.Medicos.FirstOrDefault(x => x.CRM == a.CRMMedicoResponsavel),
                     Paciente = p
                 };
             }
@@ -143,17 +143,17 @@ namespace ConsultorioAPI.Database.Repositories
         /// </summary>
         /// <param name="comentario">Comentário novo</param>
         /// <param name="idConsulta">Consulta a ter seu comentário modificado</param>
-        public async Task<ResultadoOperacao> ComentarConsultaMedico(string comentario, Guid idConsulta)
+        public async Task<ResultadoOperacao> AlterarDiagnostico(string diagnostico, Guid idConsulta, Guid idMedico)
         {
             Consulta c = GetConsulta(idConsulta);
-            if (c == null)
+            if (c == null || !c.Medico.Id.Equals(idMedico))
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,
                     Mensagem = "Consulta inexistente"
                 };
 
-            c.ComentarioMedico = comentario;
+            c.Diagnostico = diagnostico;
             _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
 
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
@@ -163,21 +163,22 @@ namespace ConsultorioAPI.Database.Repositories
         }
 
         /// <summary>
-        /// Modifica o comentário um paciente de uma consulta
+        /// Modifica a avaliação de um paciente de uma consulta
         /// </summary>
-        /// <param name="comentario">Comentário novo</param>
-        /// <param name="idConsulta">Consulta a ter seu comentário modificado</param>
-        public async Task<ResultadoOperacao> ComentarConsultaPaciente(string comentario, Guid idConsulta)
+        /// <param name="avaliacao">Avaliação nova</param>
+        /// <param name="idConsulta">Consulta a ter sua avaliação modificado</param>
+        /// /// <param name="idPaciente">Paciente da consulta</param>
+        public async Task<ResultadoOperacao> AvaliarConsulta(AvaliacaoConsulta avaliacao, Guid idConsulta, Guid idPaciente)
         {
             Consulta c = GetConsulta(idConsulta);
-            if (c == null)
+            if (c == null || !c.Paciente.Id.Equals(idPaciente))
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,
                     Mensagem = "Consulta inexistente"
                 };
 
-            c.ComentarioPaciente = comentario;
+            c.Avaliacao = avaliacao;
             _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
 
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
@@ -193,12 +194,12 @@ namespace ConsultorioAPI.Database.Repositories
 
         public Consulta[] GetConsultasDeMedico(Guid idMedico)
         {
-            return _ctx.Consultas.Where(x => x.MedicoResponsavel.Id.Equals(idMedico)).ToArray();
+            return _ctx.Consultas.Where(x => x.Medico.Id.Equals(idMedico)).ToArray();
         }
 
         public Consulta[] GetConsultasDeMedico(string CRM)
         {
-            return _ctx.Consultas.Where(x => x.MedicoResponsavel.CRM == CRM).ToArray();
+            return _ctx.Consultas.Where(x => x.Medico.CRM == CRM).ToArray();
         }
 
         protected Consulta GetConsulta(Guid idConsulta)

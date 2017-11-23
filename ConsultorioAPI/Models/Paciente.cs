@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,7 @@ namespace ConsultorioAPI.Models
         public virtual Guid Id { get; set; }
 
         [Column("IdUsuario")]
+        [JsonIgnore]
         public virtual LoginUsuario DadosLogin { get; set; }
 
         [Required]

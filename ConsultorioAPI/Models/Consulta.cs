@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsultorioAPI.Models.ViewModels;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -72,16 +73,15 @@ namespace ConsultorioAPI.Models
         /// Prescrições etc
         /// </summary>
         [Column(TypeName = "ntext")]
-        public virtual string ComentarioMedico { get; set; }
+        public virtual string Diagnostico { get; set; }
 
         /// <summary>
-        /// Motivo pela qual foi cancelada, avaliações do médico etc
+        /// Avaliação dada pelo paciente ao serviço prestado
         /// </summary>
-        [Column(TypeName = "ntext")]
-        public virtual string ComentarioPaciente { get; set; }
+        public virtual AvaliacaoConsulta Avaliacao { get; set; } = new AvaliacaoConsulta();
 
         [Required]
-        public virtual Medico MedicoResponsavel { get; set; }
+        public virtual Medico Medico { get; set; }
 
         [Required]
         public virtual Paciente Paciente { get; set; }
