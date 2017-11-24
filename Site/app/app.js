@@ -75,6 +75,11 @@ app.config(function ($provide, $routeProvider, $locationProvider) {
         }
     });
 
+    $routeProvider.when("/admin/cadastro", {
+        controller: "cadastroMedicoController",
+        templateUrl: "/app/admin/views/cadastroMedico.html"
+    });
+
     // Habilitar isso depois
     $locationProvider.html5Mode(true); //Remove '#' da URL.
 }).run(['$routeProvider', 'authService', function ($routeProvider, authService) {

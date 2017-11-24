@@ -14,23 +14,30 @@ namespace ConsultorioAPI.Controllers
     public class AdminController : BaseConsultorioController
     {
         private AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
+        private MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
         private EspecialidadeRepository _especialidadeRepo = new EspecialidadeRepository(new ConsultorioDbContext());
+
+        public class MedicoCadastroUserModel
+        {
+            public CadastroUserModel UserModel { get; set; }
+
+            public Medico Medico { get; set; }
+        }
 
         [Route("cadastrarmedico")]
         [HttpPost]
-        public async Task<IHttpActionResult> CadastrarMedico([FromBody]CadastroUserModel userModel, [FromBody]Medico medico)
+        public async Task<IHttpActionResult> CadastrarMedico([FromBody]MedicoCadastroUserModel dados)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
-            }
 
-            IdentityResult result = await _authRepo.RegisterUser(userModel, "medico");
-
+            IdentityResult result = await _authRepo.RegisterUser(dados.UserModel, "medico");
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)
                 return errorResult;
+
+            //ResultadoOperacao resultado = _medicoRepo.
 
             return Ok();
         }
@@ -41,5 +48,7 @@ namespace ConsultorioAPI.Controllers
         {
             return GetErrorResult(await _especialidadeRepo.CreateAsync(nomeEspecialidade));
         }
+
+        // TODO: Dispose
     }
 }

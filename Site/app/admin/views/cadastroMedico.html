@@ -1,17 +1,12 @@
-<div data-ng-hide="message == ''" class="alert" data-ng-class="(savedSuccessfully) ? 'alert-success' : 'alert-danger'">
-    {{message}}
-</div>
-
 <div class="row">
     <div class="col-md-12">
-        <h1>Cadastre-se</h1>
+        <h1>Cadastro de médico</h1>
         <hr>
         </div>
 </div>
 
 <form class="form" role="form">
     <div class="col-sm-1"></div>
-
     <div class="col-sm-5">
         <h2>Informações de login</h2>
         <br>
@@ -40,7 +35,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-sm-5">
         <h2>Informações pessoais</h2>
         <br>
@@ -48,12 +42,6 @@
             <label for="data" class="col-md-2 col-form-label">Nome</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="duracao" class="col-md-2 col-form-label">Endereço</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" placeholder="Endereço" data-ng-model="registration.endereco" required/>
             </div>
         </div>
         <div class="form-group row">
@@ -69,9 +57,12 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="medico" class="col-md-2 col-form-label">Celular</label>
+            <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
             <div class="col-md-10">
-                <input type="tel" class="form-control" placeholder="Celular" data-ng-model="registration.celular" required />
+                <select class="form-control" id="especialidade" ng-model="especialidade">
+                    <option value="{{undefined}}">Selecione a especialidade</option>
+                    <option value="{{especialidade.Nome}}" ng-repeat="especialidade in especialidades">{{especialidade.Nome}}</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">

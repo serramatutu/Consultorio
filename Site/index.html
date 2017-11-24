@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html data-ng-app="Consultorio">
 <head>
-    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <base href="/">
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" charset="utf-8"/>
     <title>Consultório</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="content/css/site.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://bootswatch.com/3/yeti/bootstrap.min.css" crossorigin="anonymous">
+    <link href="content/css/site.css" rel="stylesheet" type="text/css"/>
     <link href="node_modules/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <base href="/">
@@ -87,22 +89,26 @@
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
-    
+
     <!-- Load app main script -->
     <script src="app/app.js"></script>
     <!-- Load services -->
     <script src="app/common/services/authInterceptorService.js"></script>
     <script src="app/common/services/authService.js"></script>
+    <script src="app/common/services/modalService.js"></script>
     <script src="app/common/services/informationService.js"></script>
-    <script src="app//common/services/utilitiesService.js"></script>
+    <script src="app/common/services/utilitiesService.js"></script>
 
     <!-- Load controllers -->
+    <script src="app/admin/controllers/cadastroMedicoController.js"></script>
+
     <script src="app/common/controllers/indexController.js"></script>
     <script src="app/common/controllers/homeController.js"></script>
     <script src="app/common/controllers/loginController.js"></script>
     <script src="app/common/controllers/cadastroController.js"></script>
 
     <script src="app/paciente/services/pacienteService.js"></script>
+    <script src="app/paciente/controllers/agendarConsultaModalController.js"></script>
     <script src="app/paciente/controllers/dashboardController.js"></script>
     <script src="app/paciente/controllers/contaController.js"></script>
     <script src="app/paciente/controllers/consultasController.js"></script>

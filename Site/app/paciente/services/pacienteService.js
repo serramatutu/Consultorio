@@ -3,9 +3,7 @@ app.factory('pacienteService', ['$rootScope', '$http', function ($rootScope, $ht
     var pacienteServiceFactory = {};
 
     var _agendarConsulta = function (agendamento) {
-        return $http.post($rootScope.apiDomain + '/paciente/agendarconsulta', agendamento).then(function success(response) {
-            return response;
-        });
+        return $http.post($rootScope.apiDomain + '/paciente/agendarconsulta', agendamento);
     }
 
     var _avaliarConsulta = function (idConsulta, avaliacao) {
@@ -24,5 +22,5 @@ app.factory('pacienteService', ['$rootScope', '$http', function ($rootScope, $ht
     pacienteServiceFactory.cancelarConsulta = _cancelarConsulta;
     pacienteServiceFactory.avaliarConsulta = _avaliarConsulta;
 
-    return pacienteServiceFactory;        
+    return pacienteServiceFactory;
 }]);
