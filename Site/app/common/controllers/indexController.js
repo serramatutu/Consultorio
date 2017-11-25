@@ -1,10 +1,11 @@
 ﻿'use strict';
-app.controller('indexController', ['$scope', '$rootScope', '$location', 'authService', function ($scope, $rootScope, $location, authService) {
+app.controller('indexController', ['$scope', '$rootScope', '$location', 'authService', 'access',
+    function ($scope, $rootScope, $location, authService, access) {
     $scope.logOut = function () {
         authService.logOut();
         $location.path('/home');
     }
 
-    $scope.authService = authService;
+    $scope.access = access;
     $scope.isCollapsed = true;
 }]);

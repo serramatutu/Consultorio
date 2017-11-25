@@ -96,7 +96,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
     // Obtém as informações do usuário atual
     authService.getUserData().then(function (response) {
         $scope.loginData = response.data.LoginData;
-        $scope.userData = response.data.Paciente;
+        $scope.userData = response.data.paciente;
     });
 
     authService.get

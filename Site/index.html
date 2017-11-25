@@ -13,7 +13,7 @@
 </head>
 <body>
   <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController" style="margin: 0">
-    <div class="container-fluid" data-ng-hide="authService.auth.isAuthenticated">
+    <div class="container-fluid" data-ng-hide="access.isAuthenticated()">
     <!--  Colapse navbar  -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="container-fluid" data-ng-hide="!authService.auth.isAuthenticated">
+    <div class="container-fluid" data-ng-hide="!access.isAuthenticated()">
     <!--  Colapse navbar  -->
       <div class="navbar-header">
         <span uib-dropdown on-toggle="toggled(open)">
@@ -64,7 +64,7 @@
   </nav>
 
     <div class="container-fluid">
-        <div data-ng-view="">
+        <div ui-view>
         </div>
     </div>
 
@@ -86,15 +86,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.6.6/angular-touch.min.js"></script>
     <script src="node_modules/angular-bootstrap-npm/dist/angular-bootstrap.js"></script>
     <script src="node_modules/angular-bootstrap-npm/dist/angular-bootstrap-tpls.js "></script>
-    <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
 
     <!-- Load app main script -->
     <script src="app/app.js"></script>
+
+    <!-- Auth -->
+    <script src="app/common/auth/authInterceptorService.js"></script>
+    <script src="app/common/auth/authService.js"></script>
+    <script src="app/common/auth/access.js"></script>
+    <script src="app/common/auth/userState.js"></script>
+
     <!-- Load services -->
-    <script src="app/common/services/authInterceptorService.js"></script>
-    <script src="app/common/services/authService.js"></script>
     <script src="app/common/services/modalService.js"></script>
     <script src="app/common/services/informationService.js"></script>
     <script src="app/common/services/utilitiesService.js"></script>

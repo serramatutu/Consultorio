@@ -1,97 +1,78 @@
-﻿var app = angular.module('Consultorio', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'ngAnimate']);
+﻿var app = angular.module('Consultorio', ['LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'ngAnimate', 'ui.router']);
 
 // Configura as rotas do site
-app.config(function ($provide, $routeProvider, $locationProvider) {
-    // Permite que se use o routeProvider em app.run
-    $provide.factory('$routeProvider', function () {
-        return $routeProvider;
-    });
+app.config(function ($stateProvider, $locationProvider /*, $urlRouteProvider */) {
+    //$urlRouteProvider.otherwise('/');
 
-    // Permite apenas entrada de usuário logado
-    var permitirLogado = function ($location, $q, authService) {
-        var d = $q.defer();
-        if (authService.auth.isAuthenticated) {
-            d.resolve(); // Caso esteja logado
-        } else {
-            d.reject(); // Caso não esteja logado
-            $location.url('/login');
-        }
-        return d.promise;
-    };
-
-    var naoPermitirLogado = function ($location, $q, authService) {
-        var d = $q.defer();
-        if (!authService.auth.isAuthenticated) {
-            d.resolve(); // Caso não esteja logado
-        } else {
-            d.reject(); // Caso esteja logado
-            $location.url('/dashboard');
-        }
-        return d.promise;
-    };
-
-    $routeProvider.when("/home", {
+    $stateProvider.state("home", {
         controller: "homeController",
         templateUrl: "/app/common/views/home.html",
         resolve: {
-            loggedIn: naoPermitirLogado
+            access: ["access", function (access) { return access.isAnonymous(); }]
         }
     });
 
-    $routeProvider.when("/login", {
+    $stateProvider.state("login", {
         controller: "loginController",
-        templateUrl: "/app/common/views/login.html"
+        templateUrl: "/app/common/views/login.html",
+        resolve: {
+            access: ["access", function (access) { return access.isAnonymous(); }]
+        }
     });
 
-    $routeProvider.when("/cadastro", {
+    $stateProvider.state("cadastro", {
         controller: "cadastroController",
         templateUrl: "/app/common/views/cadastro.html",
         resolve: {
-            loggedIn: naoPermitirLogado
+            access: ["access", function (access) { return access.isAnonymous(); }]
         }
     });
 
-    $routeProvider.when("/dashboard", {
+    $stateProvider.state("dashboard", {
         controller: "dashboardController",
         templateUrl: "/app/paciente/views/dashboard.html",
         resolve: {
-            loggedIn: permitirLogado
+            access: ["access", function (access) { return access.hasRole("paciente"); }]
         }
     });
 
-    $routeProvider.when("/conta", {
+    $stateProvider.state("conta", {
         controller: "contaController",
         templateUrl: "/app/paciente/views/conta.html",
         resolve: {
-            loggedIn: permitirLogado
+            access: ["access", function (access) { return access.hasRole("paciente"); }]
         }
     });
 
-    $routeProvider.when("/consultas", {
+    $stateProvider.state("consultas", {
         controller: "consultasController",
         templateUrl: "/app/paciente/views/consultas.html",
         resolve: {
-            loggedIn: permitirLogado
+            access: ["access", function (access) { return access.hasRole("paciente"); }]
         }
     });
 
-    $routeProvider.when("/admin/cadastro", {
+    $stateProvider.state("admin/cadastro", {
         controller: "cadastroMedicoController",
-        templateUrl: "/app/admin/views/cadastroMedico.html"
+        templateUrl: "/app/admin/views/cadastroMedico.html",
+        resolve: {
+            access: ["access", function (access) { return access.hasRole("admin"); }]
+        }
     });
 
-    // Habilitar isso depois
     $locationProvider.html5Mode(true); //Remove '#' da URL.
-}).run(['$routeProvider', 'authService', function ($routeProvider, authService) {
+}).run(['$rootScope', '$state', 'access', 'authService', function ($rootScope, $state, access, authService) {
     authService.fillAuthData();
 
-    // Caso url não seja válida, redireciona para o devido lugar
-    $routeProvider.otherwise({ // TODO: Diferente para admin, paciente e medico
-        redirectTo: function () {
-            if (authService.auth.isAuthenticated)
-                return '/dashboard';
+    $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+        switch (error) {
+            case access.UNAUTHORIZED:
+                $state.go("cadastro");
+                break;
 
-            return '/home';
+            case access.FORBIDDEN:
+                state.go("proibido");
+                break;
         }
     });
 }]);

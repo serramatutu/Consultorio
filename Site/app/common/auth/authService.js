@@ -24,7 +24,6 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
     }
 
     var _login = function (loginData) {
-
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
         var deferred = $q.defer();
@@ -48,7 +47,6 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
     };
 
     var _logOut = function () {
-
         localStorageService.remove('authorizationData');
 
         _auth.isAuthenticated = false;
@@ -56,17 +54,8 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
 
     };
 
-    var _fillAuthData = function () {
-
-        var authData = localStorageService.get('authorizationData');
-        if (authData) {
-            _auth.isAuthenticated = true;
-            _auth.userName = authData.userName;
-        }
-    }
-
-    var _getUserData = function () {
-        return $http.get($rootScope.apiDomain + '/conta/getuserdata');
+    var _getProfile = function () {
+        return $http.get($rootScope.apiDomain + '/conta/getauthdata');
     }
 
     authServiceFactory.cadastrar = _cadastrar;
@@ -74,7 +63,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.auth = _auth;
-    authServiceFactory.getUserData = _getUserData;
+    authServiceFactory.getProfile = _getProfile;
     $rootScope.auth = _auth;
 
     return authServiceFactory;
