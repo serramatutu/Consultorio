@@ -17,7 +17,7 @@ app.factory('informationService', ['$rootScope', '$http', function ($rootScope, 
        return $http.get($rootScope.apiDomain + '/paciente/agenda');
     }
 
-    service.getNomeStatusConsulta = function (status) {
+    service.getnomestatusConsulta = function (status) {
         switch (status) {
             case 0: return 'Agendada';
                 break;

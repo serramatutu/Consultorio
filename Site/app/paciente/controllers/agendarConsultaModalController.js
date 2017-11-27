@@ -24,7 +24,7 @@ app.controller('agendarConsultaModalController', ['$rootScope', '$scope', 'infor
                 $scope.$close();
             }, function err(response) {
                 var errors = [];
-                var ms = response.data.ModelState || response.data.modelState;
+                var ms = response.data.modelState;
                 if (!!ms)
                     for (var key in ms) {
                         for (var i = 0; i < ms[key].length; i++) {
@@ -32,7 +32,7 @@ app.controller('agendarConsultaModalController', ['$rootScope', '$scope', 'infor
                         }
                     }
                 else
-                    errors.push(response.data.Message);
+                    errors.push(response.data.message);
 
                 $scope.message = "Não pôde agendar a consulta devido a: " + errors.join(' ');
             });

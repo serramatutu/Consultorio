@@ -7,8 +7,8 @@
         <div class="col-md-10">
             <select id="especialidade" class="form-control" ng-model="especialidade">
                 <option value="{{undefined}}" selected="selected">Todos</option>
-                <option ng-repeat="especialidade in especialidades" value="{{especialidade.Nome}}">
-                    {{especialidade.Nome}}
+                <option ng-repeat="especialidade in especialidades" value="{{especialidade.nome}}">
+                    {{especialidade.nome}}
                 </option>
             </select>
         </div>
@@ -33,8 +33,8 @@
         <label for="medico" class="col-md-2 col-form-label">Médico</label>
         <div class="col-md-10">
             <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel"
-                    ng-options="medico as medico.Especialidade.Nome+': '+ medico.Nome for medico in medicos |
-filter:{Especialidade: {Nome: especialidade||undefined}}:true"></select>
+                    ng-options="medico as medico.Especialidade.nome+': '+ medico.nome for medico in medicos |
+filter:{Especialidade: {nome: especialidade||undefined}}:true"></select>
         </div>
     </div>
     <div class="alert alert-warning" role="alert" ng-hide="message == ''">

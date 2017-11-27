@@ -12,14 +12,14 @@
                 <tbody>
                     <tr>
                         <th>Username:</th>
-                        <td>{{loginData.UserName}}</td>
+                        <td>{{loginData.userName}}</td>
                         <td>
                             <button type="button" class="btn btn-xs btn-primary" ng-click="open('username')">Alterar</button>
                         </td>
                     </tr>
                     <tr>
                         <th>E-Mail:</th>
-                        <td>{{loginData.Email}}</td>
+                        <td>{{loginData.email}}</td>
                         <td>
                             <button type="button" class="btn btn-xs btn-primary" ng-click="open('email')">Alterar</button>
                         </td>
@@ -41,28 +41,28 @@
                 <tbody>
                     <tr>
                         <th>Nome:</th>
-                        <td>{{userData.Nome}}</td>
+                        <td>{{userData.nome}}</td>
                         <td>
                             <button type="button" class="btn btn-xs btn-primary" ng-click="open('nome')">Alterar</button>
                         </td>
                     </tr>
                     <tr>
                         <th>Telefone:</th>
-                        <td>{{userData.Telefone}}</td>
+                        <td>{{userData.telefone}}</td>
                         <td>
                             <button type="button" class="btn btn-xs btn-primary" ng-click="open('telefone')">Alterar</button>
                         </td>
                     </tr>
                     <tr>
                         <th>Celular:</th>
-                        <td>{{userData.Celular}}</td>
+                        <td>{{userData.celular}}</td>
                         <td>
                             <button type="button" class="btn btn-xs btn-primary" ng-click="open('celular')">Alterar</button>
                         </td>
                     </tr>
                     <tr>
                         <th>Endereço:</th>
-                        <td>{{userData.Endereco}}</td>
+                        <td>{{userData.endereco}}</td>
                         <td>
                             <button type="button" class="btn btn-xs btn-primary" ng-click="open('endereco')">Alterar</button>
                         </td>
@@ -74,7 +74,7 @@
     <div class="col-md-3">
 
     </div>
-    <script type="text/ng-template" id="Nome.html">
+    <script type="text/ng-template" id="nome.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Editar nome</h3>
         </div>
@@ -87,7 +87,7 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="Email.html">
+    <script type="text/ng-template" id="email.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Editar e-mail</h3>
         </div>
@@ -100,7 +100,7 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="Telefone.html">
+    <script type="text/ng-template" id="telefone.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Editar telefone</h3>
         </div>
@@ -113,7 +113,7 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="Celular.html">
+    <script type="text/ng-template" id="celular.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Editar celular</h3>
         </div>
@@ -126,7 +126,7 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="Endereco.html">
+    <script type="text/ng-template" id="endereco.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Editar endereço</h3>
         </div>
@@ -154,7 +154,7 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="UserName.html">
+    <script type="text/ng-template" id="userName.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Editar username</h3>
         </div>
@@ -180,11 +180,11 @@
             </div>
             <div class="col-sm-4">
                 <h3>Informações Pessoais</h3>
-                <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="conta.nomeCompleto" required />
+                <input type="text" class="form-control" placeholder="nome completo" data-ng-model="conta.nomeCompleto" required />
                 <input type="text" class="form-control" placeholder="Endereço" data-ng-model="conta.endereco" required />
                 <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="conta.dataNasc" required />
-                <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="conta.telefone" required />
-                <input type="tel" class="form-control" placeholder="Celular" data-ng-model="conta.celular" required />
+                <input type="tel" class="form-control" placeholder="telefone" data-ng-model="conta.telefone" required />
+                <input type="tel" class="form-control" placeholder="celular" data-ng-model="conta.celular" required />
                 <div class="col-xs-4 not-padd">
                     <input id="fileInput" type="file" style="display:none;" onchange="angular.element(this).scope().selecionouArq()" />
                     <button type="button" name="button" class="btn btn-info" style="width: -webkit-fill-available" onclick="document.getElementById('fileInput').click()">Escolher Arquivo</button>

@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="duracao" class="col-md-2 col-form-label">Email</label>
+            <label for="duracao" class="col-md-2 col-form-label">email</label>
             <div class="col-md-10">
                 <input type="email" class="form-control" placeholder="E-mail" data-ng-model="registration.email" required />
             </div>
@@ -39,9 +39,9 @@
         <h2>Informações pessoais</h2>
         <br>
         <div class="form-group row">
-            <label for="data" class="col-md-2 col-form-label">Nome</label>
+            <label for="data" class="col-md-2 col-form-label">nome</label>
             <div class="col-md-10">
-                <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="registration.nomeCompleto" required/>
+                <input type="text" class="form-control" placeholder="nome completo" data-ng-model="registration.nomeCompleto" required/>
             </div>
         </div>
         <div class="form-group row">
@@ -51,9 +51,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="medico" class="col-md-2 col-form-label">Telefone</label>
+            <label for="medico" class="col-md-2 col-form-label">telefone</label>
             <div class="col-md-10">
-                <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="registration.telefone" required />
+                <input type="tel" class="form-control" placeholder="telefone" data-ng-model="registration.telefone" required />
             </div>
         </div>
         <div class="form-group row">
@@ -61,7 +61,7 @@
             <div class="col-md-10">
                 <select class="form-control" id="especialidade" ng-model="especialidade">
                     <option value="{{undefined}}">Selecione a especialidade</option>
-                    <option value="{{especialidade.Nome}}" ng-repeat="especialidade in especialidades">{{especialidade.Nome}}</option>
+                    <option value="{{especialidade.nome}}" ng-repeat="especialidade in especialidades">{{especialidade.nome}}</option>
                 </select>
             </div>
         </div>

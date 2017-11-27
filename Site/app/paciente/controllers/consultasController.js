@@ -12,7 +12,7 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
         $rootScope.$on('consultaChanged', function () {
             informationService.getAgendaPaciente().then(function (response) {
                 for (let i = 0; i < response.data.length; i++)
-                    response.data[i].DataHora = new Date(response.data[i].DataHora);
+                    response.data[i].dataHora = new Date(response.data[i].dataHora);
 
                 $scope.consultas = response.data;
             });
@@ -20,13 +20,13 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
 
         informationService.getAgendaPaciente().then(function (response) {
             for (let i = 0; i < response.data.length; i++)
-                response.data[i].DataHora = new Date(response.data[i].DataHora);
+                response.data[i].dataHora = new Date(response.data[i].dataHora);
 
             $scope.consultas = response.data;
         });
 
         $scope.util = util;
-        $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
+        $scope.getnomestatusConsulta = informationService.getnomestatusConsulta;
 
         $scope.modalConsulta = function (consulta) {
             var modal = $modal.open({
@@ -55,11 +55,11 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
 app.controller('editarConsultaModalController', ['$rootScope', '$scope', 'utilitiesService', 'informationService', 'pacienteService', 'consulta',
     function ($rootScope, $scope, utilitiesService, informationService, pacienteService, consulta) {
     $scope.consulta = consulta;
-    $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
+    $scope.getnomestatusConsulta = informationService.getnomestatusConsulta;
 
     // Envia a avaliação do paciente ao servidor
     $scope.avaliarConsulta = function () {
-        pacienteService.avaliarConsulta(consulta.Id, $scope.consulta.Avaliacao).then(function () {
+        pacienteService.avaliarConsulta(consulta.id, $scope.consulta.avaliacao).then(function () {
             $rootScope.$emit('consultaChanged', {});
             $scope.$close();
         });
@@ -67,7 +67,7 @@ app.controller('editarConsultaModalController', ['$rootScope', '$scope', 'utilit
 
     // Cancela a consulta especificada
     $scope.cancelarConsulta = function () {
-        pacienteService.cancelarConsulta(consulta.Id).then(function () {
+        pacienteService.cancelarConsulta(consulta.id).then(function () {
             $rootScope.$emit('consultaChanged', {});
             $scope.$close();
         });

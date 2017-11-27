@@ -7,7 +7,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
                 $scope.modalInstance = $modal.open({
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'Nome.html',
+                    templateUrl: 'nome.html',
                     controller: 'contaController'
                 });
                 break;
@@ -15,7 +15,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
                 $scope.modalInstance = $modal.open({
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'Email.html',
+                    templateUrl: 'email.html',
                     controller: 'contaController'
                 });
                 break;
@@ -23,7 +23,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
                 $scope.modalInstance = $modal.open({
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'Telefone.html',
+                    templateUrl: 'telefone.html',
                     controller: 'contaController'
                 });
                 break;
@@ -31,7 +31,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
                 $scope.modalInstance = $modal.open({
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'Celular.html',
+                    templateUrl: 'celular.html',
                     controller: 'contaController'
                 });
                 break;
@@ -39,7 +39,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
                 $scope.modalInstance = $modal.open({
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'Endereco.html',
+                    templateUrl: 'endereco.html',
                     controller: 'contaController'
                 });
                 break;
@@ -55,7 +55,7 @@ app.controller('contaController', ['$scope', '$uibModal', 'authService', functio
                 $scope.modalInstance = $modal.open({
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'UserName.html',
+                    templateUrl: 'userName.html',
                     controller: 'contaController'
                 });
                 break;
