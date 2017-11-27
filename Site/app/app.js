@@ -62,8 +62,6 @@ app.config(function ($stateProvider, $locationProvider /*, $urlRouteProvider */)
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
 }).run(['$rootScope', '$state', 'access', 'authService', function ($rootScope, $state, access, authService) {
-    authService.fillAuthData();
-
     $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
         switch (error) {
             case access.UNAUTHORIZED:

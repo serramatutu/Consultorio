@@ -1,6 +1,37 @@
-﻿app.factory("Access", ["$q", "userState", function ($q, userState) {
-    var Access = {
+﻿app.factory("access", ["$q", "userState", function ($q, userState) {
+    var _hasRole = function (auth, role) {
+        if (auth.hasRole(role))
+            return accessFactory.OK;
+        if (auth.isAnonymous())
+            return $q.reject(accessFactory.UNAUTHORIZED);
 
+        return $q.reject(accessFactory.FORBIDDEN);
+    };
+
+    var _hasAnyRole = function (auth) {
+        if (auth.hasAnyRole(roles))
+            return accessFactory.OK;
+        else if (auth.isAnonymous())
+            return $q.reject(accessFactory.UNAUTHORIZED);
+
+        return $q.reject(accessFactory.FORBIDDEN);
+    };
+
+    var _isAnonymous = function (auth) {
+        if (auth.isAnonymous())
+            return accessFactory.OK;
+
+        return $q.reject(accessFactory.FORBIDDEN);
+    };
+
+    var _isAuthenticated = function (auth) {
+        if (auth.isAuthenticated())
+            return accessFactory.OK;
+
+        return $q.reject(accessFactory.UNAUTHORIZED);
+    }
+
+    var accessFactory = {
         OK: 200,
 
         // não sabe quem você é. fazer login primeiro
@@ -9,52 +40,43 @@
         // sabemos quem você é e não pode :)
         FORBIDDEN: 403,
 
+        // obtém um objeto estático para ser utilizado várias vezes
+        getStatic: function() {
+            return userState.then(function (auth) {
+                return {
+                    hasRole: function (role) {
+                        return _hasRole(auth, role);
+                    },
+                    hasAnyRole: function (roles) {
+                        return _hasAnyRole(auth, roles)
+                    },
+                    isAnonymous: function () {
+                        return _isAnonymous(auth);
+                    },
+                    isAuthenticated: function () {
+                        return _isAuthenticated(auth);
+                    }
+                };
+            });
+        },
+
         // se o usuário está em um determinado papel
         hasRole: function (role) {
-            return userState.then(function (auth) {
-                if (auth.hasRole(role)) {
-                    return Access.OK;
-                } else if (auth.isAnonymous()) {
-                    return $q.reject(Access.UNAUTHORIZED);
-                } else {
-                    return $q.reject(Access.FORBIDDEN);
-                }
-            });
+            userState.then((auth) => { return _hasRole(auth, role) });
         },
 
         hasAnyRole: function (roles) {
-            return userState.then(function (auth) {
-                if (auth.hasAnyRole(roles)) {
-                    return Access.OK;
-                } else if (auth.isAnonymous()) {
-                    return $q.reject(Access.UNAUTHORIZED);
-                } else {
-                    return $q.reject(Access.FORBIDDEN);
-                }
-            });
+            userState.then((auth) => { return _hasRole(auth, roles) });
         },
 
         isAnonymous: function () {
-            return userState.then(function (auth) {
-                if (auth.isAnonymous()) {
-                    return Access.OK;
-                } else {
-                    return $q.reject(Access.FORBIDDEN);
-                }
-            });
+            userState.then(_isAnonymous);
         },
 
         isAuthenticated: function () {
-            return userState.then(function (auth) {
-                if (auth.$isAuthenticated()) {
-                    return Access.OK;
-                } else {
-                    return $q.reject(Access.UNAUTHORIZED);
-                }
-            });
+            userState.then(_isAuthenticated);
         }
     };
 
-    return Access;
-
+    return accessFactory;
 }])

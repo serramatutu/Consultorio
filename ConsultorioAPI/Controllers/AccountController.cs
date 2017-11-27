@@ -50,27 +50,33 @@ namespace ConsultorioAPI.Controllers
 
         [Route("getuserdata")]
         [HttpGet]
-        [Authorize]
         public async Task<IHttpActionResult> GetUserData()
         {
             Dictionary<string, object> content = new Dictionary<string, object>();
-            LoginUsuario user = await _authRepo.FindUser(User.Identity.Name);
-            content.Add("LoginData", new DisplayUsuario(user));
-            foreach (var papel in user.Papeis)
+            if (User.Identity.Name != null)
             {
-                switch (papel.Nome)
+                LoginUsuario user = await _authRepo.FindUser(User.Identity.Name);
+                content.Add("anonymous", false);
+                content.Add("loginData", new DisplayUsuario(user));
+                foreach (var papel in user.Papeis)
                 {
-                    case "paciente":
-                        content.Add("Paciente", new DisplayPaciente(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
-                        break;
-                    //case "admin":
-                    //    content.Add("Admin", new DisplayAdmin(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
-                    //    break;
-                    case "medico":
-                        content.Add("Medico", _medicoRepo.GetMedico(User.Identity.Name));
-                        break;
+                    switch (papel.Nome)
+                    {
+                        case "paciente":
+                            content.Add("paciente", new DisplayPaciente(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
+                            break;
+                        //case "admin":
+                        //    content.Add("Admin", new DisplayAdmin(_pacienteRepo.GetPacienteFromUsername(User.Identity.Name)));
+                        //    break;
+                        case "medico":
+                            content.Add("medico", _medicoRepo.GetMedico(User.Identity.Name));
+                            break;
+                    }
                 }
             }
+            else
+                content.Add("anonymous", true);
+
 
             return Json(content);
         }

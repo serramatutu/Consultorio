@@ -3,12 +3,6 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
     function ($rootScope, $http, $q, localStorageService) {
     var authServiceFactory = {};
 
-    var _auth = {
-        isAuthenticated: false,
-        userName: "",
-        roles: []
-    };
-
     var _cadastrar = function (registration) {
         _logOut();
 
@@ -48,23 +42,16 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
 
     var _logOut = function () {
         localStorageService.remove('authorizationData');
-
-        _auth.isAuthenticated = false;
-        _auth.userName = "";
-
     };
 
     var _getProfile = function () {
-        return $http.get($rootScope.apiDomain + '/conta/getauthdata');
+        return $http.get('http://localhost:58949/conta/getuserdata');
     }
 
     authServiceFactory.cadastrar = _cadastrar;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
-    authServiceFactory.fillAuthData = _fillAuthData;
-    authServiceFactory.auth = _auth;
     authServiceFactory.getProfile = _getProfile;
-    $rootScope.auth = _auth;
 
     return authServiceFactory;
 }]);
