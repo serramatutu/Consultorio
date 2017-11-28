@@ -54,10 +54,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="consulta in consultas | filter:{medico: {especialidade: {nome: especialidade||undefined}}}:true | filter:{status: status||undefined}">
-                        <td>{{consulta.Medico.nome}}</td>
-                        <td>{{consulta.DataHora | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{consulta.DataHora | date: 'HH:mm'}}</td>
-                        <td>{{util.addMinutes(consulta.DataHora, consulta.Duracao) | date: 'HH:mm'}}</td>
+                        <td>{{consulta.medico.nome}}</td>
+                        <td>{{consulta.dataHora | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{consulta.dataHora | date: 'HH:mm'}}</td>
+                        <td>{{util.addMinutes(consulta.dataHora, consulta.duracao) | date: 'HH:mm'}}</td>
                         <td ng-class="{'text-primary': getnomeStatusConsulta(consulta.status) == 'Agendada',
                                        'text-danger': getnomeStatusConsulta(consulta.status) == 'Cancelada',
                                        'text-success': getnomeStatusConsulta(consulta.status) == 'Realizada'}">{{getnomeStatusConsulta(consulta.status)}}</td>
@@ -146,7 +146,4 @@
         <button class="btn btn-primary" type="button" ng-click="cancelarConsulta()" ng-show="getnomeStatusConsulta(consulta.status) == 'Agendada'">Cancelar consulta</button>
         <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
     </div>
-</script>
-<script type="text/javascript" src="../modals/agendarConsulta.js">
-
 </script>

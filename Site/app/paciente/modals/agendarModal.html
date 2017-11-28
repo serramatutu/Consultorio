@@ -33,7 +33,7 @@
         <label for="medico" class="col-md-2 col-form-label">Médico</label>
         <div class="col-md-10">
             <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel"
-                    ng-options="medico as medico.Especialidade.nome+': '+ medico.nome for medico in medicos |
+                    ng-options="medico as medico.especialidade.nome+': '+ medico.nome for medico in medicos |
 filter:{Especialidade: {nome: especialidade||undefined}}:true"></select>
         </div>
     </div>
