@@ -4,7 +4,15 @@ app.controller('cadastroMedicoController', ['$scope', 'informationService', func
         $scope.especialidades = response.data;
     });
 
+    $scope.loginData = {};
+    $scope.userData = {};
+
     $scope.cadastrar = function(){
-        console.log('cadastrar');
+        var data = {
+            userModel: $scope.loginData,
+            medico: $scope.userData
+        };
+
+        console.log(data);
     };
 }]);
