@@ -1,75 +1,125 @@
 ﻿var app = angular.module('Consultorio', ['LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'ngAnimate', 'ui.router']);
 
 // Configura as rotas do site
-app.config(function ($stateProvider, $locationProvider /*, $urlRouteProvider */) {
-    //$urlRouteProvider.otherwise('/');
+app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
+    $urlRouterProvider.when("/", ['$state', 'access', function ($state, access) {
+        access.getStatic().then(function (userData) {
+            if (userData.hasRole("paciente"))
+                $state.go("paciente.dashboard");
+            else if (userData.hasRole("medico"))
+                $state.go("medico.dashboard");
+            else if (userData.hasRole("admin"))
+                $state.go("admin.dashboard");
+            else
+                $state.go("anonymous.home");
+        });
+    }]);
+    $urlRouterProvider.otherwise("/notfound");
 
-    $stateProvider.state("home", {
+    $stateProvider.state("unauthorized", { // 401
+        url: '/unauthorized',
+        templateUrl: 'app/error.html',
+        controller: function ($scope) {
+            $scope.error = {
+                code: '401',
+                name: 'Não autorizado',
+                message: 'Faça login para acessar este recurso.'
+            }
+        }
+    })
+    .state("forbidden", { // 403
+        url: '/forbidden',
+        templateUrl: 'app/error.html',
+        controller: function ($scope) {
+            $scope.error = {
+                code: '403',
+                name: 'Proibido',
+                message: 'Seu tipo de login não permite acesso a este recurso.'
+            }
+        }
+    })
+    .state("notfound", { // 404
+        url: '/notfound',
+        templateUrl: 'app/error.html',
+        controller: function ($scope) {
+            $scope.error = {
+                code: '404',
+                name: 'Não encontrado',
+                message: 'Tem certeza de que digitou tudo certo?'
+            }
+        }
+    })
+
+
+    $stateProvider.state("anonymous", {
+        abstract: true,
+        templateUrl: "app/anonymous/anonymous.html",
+        resolve: {
+            access: ["access", function (access) { return access.isAnonymous(); }]
+        }
+    })
+    .state("anonymous.home", {
+        url: '/home',
         controller: "homeController",
-        templateUrl: "/app/common/views/home.html",
-        resolve: {
-            access: ["access", function (access) { return access.isAnonymous(); }]
-        }
-    });
-
-    $stateProvider.state("login", {
+        templateUrl: "/app/anonymous/views/home.html"
+    })
+    .state("anonymous.login", {
+        url: '/login',
         controller: "loginController",
-        templateUrl: "/app/common/views/login.html",
-        resolve: {
-            access: ["access", function (access) { return access.isAnonymous(); }]
-        }
-    });
-
-    $stateProvider.state("cadastro", {
+        templateUrl: "/app/anonymous/views/login.html",
+    })
+    .state("anonymous.cadastro", {
+        url: '/cadastro',
         controller: "cadastroController",
-        templateUrl: "/app/common/views/cadastro.html",
-        resolve: {
-            access: ["access", function (access) { return access.isAnonymous(); }]
-        }
+        templateUrl: "/app/anonymous/views/cadastro.html",
     });
 
-    $stateProvider.state("dashboard", {
+    $stateProvider.state("paciente", {
+        abstract: true,
+        templateUrl: "app/paciente/paciente.html",
+        resolve: {
+            access: ["access", function (access) { return access.hasRole("paciente"); }]
+        }
+    })
+    .state("paciente.dashboard", {
+        url: '/dashboard',
         controller: "dashboardController",
         templateUrl: "/app/paciente/views/dashboard.html",
-        resolve: {
-            access: ["access", function (access) { return access.hasRole("paciente"); }]
-        }
-    });
-
-    $stateProvider.state("conta", {
+    })
+    .state("paciente.conta", {
+        url: '/conta',
         controller: "contaController",
         templateUrl: "/app/paciente/views/conta.html",
-        resolve: {
-            access: ["access", function (access) { return access.hasRole("paciente"); }]
-        }
-    });
-
-    $stateProvider.state("consultas", {
+    })
+    .state("paciente.consultas", {
+        url: '/consultas',
         controller: "consultasController",
         templateUrl: "/app/paciente/views/consultas.html",
-        resolve: {
-            access: ["access", function (access) { return access.hasRole("paciente"); }]
-        }
     });
 
-    $stateProvider.state("admin/cadastro", {
-        controller: "cadastroMedicoController",
-        templateUrl: "/app/admin/views/cadastroMedico.html",
-        resolve: {
-            access: ["access", function (access) { return access.hasRole("admin"); }]
-        }
-    });
+    //$stateProvider.state("admin", {
+    //    abstract: true,
+    //    url: '/admin',
+    //})
+    //.state("admin.cadastro", {
+    //    url: '/cadastro',
+    //    controller: "cadastroMedicoController",
+    //    templateUrl: "/app/admin/views/cadastroMedico.html",
+    //    resolve: {
+    //        access: ["access", function (access) { return access.hasRole("admin"); }]
+    //    }
+    //});
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
 }).run(['$rootScope', '$state', 'access', 'authService', function ($rootScope, $state, access, authService) {
     $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
         switch (error) {
             case access.UNAUTHORIZED:
-                $state.go("cadastro");
+                $state.go("unauthorized");
                 break;
 
             case access.FORBIDDEN:
-                state.go("proibido");
+                state.go("forbidden");
                 break;
         }
     });

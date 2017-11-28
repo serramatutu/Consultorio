@@ -18,9 +18,9 @@
             <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
         </div>
     </div>
-
-
-    <div data-ng-hide="message == ''" class="alert alert-danger">
-        {{message}}
+    <div class="col-sm-12" data-ng-hide="message == ''">
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
     </div>
 </form>

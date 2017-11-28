@@ -1,0 +1,41 @@
+﻿<nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController" style="margin: 0">
+    <div class="container-fluid">
+        <!--  Colapse navbar  -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">Consultório</a>
+        </div>
+
+        <!-- Navbar Items -->
+        <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
+            <ul class="nav navbar-nav align-left">
+                <li><a ui-sref="/" ng-click="">Sobre</a></li>
+                <li><a ui-sref="/" ng-click="">Dúvidas frequentes</a></li>
+                <li><a ui-sref="/" ng-click="">Fale conosco</a></li>
+            </ul>
+            <ul class="nav navbar-nav align-right">
+                <li><a ui-sref="anonymous.login">Login</a></li>
+                <li><a ui-sref="anonymous.cadastro">Cadastro</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <ui-view />
+</div>
+
+<nav class="navbar navbar-fixed-bottom navbar-default" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted navbar-text">Consultorio ©</p>
+            </div>
+        </div>
+    </div>
+</nav>

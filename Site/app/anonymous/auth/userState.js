@@ -2,7 +2,9 @@
     return authService.getProfile().then(function (response) {
         return angular.extend(response.data, {
             hasRole: function (role) {
-                return this.roles.indexOf(role) >= 0;
+                if (!!this.roles)
+                    return this.roles.indexOf(role) >= 0;
+                return false;
             },
 
             hasAnyRole: function (roles) {

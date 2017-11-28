@@ -12,71 +12,7 @@
     <base href="/">
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" data-ng-controller="indexController" style="margin: 0">
-    <div class="container-fluid" data-ng-hide="userData.isAuthenticated()">
-    <!--  Colapse navbar  -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/home">Consultório</a>
-      </div>
-
-      <!-- Navbar Items -->
-      <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
-        <ul class="nav navbar-nav align-left">
-          <li><a href="/" ng-click="">Sobre</a></li>
-          <li><a href="/" ng-click="">Dúvidas frequentes</a></li>
-          <li><a href="/" ng-click="">Fale conosco</a></li>
-        </ul>
-        <ul class="nav navbar-nav align-right">
-          <li><a href="/login">Login</a></li>
-          <li><a href="/cadastro">Cadastro</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="container-fluid" data-ng-hide="!userData.isAuthenticated()">
-    <!--  Colapse navbar  -->
-      <div class="navbar-header">
-        <span uib-dropdown on-toggle="toggled(open)">
-          <a id="simple-dropdown" uib-dropdown-toggle class="navbar-brand">
-            Consultorio
-          </a>
-        </span>
-      </div>
-
-      <!-- Navbar Items -->
-      <div class="collapse navbar-collapse" uib-collapse="isCollapsed">
-          <ul class="nav navbar-nav align-left">
-              <li><a href="/dashboard">Dashboard</a></li>
-              <li><a href="/consultas">Consultas</a></li>
-              <li><a href="/conta">Conta</a></li>
-          </ul>
-        <ul class="nav navbar-nav align-right">
-            <li><a href ng-click="logOut()">Logout</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-    <div class="container-fluid">
-        <div ui-view>
-        </div>
-    </div>
-
-    <nav class="navbar navbar-fixed-bottom navbar-default" id="footer">
-      <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-              <p class="text-muted navbar-text">Consultorio ©</p>
-            </div>
-        </div>
-      </div>
-    </nav>
+    <ui-view />
 
     <!-- 3rd party libraries -->
     <script src="node_modules/angular/angular.min.js"></script>
@@ -94,23 +30,23 @@
     <script src="app/app.js"></script>
 
     <!-- Auth -->
-    <script src="app/common/auth/authInterceptorService.js"></script>
-    <script src="app/common/auth/authService.js"></script>
-    <script src="app/common/auth/access.js"></script>
-    <script src="app/common/auth/userState.js"></script>
+    <script src="app/anonymous/auth/authInterceptorService.js"></script>
+    <script src="app/anonymous/auth/authService.js"></script>
+    <script src="app/anonymous/auth/access.js"></script>
+    <script src="app/anonymous/auth/userState.js"></script>
 
     <!-- Load services -->
-    <script src="app/common/services/modalService.js"></script>
-    <script src="app/common/services/informationService.js"></script>
-    <script src="app/common/services/utilitiesService.js"></script>
+    <script src="app/anonymous/services/modalService.js"></script>
+    <script src="app/anonymous/services/informationService.js"></script>
+    <script src="app/anonymous/services/utilitiesService.js"></script>
 
     <!-- Load controllers -->
     <script src="app/admin/controllers/cadastroMedicoController.js"></script>
 
-    <script src="app/common/controllers/indexController.js"></script>
-    <script src="app/common/controllers/homeController.js"></script>
-    <script src="app/common/controllers/loginController.js"></script>
-    <script src="app/common/controllers/cadastroController.js"></script>
+    <script src="app/anonymous/controllers/indexController.js"></script>
+    <script src="app/anonymous/controllers/homeController.js"></script>
+    <script src="app/anonymous/controllers/loginController.js"></script>
+    <script src="app/anonymous/controllers/cadastroController.js"></script>
 
     <script src="app/paciente/services/pacienteService.js"></script>
     <script src="app/paciente/controllers/agendarConsultaModalController.js"></script>
