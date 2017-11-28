@@ -1,4 +1,7 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
+using System.Linq;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -41,6 +44,8 @@ namespace ConsultorioAPI.App_Start
 
             // Respostas em formato JSON (e não XML)
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.Formatters.OfType<JsonMediaTypeFormatter>().First().SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }

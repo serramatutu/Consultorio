@@ -8,8 +8,10 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
                 $state.go("paciente.dashboard");
             else if (userData.hasRole("medico"))
                 $state.go("medico.dashboard");
-            else if (userData.hasRole("admin"))
+            else if (userData.hasRole("admin")){
+                console.log('batata');
                 $state.go("admin.dashboard");
+            }
             else
                 $state.go("anonymous.home");
         });
@@ -97,20 +99,21 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: "/app/paciente/views/consultas.html",
     });
 
-    //$stateProvider.state("admin", {
-    //    abstract: true,
-    //    url: '/admin',
-    //})
-    //.state("admin.cadastro", {
-    //    url: '/cadastro',
-    //    controller: "cadastroMedicoController",
-    //    templateUrl: "/app/admin/views/cadastroMedico.html",
-    //    resolve: {
-    //        access: ["access", function (access) { return access.hasRole("admin"); }]
-    //    }
-    //});
+    $stateProvider.state("admin", {
+       abstract: true,
+       url: '/admin',
+    })
+    .state("admin.cadastro", {
+       url: '/cadastro',
+       controller: "cadastroMedicoController",
+       templateUrl: "/app/admin/views/cadastroMedico.html",
+       resolve: {
+           access: ["access", function (access) { return access.hasRole("admin"); }]
+       }
+    });
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
+    
 }).run(['$rootScope', '$state', 'access', 'authService', function ($rootScope, $state, access, authService) {
     $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
         switch (error) {

@@ -6,6 +6,7 @@ using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -58,6 +59,7 @@ namespace ConsultorioAPI.Controllers
                 LoginUsuario user = await _authRepo.FindUser(User.Identity.Name);
                 content.Add("anonymous", false);
                 content.Add("loginData", new DisplayUsuario(user));
+                content.Add("roles", user.Papeis.Select(x => x.Nome).ToArray());
                 foreach (var papel in user.Papeis)
                 {
                     switch (papel.Nome)
@@ -78,7 +80,7 @@ namespace ConsultorioAPI.Controllers
                 content.Add("anonymous", true);
 
 
-            return Json(content);
+            return Ok(content);
         }
 
         #region Alterar
