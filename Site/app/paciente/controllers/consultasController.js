@@ -26,7 +26,7 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
         });
 
         $scope.util = util;
-        $scope.getnomestatusConsulta = informationService.getnomestatusConsulta;
+        $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
 
         $scope.modalConsulta = function (consulta) {
             var modal = $modal.open({
@@ -55,7 +55,7 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
 app.controller('editarConsultaModalController', ['$rootScope', '$scope', 'utilitiesService', 'informationService', 'pacienteService', 'consulta',
     function ($rootScope, $scope, utilitiesService, informationService, pacienteService, consulta) {
     $scope.consulta = consulta;
-    $scope.getnomestatusConsulta = informationService.getnomestatusConsulta;
+    $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
 
     // Envia a avaliação do paciente ao servidor
     $scope.avaliarConsulta = function () {

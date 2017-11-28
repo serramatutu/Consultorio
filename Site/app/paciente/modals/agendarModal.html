@@ -34,7 +34,7 @@
         <div class="col-md-10">
             <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel"
                     ng-options="medico as medico.especialidade.nome+': '+ medico.nome for medico in medicos |
-filter:{Especialidade: {nome: especialidade||undefined}}:true"></select>
+filter:{especialidade: {nome: especialidade||undefined}}:true"></select>
         </div>
     </div>
     <div class="alert alert-warning" role="alert" ng-hide="message == ''">
