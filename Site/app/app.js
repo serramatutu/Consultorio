@@ -18,6 +18,10 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
     }]);
     $urlRouterProvider.otherwise("/notfound");
 
+    var logoutController = ['$scope', 'authService', function ($scope, authService) {
+        $scope.logOut = authService.logOut;
+    }];
+
     $stateProvider.state("unauthorized", { // 401
         url: '/unauthorized',
         templateUrl: 'app/error.html',
@@ -79,6 +83,7 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
     $stateProvider.state("paciente", {
         abstract: true,
         templateUrl: "app/paciente/paciente.html",
+        controller: logoutController,
         resolve: {
             access: ["access", function (access) { return access.hasRole("paciente"); }]
         }
@@ -100,16 +105,22 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state("admin", {
-       abstract: true,
-       url: '/admin',
+        abstract: true,
+        url: '/admin',
+        controller: logoutController,
+        templateUrl: '/app/admin/admin.html',
+        resolve: {
+            access: ["access", function (access) { return access.hasRole("admin"); }]
+        }
     })
+    //.state("admin.dashboard", {
+    //    url: '/dashboard',
+    //    controller: 'dashboardController'
+    //})
     .state("admin.cadastro", {
        url: '/cadastro',
        controller: "cadastroMedicoController",
-       templateUrl: "/app/admin/views/cadastroMedico.html",
-       resolve: {
-           access: ["access", function (access) { return access.hasRole("admin"); }]
-       }
+       templateUrl: "/app/admin/views/cadastroMedico.html"
     });
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.

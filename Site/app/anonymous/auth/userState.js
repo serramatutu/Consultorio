@@ -1,6 +1,7 @@
 ﻿app.factory("userState", ["$q", "authService", function ($q, authService) {
-    return authService.getProfile().then(function (response) {
+    var _extend = function (response) {
         return angular.extend(response.data, {
+            // obtém um objeto estático para ser utilizado várias vezes
             hasRole: function (role) {
                 if (!!this.roles)
                     return this.roles.indexOf(role) >= 0;
@@ -21,5 +22,13 @@
                 return !this.anonymous;
             }
         });
-    });
+    };
+
+    var userStateFactory = {
+        getState: function() {
+            return authService.getProfile().then(_extend);
+        }
+    }
+    
+    return userStateFactory;
 }])

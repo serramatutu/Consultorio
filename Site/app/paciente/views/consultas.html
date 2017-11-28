@@ -123,7 +123,7 @@
                     <label for="nota" class="col-sm-3 col-form-label">Nota do atendimento</label>
                     <div class="col-sm-9">
                         <input id="nota" class="form-control"
-                               ng-model="consulta.avaliacao.nota"
+                               ng-model="feedback.nota"
                                type="number" min="0" max="10"
                                value="0"
                                ng-readonly="!!consulta.avaliacao.nota" ng-required="!consulta.avaliacao.comentario">
@@ -134,14 +134,14 @@
                     <textarea id="comentario" class="form-control"
                               placeholder="Conte-nos como foi sua experiência com {{consulta.medico.nome}}!" ng-required="!consulta.avaliacao.comentario"
                               ng-readonly="!!consulta.avaliacao.comentario"
-                              ng-model="consulta.avaliacao.comentario"></textarea>
+                              ng-model="feedback.comentario"></textarea>
                 </div>
             </form>
         </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="avaliarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada' &&
-                !consulta.avaliacao.Nota &&
+                !consulta.avaliacao.nota &&
                 !consulta.avaliacao.comentario">Avaliar</button>
         <button class="btn btn-primary" type="button" ng-click="cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Agendada'">Cancelar consulta</button>
         <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>

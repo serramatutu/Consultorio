@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$state', 'authService', function ($scope, $state, authService) {
+app.controller('loginController', ['$scope', '$state', 'authService', 'userState', function ($scope, $state, authService, userState) {
     $scope.loginData = {
         userName: "",
         password: ""
@@ -10,7 +10,16 @@ app.controller('loginController', ['$scope', '$state', 'authService', function (
     $scope.login = function () {
         // Quando logou, redireciona para a dashboard
         authService.login($scope.loginData).then(function (response) {
-            $state.go("paciente.dashboard");
+            userState.getState().then(function (auth) {
+                if (auth.hasRole("paciente"))
+                    $state.go("paciente.dashboard");
+                else if (auth.hasRole("medico"))
+                    $state.go("medico.dashboard");
+                else if (auth.hasRole("admin"))
+                    $state.go("admin.cadastro");
+                else
+                    $state.go("anonymous.cadastro");
+            });
         },
         function (err) {
             $scope.message = err.data.error_description;

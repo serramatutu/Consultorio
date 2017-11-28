@@ -180,7 +180,7 @@ namespace ConsultorioAPI.Database.Repositories
                     Mensagem = "Consulta inexistente"
                 };
 
-            if (string.IsNullOrEmpty(c.Avaliacao.Comentario) || !c.Avaliacao.Nota.HasValue)
+            if (!string.IsNullOrEmpty(c.Avaliacao.Comentario) || c.Avaliacao.Nota.HasValue)
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,

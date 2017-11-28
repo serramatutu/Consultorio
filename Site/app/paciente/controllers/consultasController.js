@@ -55,11 +55,13 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
 app.controller('editarConsultaModalController', ['$rootScope', '$scope', 'utilitiesService', 'informationService', 'pacienteService', 'consulta',
     function ($rootScope, $scope, utilitiesService, informationService, pacienteService, consulta) {
     $scope.consulta = consulta;
+    if (!!$scope.consulta.avaliacao)
+        $scope.feedback = angular.copy($scope.consulta.avaliacao);
     $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
 
     // Envia a avaliação do paciente ao servidor
     $scope.avaliarConsulta = function () {
-        pacienteService.avaliarConsulta(consulta.id, $scope.consulta.avaliacao).then(function () {
+        pacienteService.avaliarConsulta(consulta.id, $scope.feedback).then(function () {
             $rootScope.$emit('consultaChanged', {});
             $scope.$close();
         });

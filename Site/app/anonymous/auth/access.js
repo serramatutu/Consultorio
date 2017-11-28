@@ -40,41 +40,21 @@
         // sabemos quem você é e não pode :)
         FORBIDDEN: 403,
 
-        // obtém um objeto estático para ser utilizado várias vezes
-        getStatic: function() {
-            return userState.then(function (auth) {
-                return {
-                    hasRole: function (role) {
-                        return _hasRole(auth, role);
-                    },
-                    hasAnyRole: function (roles) {
-                        return _hasAnyRole(auth, roles)
-                    },
-                    isAnonymous: function () {
-                        return _isAnonymous(auth);
-                    },
-                    isAuthenticated: function () {
-                        return _isAuthenticated(auth);
-                    }
-                };
-            });
-        },
-
         // se o usuário está em um determinado papel
         hasRole: function (role) {
-            userState.then((auth) => { return _hasRole(auth, role) });
+            userState.getState().then((auth) => { return _hasRole(auth, role) });
         },
 
         hasAnyRole: function (roles) {
-            userState.then((auth) => { return _hasRole(auth, roles) });
+            userState.getState().then((auth) => { return _hasRole(auth, roles) });
         },
 
         isAnonymous: function () {
-            userState.then(_isAnonymous);
+            userState.getState().then(_isAnonymous);
         },
 
         isAuthenticated: function () {
-            userState.then(_isAuthenticated);
+            userState.getState().then(_isAuthenticated);
         }
     };
 

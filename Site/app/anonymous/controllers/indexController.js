@@ -6,7 +6,7 @@ app.controller('indexController', ['$scope', '$rootScope', '$location', 'authSer
         $location.path('/home');
     }
 
-    userState.then(function (userData) {
+    userState.getState().then(function (userData) {
         $scope.userData = userData;
     });
     $scope.isCollapsed = true;

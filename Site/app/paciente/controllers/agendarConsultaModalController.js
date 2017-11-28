@@ -16,7 +16,7 @@ app.controller('agendarConsultaModalController', ['$rootScope', '$scope', 'infor
             var data = {
                 dataHora: $scope.consulta.dataHora,
                 duracao: $scope.consulta.duracao,
-                crmMedicoResponsavel: $scope.consulta.crmMedicoResponsavel.CRM
+                crmMedicoResponsavel: $scope.consulta.crmMedicoResponsavel.crm
             };
 
             pacienteService.agendarConsulta(data).then(function success(response) {
