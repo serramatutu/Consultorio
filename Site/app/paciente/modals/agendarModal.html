@@ -2,47 +2,49 @@
     <h3 class="modal-title" id="modal-title">Agende uma consulta</h3>
 </div>
 <div class="modal-body" id="modal-body">
-    <div class="form-group row">
-        <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
-        <div class="col-md-10">
-            <select id="especialidade" class="form-control" ng-model="especialidade">
-                <option value="{{undefined}}" selected="selected">Todos</option>
-                <option ng-repeat="especialidade in especialidades" value="{{especialidade.nome}}">
-                    {{especialidade.nome}}
-                </option>
-            </select>
+    <form role="form" class="form" name="formAgendar">
+        <div class="form-group row">
+            <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
+            <div class="col-md-10">
+                <select id="especialidade" class="form-control" ng-model="especialidade">
+                    <option value="{{undefined}}" selected="selected">Todos</option>
+                    <option ng-repeat="especialidade in especialidades" value="{{especialidade.nome}}">
+                        {{especialidade.nome}}
+                    </option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <hr />
+        <hr />
 
-    <div class="form-group row">
-        <label for="data" class="col-md-2 col-form-label">Data</label>
-        <div class="col-md-10">
-            <input id="data" type="datetime-local" min="" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.dataHora" id="dataConsulta" required />
+        <div class="form-group row">
+            <label for="data" class="col-md-2 col-form-label">Data</label>
+            <div class="col-md-10">
+                <input id="data" type="datetime-local" min="" class="form-control" placeholder="Data da consulta" data-ng-model="consulta.dataHora" id="dataConsulta" required />
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="duracao" class="col-md-2 col-form-label">Duração</label>
-        <div class="col-md-10">
-            <input id="duracao" type="number" min="30" max="60" class="form-control" placeholder="Duração da cunsulta"
-                    data-ng-model="consulta.duracao" required />
+        <div class="form-group row">
+            <label for="duracao" class="col-md-2 col-form-label">Duração</label>
+            <div class="col-md-10">
+                <input id="duracao" type="number" min="30" max="60" class="form-control" placeholder="Duração da cunsulta"
+                       data-ng-model="consulta.duracao" required />
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="medico" class="col-md-2 col-form-label">Médico</label>
-        <div class="col-md-10">
-            <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel"
-                    ng-options="medico as medico.especialidade.nome+': '+ medico.nome for medico in medicos |
+        <div class="form-group row">
+            <label for="medico" class="col-md-2 col-form-label">Médico</label>
+            <div class="col-md-10">
+                <select id="medico" class="form-control" data-ng-model="consulta.crmMedicoResponsavel"
+                        ng-options="medico as medico.especialidade.nome+': '+ medico.nome for medico in medicos |
 filter:{especialidade: {nome: especialidade||undefined}}:true"></select>
+            </div>
         </div>
-    </div>
-    <div class="alert alert-warning" role="alert" ng-hide="message == ''">
-        {{message}}
-    </div>
+        <div class="alert alert-warning" role="alert" ng-hide="message == ''">
+            {{message}}
+        </div>
 
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="agendar()">Agendar</button>
-        <button class="btn btn-danger" type="button" ng-click="cancel()">Fechar</button>
-    </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="formAgendar.$valid && agendar()">Agendar</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Fechar</button>
+        </div>
+    </form>
 </div>

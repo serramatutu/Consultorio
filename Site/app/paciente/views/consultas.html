@@ -73,77 +73,81 @@
 </div>
 
 <script type="text/ng-template" id="editarconsulta.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">Avalie sua consulta!</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-        <div class="form-group row">
-            <label for="medico" class="col-sm-3 col-form-label">Médico</label>
-            <div class="col-sm-9">
-                <input id="medico" class="form-control" type="text" value="{{consulta.medico.nome}}" readonly>
-            </div>
+    <form role="form" class="form" name="formConsulta">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Avalie sua consulta!</h3>
         </div>
-        <div class="form-group row">
-            <label for="data" class="col-sm-3 col-form-label">Data</label>
-            <div class="col-sm-3">
-                <input id="data" class="form-control" type="text" value="{{consulta.dataHora | date: 'dd/MM/yyyy'}}" readonly>
+        <div class="modal-body" id="modal-body">
+            <div class="form-group row">
+                <label for="medico" class="col-sm-3 col-form-label">Médico</label>
+                <div class="col-sm-9">
+                    <input id="medico" class="form-control" type="text" value="{{consulta.medico.nome}}" readonly>
+                </div>
             </div>
-            <label for="status" class="col-sm-3 col-form-label">Status</label>
-            <div class="col-sm-3">
-                <span id="status" class="label"
-                      ng-class="{'label-primary': getNomeStatusConsulta(consulta.status) == 'Agendada',
+            <div class="form-group row">
+                <label for="data" class="col-sm-3 col-form-label">Data</label>
+                <div class="col-sm-3">
+                    <input id="data" class="form-control" type="text" value="{{consulta.dataHora | date: 'dd/MM/yyyy'}}" readonly>
+                </div>
+                <label for="status" class="col-sm-3 col-form-label">Status</label>
+                <div class="col-sm-3">
+                    <span id="status" class="label"
+                          ng-class="{'label-primary': getNomeStatusConsulta(consulta.status) == 'Agendada',
                                  'label-danger': getNomeStatusConsulta(consulta.status) == 'Cancelada',
                                  'label-success': getNomeStatusConsulta(consulta.status) == 'Realizada'}"
-                      type="text">{{getNomeStatusConsulta(consulta.status)}}</span>
+                          type="text">{{getNomeStatusConsulta(consulta.status)}}</span>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="horainicio" class="col-sm-3 col-form-label">Hora de início</label>
-            <div class="col-sm-3">
-                <input id="horainicio" class="form-control" type="text" value="{{consulta.dataHora | date: 'HH:mm'}}" readonly>
+            <div class="form-group row">
+                <label for="horainicio" class="col-sm-3 col-form-label">Hora de início</label>
+                <div class="col-sm-3">
+                    <input id="horainicio" class="form-control" type="text" value="{{consulta.dataHora | date: 'HH:mm'}}" readonly>
+                </div>
+                <label for="horafim" class="col-sm-3 col-form-label">Hora de término</label>
+                <div class="col-sm-3">
+                    <input id="horafim" class="form-control" type="text" value="{{util.addMinutes(consulta.dataHora, consulta.duracao) | date: 'HH:mm'}}" readonly>
+                </div>
             </div>
-            <label for="horafim" class="col-sm-3 col-form-label">Hora de término</label>
-            <div class="col-sm-3">
-                <input id="horafim" class="form-control" type="text" value="{{util.addMinutes(consulta.dataHora, consulta.duracao) | date: 'HH:mm'}}" readonly>
-            </div>
-        </div>
-        <div class="form-group" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada'">
-            <label for="diagnostico">Diagnóstico:</label>
-            <textarea id="diagnostico" class="form-control" readonly>
+            <div class="form-group" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada'">
+                <label for="diagnostico">Diagnóstico:</label>
+                <textarea id="diagnostico" class="form-control" readonly>
                 {{consulta.diagnostico}}
             </textarea>
-        </div>
+            </div>
 
-        <!-- Avaliação da consulta -->
-        <div id="avaliacao" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada'">
-            <h3>Sua avaliação</h3>
-            <hr />
-            <form>
-                <div class="form-group row">
-                    <label for="nota" class="col-sm-3 col-form-label">Nota do atendimento</label>
-                    <div class="col-sm-9">
-                        <input id="nota" class="form-control"
-                               ng-model="feedback.nota"
-                               type="number" min="0" max="10"
-                               value="0"
-                               ng-readonly="!!consulta.avaliacao.nota" ng-required="!consulta.avaliacao.comentario">
+            <!-- Avaliação da consulta -->
+            <div id="avaliacao" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada'">
+                <h3>Sua avaliação</h3>
+                <hr />
+                <form>
+                    <div class="form-group row">
+                        <label for="nota" class="col-sm-3 col-form-label">Nota do atendimento</label>
+                        <div class="col-sm-9">
+                            <input id="nota" class="form-control"
+                                   ng-model="feedback.nota"
+                                   type="number" min="0" max="10"
+                                   value="0"
+                                   ng-readonly="!!consulta.avaliacao.nota" ng-required="!consulta.avaliacao.comentario">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="comentario">Feedback</label>
-                    <textarea id="comentario" class="form-control"
-                              placeholder="Conte-nos como foi sua experiência com {{consulta.medico.nome}}!" ng-required="!consulta.avaliacao.comentario"
-                              ng-readonly="!!consulta.avaliacao.comentario"
-                              ng-model="feedback.comentario"></textarea>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="comentario">Feedback</label>
+                        <textarea id="comentario" class="form-control"
+                                  placeholder="Conte-nos como foi sua experiência com {{consulta.medico.nome}}!" ng-required="!consulta.avaliacao.comentario"
+                                  ng-readonly="!!consulta.avaliacao.comentario"
+                                  ng-model="feedback.comentario"></textarea>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="avaliarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada' &&
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-click="formConsulta.$valid && avaliarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Realizada' &&
                 !consulta.avaliacao.nota &&
-                !consulta.avaliacao.comentario">Avaliar</button>
-        <button class="btn btn-primary" type="button" ng-click="cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Agendada'">Cancelar consulta</button>
-        <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
-    </div>
+                !consulta.avaliacao.comentario">
+                Avaliar
+            </button>
+            <button class="btn btn-primary" type="submit" ng-click="formConsulta.$valid && cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Agendada'">Cancelar consulta</button>
+            <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
+        </div>
+    </form>
 </script>

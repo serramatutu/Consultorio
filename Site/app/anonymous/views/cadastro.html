@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<form class="form" role="form">
+<form class="form" role="form" name="formCadastro">
     <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-5">
@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
-            <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
+            <button class="btn btn-lg btn-info btn-block" type="submit" ng-click="formCadastro.$valid && cadastrar()">Submit</button>
         </div>
     </div>
 

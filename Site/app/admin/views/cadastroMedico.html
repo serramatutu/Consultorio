@@ -5,78 +5,101 @@
         </div>
 </div>
 
-<form class="form" role="form">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-5">
-        <h2>Informações de login</h2>
-        <br>
-        <div class="form-group row">
-            <label for="data" class="col-md-2 col-form-label">Username</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" placeholder="Usuário" data-ng-model="loginData.userName" required autofocus />
+<form class="form" role="form" name="formCadastro">
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1">
+            <h2>Informações de login</h2>
+            <br>
+            <div class="form-group row">
+                <label for="data" class="col-md-2 col-form-label">Username</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" placeholder="Usuário" data-ng-model="loginData.userName" required autofocus />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="duracao" class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-10">
+                    <input type="email" class="form-control" placeholder="E-mail" data-ng-model="loginData.email" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="especialidade" class="col-md-2 col-form-label">Senha</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" placeholder="Senha" data-ng-model="loginData.senha" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="medico" class="col-md-2 col-form-label">Confirmar Senha</label>
+                <div class="col-md-10">
+                    <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="loginData.confSenha" required />
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="duracao" class="col-md-2 col-form-label">Email</label>
-            <div class="col-md-10">
-                <input type="email" class="form-control" placeholder="E-mail" data-ng-model="loginData.email" required />
+        <div class="col-sm-5">
+            <h2>Informações pessoais</h2>
+            <br>
+            <div class="form-group row">
+                <label for="nome" class="col-md-2 col-form-label">Nome</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="userData.nomeCompleto" required />
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="especialidade" class="col-md-2 col-form-label">Senha</label>
-            <div class="col-md-10">
-                <input type="password" class="form-control" placeholder="Senha" data-ng-model="loginData.senha" required />
+            <div class="form-group row">
+                <label for="dataNasc" class="col-md-2 col-form-label">Data de nascimento</label>
+                <div class="col-md-10">
+                    <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="userData.dataNasc" required />
+                </div>
             </div>
+            <div class="form-group row">
+                <label for="endereco" class="col-md-2 col-form-label">Endereço</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" placeholder="Endereço" data-ng-model="userData.endereco" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="telefone" class="col-md-2 col-form-label">Telefone</label>
+                <div class="col-md-10">
+                    <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="userData.telefone" required />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="celular" class="col-md-2 col-form-label">Celular</label>
+                <div class="col-md-10">
+                    <input type="tel" class="form-control" placeholder="Celular" data-ng-model="userData.celular" required />
+                </div>
+            </div>
+            <!--<div class="form-group row">
+                <label for="foto" class="col-md-2 col-form-label">Foto</label>
+                <div class="col-md-10">
+                    <input type="file" data-ng-model="userData.foto" required>
+                </div>
+            </div>-->
         </div>
-        <div class="form-group row">
-            <label for="medico" class="col-md-2 col-form-label">Confirmar Senha</label>
-            <div class="col-md-10">
-                <input type="password" class="form-control" placeholder="Confirme sua senha" data-ng-model="loginData.confSenha" required />
+    </div>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <h2>Informações de carreira</h2>
+            <br>
+            <div class="form-group row">
+                <label for="especialidade" class="col-md-2 col-form-label" required>Especialidade</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="especialidade" ng-model="userData.especialidade">
+                        <option value="{{undefined}}" disabled>Selecione a especialidade</option>
+                        <option value="{{especialidade}}" ng-repeat="especialidade in especialidades">{{especialidade.nome}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="crm" class="col-md-2 col-form-label">CRM</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" maxlength="7" placeholder="CRM" data-ng-model="userData.crm" required />
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-5">
-        <h2>Informações pessoais</h2>
-        <br>
-        <div class="form-group row">
-            <label for="nome" class="col-md-2 col-form-label">Nome</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" placeholder="Nome completo" data-ng-model="userData.nome" required/>
-            </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <button class="btn btn-lg btn-info btn-block" ng-click="formCadastro.$valid && cadastrar()">Submit</button>
         </div>
-        <div class="form-group row">
-            <label for="dataNasc" class="col-md-2 col-form-label">Data de nascimento</label>
-            <div class="col-md-10">
-            <input type="date" class="form-control" placeholder="Data de nascimento" data-ng-model="userData.dataNasc" required />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="telefone" class="col-md-2 col-form-label">Telefone</label>
-            <div class="col-md-10">
-                <input type="tel" class="form-control" placeholder="Telefone" data-ng-model="userData.telefone" required />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="celular" class="col-md-2 col-form-label">Celular</label>
-            <div class="col-md-10">
-                <input type="tel" class="form-control" placeholder="Celular" data-ng-model="userData.celular" required />
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
-            <div class="col-md-10">
-                <select class="form-control" id="especialidade" ng-model="userData.especialidade">
-                    <option value="{{undefined}}">Selecione a especialidade</option>
-                    <option value="{{especialidade}}" ng-repeat="especialidade in especialidades">{{especialidade.nome}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <input type="file" data-ng-model="userData.foto" required>
-        </div>
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="cadastrar()">Submit</button>
     </div>
 </form>

@@ -3,7 +3,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
     function ($rootScope, $http, $q, localStorageService) {
     var authServiceFactory = {};
 
-    var _cadastrar = function (registration) {
+    var _cadastrarPaciente = function (registration) {
         _logOut();
 
         return $http.post($rootScope.apiDomain + '/conta/cadastro', registration).then(function success(response) {
@@ -43,7 +43,7 @@ app.factory('authService', ['$rootScope', '$http', '$q', 'localStorageService',
         return $http.get('http://localhost:58949/conta/getuserdata');
     }
 
-    authServiceFactory.cadastrar = _cadastrar;
+    authServiceFactory.cadastrarPaciente = _cadastrarPaciente;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.getProfile = _getProfile;

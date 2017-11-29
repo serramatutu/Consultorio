@@ -15,7 +15,7 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
     };
 
     $scope.cadastrar = function () {
-        authService.cadastrar($scope.registration).then(function (response) {
+        authService.cadastrarPaciente($scope.registration).then(function (response) {
             $scope.savedSuccessfully = true;
             $scope.message = "Cadastrado com sucesso! Redirecionando para login...";
             loginTimer();
