@@ -62,7 +62,7 @@ namespace ConsultorioAPI.Controllers
             return Ok(_consultaRepo.GetConsultasDePeriodo(30));
         }
 
-        [Route("estatistica/medicos")]
+        [Route("estatistica/medico")]
         [HttpGet]
         public async Task<IHttpActionResult> GetEstatisticasMedicos()
         {

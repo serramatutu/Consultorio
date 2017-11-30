@@ -3,17 +3,14 @@
      'angular-loading-bar',
      'ui.bootstrap',
      'ngAnimate',
-     'ui.router',
-     'chart.js']);
+     'ui.router']);
 
 
 // Configura as rotas do site
-app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'ChartJsProvider',
-    function ($stateProvider, $locationProvider, $urlRouterProvider, ChartJsProvider) {
+app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider',
+    function ($stateProvider, $locationProvider, $urlRouterProvider) {
 
     // TODO: Chart options
-    ChartJsProvider.defaults.global.defaultFontColor = 'black';
-    ChartJsProvider.defaults.global.defaultFontSize = 16;
 
     $urlRouterProvider.when("/", ['$state', 'access', function ($state, access) {
         access.getStatic().then(function (userData) {

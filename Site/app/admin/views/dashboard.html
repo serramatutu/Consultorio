@@ -12,8 +12,11 @@
             <h2 id="estatstica">Estatística</h2>
             <hr />
             <div class="row">
-                <div class="col-sm-6"ng-controller="consultaMensalPorMedicoController as data">
-                    <canvas class="chart chart-line" chart-data="data.data" chart-labels="data.labels"></canvas> 
+                <div class="col-sm-6"ng-controller="consultaMensalPorMedicoController">
+                    <canvas id="chart"></canvas> 
+                </div>
+                <div class="col-sm-6" ng-controller="feedbackMedicoController">
+                    <canvas id="chart"></canvas>
                 </div>
             </div>
         </div>
