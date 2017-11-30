@@ -25,6 +25,19 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
             $scope.consultas = response.data;
         });
 
+        $scope.pesquisar = function () {
+            return function (consulta) {
+                if (!$scope.pesquisa)
+                    return true;
+                var lowerPesq = $scope.pesquisa.toLowerCase();
+
+                return consulta.medico.nome.toLowerCase().includes(lowerPesq) ||
+                    consulta.paciente.nome.toLowerCase().includes(lowerPesq) ||
+                    consulta.medico.especialidade.nome.toLowerCase().includes(lowerPesq) ||
+                    informationService.getNomeStatusConsulta(consulta.status).toLowerCase().includes(lowerPesq);
+            }
+        }
+
         $scope.util = util;
         $scope.getNomeStatusConsulta = informationService.getNomeStatusConsulta;
 

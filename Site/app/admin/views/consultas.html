@@ -6,12 +6,20 @@
             Não há consultas para mostrar
         </h3>
         <div class="col-md-12" ng-show="consultas.length > 0">
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="qtdDias" class="col-md-2 col-form-label">Dias</label>
-                <div class="col-md-10" id="qtdDias" ng-model="qtdDias">
-                    <input type="number" min="1" class="form-control" value="1" />
+                <div class="col-md-10">
+                    <input type="number" id="qtdDias" ng-model="qtdDias" min="1" class="form-control" value="1" />
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="pesquisa" class="col-md-2 col-form-label">Pesquisa</label>
+                <div class="col-md-10">
+                    <input type="text" id="pesquisa" ng-model="pesquisa" class="form-control" />
+                </div>
+            </div>
+
+            <hr />
 
             <div class="table-responsive row">
                 <table class="table table-striped">
@@ -24,7 +32,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="consulta in consultas | filter:diasAtras(qtdDias)">
+                        <tr ng-repeat="consulta in consultas | filter:diasAtras() | 
+                                                               filter:pesquisar()">
                             <td>#{{$index + 1}}</td>
                             <td>{{consulta.medico.nome}}</td>
                             <td>{{consulta.paciente.nome}}</td>

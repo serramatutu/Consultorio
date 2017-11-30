@@ -17,25 +17,9 @@
     </h3>
     <div class="col-md-12" ng-show="consultas.length > 0">
         <div class="form-group row">
-            <label for="especialidade" class="col-md-2 col-form-label">Especialidade</label>
+            <label for="especialidade" class="col-md-2 col-form-label">Pesquisa</label>
             <div class="col-md-10">
-                <select id="especialidade" class="form-control" ng-model="especialidade">
-                    <option value="{{undefined}}" selected="selected">Todos</option>
-                    <option ng-repeat="especialidade in especialidades" value="{{especialidade.nome}}">
-                        {{especialidade.nome}}
-                    </option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="status" class="col-md-2 col-form-label">Status</label>
-            <div class="col-md-10">
-                <select id="status" class="form-control" ng-model="status">
-                    <option value="{{undefined}}" selected="selected">Todos</option>
-                    <option value="0">Agendada</option>
-                    <option value="1">Cancelada</option>
-                    <option value="2">Realizada</option>
-                </select>
+                <input type="text" id="pesquisa" ng-model="pesquisa" class="form-control" />
             </div>
         </div>
 
@@ -53,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="consulta in consultas | filter:{medico: {especialidade: {nome: especialidade||undefined}}}:true | filter:{status: status||undefined}">
+                    <tr ng-repeat="consulta in consultas | filter:pesquisar()">
                         <td>{{consulta.medico.nome}}</td>
                         <td>{{consulta.dataHora | date: 'dd/MM/yyyy'}}</td>
                         <td>{{consulta.dataHora | date: 'HH:mm'}}</td>
