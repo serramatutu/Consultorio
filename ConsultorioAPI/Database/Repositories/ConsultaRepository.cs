@@ -204,7 +204,7 @@ namespace ConsultorioAPI.Database.Repositories
         /// <param name="dias">Período especificado em dias</param>
         public Consulta[] GetConsultasDePeriodo(int dias)
         {
-            return _ctx.Consultas.Where(c => /*c.DataHora < DateTime.Today && */
+            return _ctx.Consultas.Where(c => c.DataHora < DateTime.Today &&
             DbFunctions.AddDays(c.DataHora, dias).Value > DateTime.Today).ToArray();
         }
 

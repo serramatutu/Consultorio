@@ -23,5 +23,16 @@ namespace ConsultorioAPI.Util
 
             return c;
         }
+
+        /// <summary>
+        /// Faz a média de todos os elementos ou retorna null caso vazio
+        /// </summary>
+        public static double? AverageOrDefault(this IEnumerable<int> enumerable)
+        {
+            if (!enumerable.Any())
+                return null;
+
+            return enumerable.Average();
+        }
     }
 }

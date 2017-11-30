@@ -1,7 +1,20 @@
-﻿var app = angular.module('Consultorio', ['LocalStorageModule', 'angular-loading-bar', 'ui.bootstrap', 'ngAnimate', 'ui.router']);
+﻿var app = angular.module('Consultorio',
+    ['LocalStorageModule',
+     'angular-loading-bar',
+     'ui.bootstrap',
+     'ngAnimate',
+     'ui.router',
+     'chart.js']);
+
 
 // Configura as rotas do site
-app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'ChartJsProvider',
+    function ($stateProvider, $locationProvider, $urlRouterProvider, ChartJsProvider) {
+
+    // TODO: Chart options
+    ChartJsProvider.defaults.global.defaultFontColor = 'black';
+    ChartJsProvider.defaults.global.defaultFontSize = 16;
+
     $urlRouterProvider.when("/", ['$state', 'access', function ($state, access) {
         access.getStatic().then(function (userData) {
             if (userData.hasRole("paciente"))
@@ -126,7 +139,7 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
     
-}).run(['$rootScope', '$state', 'access', 'authService', function ($rootScope, $state, access, authService) {
+}]).run(['$rootScope', '$state', 'access', 'authService', function ($rootScope, $state, access, authService) {
     $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
         switch (error) {
             case access.UNAUTHORIZED:

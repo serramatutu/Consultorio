@@ -62,6 +62,13 @@ namespace ConsultorioAPI.Controllers
             return Ok(_consultaRepo.GetConsultasDePeriodo(30));
         }
 
+        [Route("estatistica/medicos")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetEstatisticasMedicos()
+        {
+            return Ok(_medicoRepo.GetEstatisticas());
+        }
+
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();

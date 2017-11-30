@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using ConsultorioAPI.Models.ViewModels;
+using System.Data.Entity;
+using ConsultorioAPI.Util;
 
 namespace ConsultorioAPI.Database.Repositories
 {
@@ -50,6 +53,31 @@ namespace ConsultorioAPI.Database.Repositories
                 return ResultadoOperacao.ErroBD;
 
             return ResultadoOperacao.Ok;
+        }
+
+        public EstatisticaMedico[] GetEstatisticas()
+        {
+            try
+            {
+                return _ctx.Medicos.Include(m => m.Consultas).Select(delegate(Medico m)
+                    {
+                        var consultasNoMes = m.Consultas.Where(c => c.DataHora.AddDays(30) > DateTime.Today).ToArray();
+                        return new EstatisticaMedico()
+                        {
+                            Medico = m,
+                            ConsultasNoMes = consultasNoMes.Length,
+                            AvaliacaoMedia = (int?)consultasNoMes.Where(c => c.Avaliacao.Nota.HasValue)
+                                                .Select(c => c.Avaliacao.Nota.Value)
+                                                .AverageOrDefault()
+                        };
+                    }).ToArray();
+                }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return null;
         }
 
         protected override void Dispose(bool disposing)
