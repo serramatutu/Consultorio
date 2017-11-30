@@ -16,7 +16,7 @@ app.controller('loginController', ['$scope', '$state', 'authService', 'userState
                 else if (auth.hasRole("medico"))
                     $state.go("medico.dashboard");
                 else if (auth.hasRole("admin"))
-                    $state.go("admin.cadastro");
+                    $state.go("admin.dashboard");
                 else
                     $state.go("anonymous.cadastro");
             });

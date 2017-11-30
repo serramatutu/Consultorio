@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('dashboardController', ['$scope', 'informationService', 'modalService', function ($scope, informationService, modalService) {
+app.controller('pacienteDashboardController', ['$scope', 'informationService', 'modalService', function ($scope, informationService, modalService) {
     $scope.isNavCollapsed = true;
     $scope.isCollapsed = false;
     $scope.isCollapsedHorizontal = true;
@@ -12,10 +12,10 @@ app.controller('dashboardController', ['$scope', 'informationService', 'modalSer
     });
 
     $scope.agendarConsulta = function (consulta) {
-
         var modalDefaults = {
             templateUrl: "/app/paciente/modals/agendarModal.html",
-            controller: "agendarConsultaModalController"
+            controller: "agendarConsultaController",
+            size: 'lg'
         };
 
         modalService.showModal(modalDefaults);

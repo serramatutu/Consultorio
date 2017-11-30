@@ -31,7 +31,8 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
         $scope.modalConsulta = function (consulta) {
             var modal = $modal.open({
                 templateUrl: 'editarconsulta.html',
-                controller: 'editarConsultaModalController',
+                controller: 'editarConsultaController',
+                size: 'lg',
                 resolve: {
                     consulta: function () {
                         return consulta;
@@ -44,7 +45,8 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
 
             var modalDefaults = {
                 templateUrl: "/app/paciente/modals/agendarModal.html",
-                controller: "agendarConsultaModalController"
+                controller: "agendarConsultaController",
+                size: 'lg'
             };
 
             modalService.showModal(modalDefaults);
@@ -52,7 +54,7 @@ app.controller('consultasController', ['$rootScope', '$scope', '$uibModal', 'inf
     }]
 );
 
-app.controller('editarConsultaModalController', ['$rootScope', '$scope', 'utilitiesService', 'informationService', 'pacienteService', 'consulta',
+app.controller('editarConsultaController', ['$rootScope', '$scope', 'utilitiesService', 'informationService', 'pacienteService', 'consulta',
     function ($rootScope, $scope, utilitiesService, informationService, pacienteService, consulta) {
     $scope.consulta = consulta;
     if (!!$scope.consulta.avaliacao)

@@ -21,6 +21,7 @@ app.controller('cadastroController', ['$scope', '$location', '$timeout', 'authSe
             loginTimer();
         },
         function (response) {
+            $scope.savedSuccessfully = false;
             var errors = [];
             var ms = response.data.ModelState || response.data.modelState;
             for (var key in ms) {

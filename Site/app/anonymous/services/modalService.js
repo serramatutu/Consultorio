@@ -10,7 +10,7 @@ app.factory('modalService', ['$uibModal', function ($modal) {
 
     factory.show = function (customModalDefaults) {
         //Create temp objects to work with since we're in a singleton service
-        var tempModalDefaults = Object.assign(customModalDefaults);
+        var tempModalDefaults = angular.copy(customModalDefaults);
 
         if (!tempModalDefaults.controller) {
             tempModalDefaults.controller = function ($scope, $modalInstance) {

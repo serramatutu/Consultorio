@@ -28,7 +28,10 @@ namespace ConsultorioAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState); // Caso o modelo enviado não seja coerente com o exigido
 
-            IdentityResult r1 = await _authRepo.RegisterUser(userModel, "paciente");
+            IdentityResult r1 = await _authRepo.RegisterUser(userModel.UserName, 
+                                                             userModel.Email, 
+                                                             userModel.Senha, 
+                                                             "paciente");
             IHttpActionResult e1 = GetErrorResult(r1);
             if (e1 != null)
                 return e1;
@@ -38,9 +41,8 @@ namespace ConsultorioAPI.Controllers
                     DataNasc = userModel.DataNasc,
                     Endereco = userModel.Endereco,
                     Telefone = userModel.Telefone,
-                    Nome = userModel.NomeCompleto,
-                    Id = Guid.NewGuid()
-                }, userModel.UserName, userModel.Senha);
+                    Nome = userModel.NomeCompleto
+                }, userModel.UserName);
 
             IHttpActionResult e2 = GetErrorResult(r2);
             if (e2 != null)

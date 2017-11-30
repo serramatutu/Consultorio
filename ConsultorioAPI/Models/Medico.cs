@@ -15,8 +15,13 @@ namespace ConsultorioAPI.Models
         public Medico()
         { }
 
-        [Key]
+        [Key, Column(Order = 0)]
         public virtual Guid Id { get; set; }
+
+        [Column(TypeName = "varchar", Order = 1), MaxLength(7)]
+        [Key]
+        [Required]
+        public virtual string CRM { get; set; }
 
         [Column("IdUsuario")]
         [JsonIgnore]
@@ -36,10 +41,6 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "varchar"), MaxLength(14)]
         [Required]
         public virtual string Telefone { get; set; }
-
-        [Column(TypeName = "varchar"), MaxLength(7)]
-        [Required]
-        public virtual string CRM { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

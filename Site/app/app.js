@@ -90,7 +90,7 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
     })
     .state("paciente.dashboard", {
         url: '/dashboard',
-        controller: "dashboardController",
+        controller: "pacienteDashboardController",
         templateUrl: "/app/paciente/views/dashboard.html",
     })
     .state("paciente.conta", {
@@ -113,15 +113,11 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
             access: ["access", function (access) { return access.hasRole("admin"); }]
         }
     })
-    //.state("admin.dashboard", {
-    //    url: '/dashboard',
-    //    controller: 'dashboardController'
-    //})
-    .state("admin.cadastro", {
-       url: '/cadastro',
-       controller: "cadastroMedicoController",
-       templateUrl: "/app/admin/views/cadastroMedico.html"
-    });
+    .state("admin.dashboard", {
+        url: '/dashboard',
+        controller: 'adminDashboardController',
+        templateUrl: "/app/admin/views/dashboard.html"
+    })
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
     

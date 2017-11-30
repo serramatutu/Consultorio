@@ -22,16 +22,16 @@ namespace ConsultorioAPI.Data
             return await _userManager.GetRolesAsync(idUsuario);
         }
 
-        public async Task<IdentityResult> RegisterUser(CadastroUserModel data, string papel)
+        public async Task<IdentityResult> RegisterUser(string userName, string email, string senha, string papel)
         {
             LoginUsuario user = new LoginUsuario
             {
                 Id = Guid.NewGuid(),
-                UserName = data.UserName,
-                Email = data.Email
+                UserName = userName,
+                Email = email
             };
 
-            var result = await _userManager.CreateAsync(user, data.Senha);
+            var result = await _userManager.CreateAsync(user, senha);
 
             if (!string.IsNullOrEmpty(papel) && result.Succeeded)
                 _userManager.AddToRole(user.Id, papel);

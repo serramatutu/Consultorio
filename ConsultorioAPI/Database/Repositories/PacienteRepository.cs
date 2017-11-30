@@ -16,9 +16,10 @@ namespace ConsultorioAPI.Database.Repositories
             _userManager = new UserManager<LoginUsuario, Guid>(new ConsultorioUserStore(ctx));
         }
 
-        public async Task<ResultadoOperacao> CreateAsync(Paciente p, string userName, string senha)
+        public async Task<ResultadoOperacao> CreateAsync(Paciente p, string userName)
         {
-            p.DadosLogin = await _userManager.FindAsync(userName, senha);
+            p.Id = Guid.NewGuid();
+            p.DadosLogin = await _userManager.FindByNameAsync(userName);
             _ctx.Pacientes.Add(p);
 
             int ar = await _ctx.SaveChangesAsync();
@@ -36,14 +37,6 @@ namespace ConsultorioAPI.Database.Repositories
                 return null;
 
             return _ctx.Pacientes.FirstOrDefault(p => p.DadosLogin.Id.Equals(loginUsuario.Id));
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (!disposed)
-                if (disposing)
-                    _userManager.Dispose();
-                    base.Dispose(disposing);
         }
 
         #region Conta

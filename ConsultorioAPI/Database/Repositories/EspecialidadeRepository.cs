@@ -28,6 +28,11 @@ namespace ConsultorioAPI.Database.Repositories
             return ResultadoOperacao.Ok;
         }
 
+        public Especialidade FindById(int id)
+        {
+            return _ctx.Especialidades.Where(x => x.Id == id).FirstOrDefault();
+        }
+
         public Especialidade[] GetAll()
         {
             return _ctx.Especialidades.ToArray();

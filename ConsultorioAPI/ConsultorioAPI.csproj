@@ -230,6 +230,7 @@
     <Compile Include="Globals.cs" />
     <Compile Include="Models\ViewModels\AgendamentoConsulta.cs" />
     <Compile Include="Models\ViewModels\AvaliacaoConsulta.cs" />
+    <Compile Include="Models\ViewModels\CadastroMedicoModel.cs" />
     <Compile Include="Models\ViewModels\CadastroUserModel.cs" />
     <Compile Include="Models\Consulta.cs" />
     <Compile Include="Models\LoginUsuario.cs" />

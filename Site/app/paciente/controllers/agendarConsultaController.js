@@ -1,4 +1,4 @@
-app.controller('agendarConsultaModalController', ['$rootScope', '$scope', 'informationService', 'authService', 'pacienteService',
+app.controller('agendarConsultaController', ['$rootScope', '$scope', 'informationService', 'authService', 'pacienteService',
     function ($rootScope, $scope, informationService, authService, pacienteService) {
         informationService.getMedicos([]).then(function (response) {
             $scope.medicos = response.data;
