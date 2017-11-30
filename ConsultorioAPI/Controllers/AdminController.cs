@@ -16,6 +16,7 @@ namespace ConsultorioAPI.Controllers
         private AuthRepository _authRepo = new AuthRepository(new ConsultorioDbContext());
         private MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
         private EspecialidadeRepository _especialidadeRepo = new EspecialidadeRepository(new ConsultorioDbContext());
+        private ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
 
         [Route("cadastrarmedico")]
         [HttpPost]
@@ -54,11 +55,19 @@ namespace ConsultorioAPI.Controllers
             return GetErrorResult(await _especialidadeRepo.CreateAsync(nomeEspecialidade));
         }
 
+        [Route("getconsultasdomes")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetConsultasDoMes()
+        {
+            return Ok(_consultaRepo.GetConsultasDePeriodo(30));
+        }
+
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();
             _medicoRepo.Dispose();
             _especialidadeRepo.Dispose();
+            _consultaRepo.Dispose();
             base.Dispose(disposing);
         }
 

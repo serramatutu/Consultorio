@@ -6,17 +6,16 @@ app.controller('cadastroMedicoController', ['$scope', 'informationService', 'adm
     });
 
     $scope.message = '';
-    $scope.savedSuccessfully = false;
 
     $scope.cadastrar = function () {
         console.log($scope.userData);
         adminService.cadastrarMedico($scope.registration).then(function (response) {
             $scope.message = "Cadastrado com sucesso!";
-            $scope.savedSuccessfully = true;
+            $rootScope.$emit('medicoChanged', {});
+            $scope.$close();
         }, function (response) {
-            $scope.savedSuccessfully = false;
             var errors = [];
-            var ms = response.data.ModelState || response.data.modelState;
+            var ms = response.data.modelState;
             for (var key in ms) {
                 for (var i = 0; i < ms[key].length; i++) {
                     errors.push(ms[key][i]);

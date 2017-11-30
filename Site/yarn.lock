@@ -10,6 +10,10 @@ angular-bootstrap-npm@^0.14.3:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/angular-bootstrap-npm/-/angular-bootstrap-npm-0.14.3.tgz#1c18d49322adf5b5870ffb927f41dfc28ff6e579"
 
+angular-chartjs@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/angular-chartjs/-/angular-chartjs-0.0.5.tgz#81bb9307552d411c63daa3785b0a4c7fe678e460"
+
 angular-loading-bar@^0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/angular-loading-bar/-/angular-loading-bar-0.9.0.tgz#37ef52c25f102c216e7b3cdfd2fc5a5df9628e45"

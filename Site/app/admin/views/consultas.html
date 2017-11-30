@@ -1,0 +1,42 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <h2 id="recente">Recente</h2>
+        <hr />
+        <h3 ng-hide="consultas.length > 0">
+            Não há consultas para mostrar
+        </h3>
+        <div class="col-md-12" ng-show="consultas.length > 0">
+            <div class="form-group">
+                <label for="qtdDias" class="col-md-2 col-form-label">Dias</label>
+                <div class="col-md-10" id="qtdDias" ng-model="qtdDias">
+                    <input type="number" min="1" class="form-control" value="1" />
+                </div>
+            </div>
+
+            <div class="table-responsive row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Médico</th>
+                            <th>Paciente</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="consulta in consultas | filter:diasAtras(qtdDias)">
+                            <td>#{{$index + 1}}</td>
+                            <td>{{consulta.medico.nome}}</td>
+                            <td>{{consulta.paciente.nome}}</td>
+                            <td ng-class="{'text-primary': getNomeStatusConsulta(consulta.status) == 'Agendada',
+                                       'text-danger': getNomeStatusConsulta(consulta.status) == 'Cancelada',
+                                       'text-success': getNomeStatusConsulta(consulta.status) == 'Realizada'}">
+                                {{getNomeStatusConsulta(consulta.status)}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

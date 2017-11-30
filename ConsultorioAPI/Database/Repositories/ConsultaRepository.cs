@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace ConsultorioAPI.Database.Repositories
 {
@@ -195,6 +196,16 @@ namespace ConsultorioAPI.Database.Repositories
                 return ResultadoOperacao.ErroBD;
 
             return ResultadoOperacao.Ok;
+        }
+
+        /// <summary>
+        /// Obtém todas as consultas do consultório em um período
+        /// </summary>
+        /// <param name="dias">Período especificado em dias</param>
+        public Consulta[] GetConsultasDePeriodo(int dias)
+        {
+            return _ctx.Consultas.Where(c => c.DataHora < DateTime.Today && 
+            DbFunctions.AddDays(c.DataHora, dias).Value > DateTime.Today).ToArray();
         }
 
         public Consulta[] GetConsultasDeUsuario(Guid idUsuario)

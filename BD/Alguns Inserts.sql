@@ -1,6 +1,7 @@
 UPDATE UsuarioPapel SET IdPapel = 3 WHERE IdUsuario = 'D0593DA5-1B3F-42AF-864D-7C497D752A67'
 
 SELECT * FROM Medico
+SELECT * FROM Especialidade
 SELECT * FROM Paciente
 SELECT * FROM Usuario
 SELECT * FROM UsuarioPapel

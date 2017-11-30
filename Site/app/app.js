@@ -118,6 +118,11 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: 'adminDashboardController',
         templateUrl: "/app/admin/views/dashboard.html"
     })
+    .state("admin.consultas", {
+        url: '/consultas',
+        controller: 'adminConsultasController',
+        templateUrl: "/app/admin/views/consultas.html"
+    })
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
     

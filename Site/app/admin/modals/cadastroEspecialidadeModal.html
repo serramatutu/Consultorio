@@ -1,0 +1,30 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Cadastro de especialidade</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form class="form" role="form" name="formEspecialidade">
+        <div class="row">
+            <div class="col-sm-12" data-ng-hide="message == ''">
+                <div class="alert alert-danger">
+                    {{message}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <label for="nome" class="col-md-2 col-form-label">Nome</label>
+                    <div class="col-md-10">
+                        <input type="text" id="nome" class="form-control" placeholder="Nome da especialidade" data-ng-model="nomeEspecialidade" required autofocus />
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="formEspecialidade.$valid && cadastrar()">Cadastrar</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">Fechar</button>
+        </div>
+    </form>
+</div>

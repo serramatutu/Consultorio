@@ -14,7 +14,7 @@ namespace ConsultorioAPI.Database.Repositories
 
         public async Task<ResultadoOperacao> CreateAsync(string nomeEspecialidade)
         {
-            if (_ctx.Especialidades.Any(x => x.Nome == nomeEspecialidade))
+            if (_ctx.Especialidades.Any(x => x.Nome.ToLower() == nomeEspecialidade.ToLower()))
                 return new ResultadoOperacao()
                 {
                     Sucesso = false,

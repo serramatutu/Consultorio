@@ -9,4 +9,14 @@
 
         modalService.showModal(modalDefaults);
     }
+
+    $scope.cadastrarEspecialidade = function (consulta) {
+        var modalDefaults = {
+            templateUrl: "/app/admin/modals/cadastroEspecialidadeModal.html",
+            controller: "cadastroEspecialidadeController",
+            size: 'lg'
+        };
+
+        modalService.showModal(modalDefaults);
+    }
 }]);
