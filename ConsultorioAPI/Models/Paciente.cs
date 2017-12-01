@@ -39,5 +39,8 @@ namespace ConsultorioAPI.Models
         [Column(TypeName = "nvarchar"), MaxLength(50)]
         [Required]
         public virtual string Endereco { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Consulta> Consultas { get; set; }
     }
 }

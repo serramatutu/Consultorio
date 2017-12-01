@@ -17,6 +17,7 @@ namespace ConsultorioAPI.Controllers
         private MedicoRepository _medicoRepo = new MedicoRepository(new ConsultorioDbContext());
         private EspecialidadeRepository _especialidadeRepo = new EspecialidadeRepository(new ConsultorioDbContext());
         private ConsultaRepository _consultaRepo = new ConsultaRepository(new ConsultorioDbContext());
+        private PacienteRepository _pacienteRepo = new PacienteRepository(new ConsultorioDbContext());
 
         [Route("cadastrarmedico")]
         [HttpPost]
@@ -62,6 +63,8 @@ namespace ConsultorioAPI.Controllers
             return Ok(_consultaRepo.GetConsultasDePeriodo(30));
         }
 
+#region Estatística
+
         [Route("estatistica/medico")]
         [HttpGet]
         public async Task<IHttpActionResult> GetEstatisticasMedicos()
@@ -69,12 +72,36 @@ namespace ConsultorioAPI.Controllers
             return Ok(_medicoRepo.GetEstatisticas());
         }
 
+        [Route("estatistica/paciente")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetEstatisticasPaciente()
+        {
+            return Ok(_pacienteRepo.GetEstatisticas());
+        }
+
+        [Route("estatistica/especialidade")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetEstatisticasEspecialidade()
+        {
+            return Ok(_especialidadeRepo.GetEstatisticas());
+        }
+
+        [Route("estatistica/mesconsulta")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetEstatisticasMesConsulta()
+        {
+            return Ok(_consultaRepo.GetEstatisticasMes());
+        }
+
+#endregion
+
         protected override void Dispose(bool disposing)
         {
             _authRepo.Dispose();
             _medicoRepo.Dispose();
             _especialidadeRepo.Dispose();
             _consultaRepo.Dispose();
+            _pacienteRepo.Dispose();
             base.Dispose(disposing);
         }
 

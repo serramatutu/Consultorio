@@ -1,6 +1,8 @@
 ﻿using ConsultorioAPI.Models;
+using ConsultorioAPI.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -36,6 +38,20 @@ namespace ConsultorioAPI.Database.Repositories
         public Especialidade[] GetAll()
         {
             return _ctx.Especialidades.ToArray();
+        }
+
+        public EstatisticaEspecialidade[] GetEstatisticas()
+        {
+            return _ctx.Consultas.Where(c => DbFunctions.AddDays(c.DataHora, 1) > DateTime.Today && 
+                                        c.DataHora < DateTime.Today && 
+                                        c.Status == StatusConsulta.Realizada)
+                                 .Select(c => c.Medico.Especialidade)
+                                 .GroupBy(e => e.Id)
+                                 .Select(group => new EstatisticaEspecialidade()
+                                 {
+                                     Especialidade = group.FirstOrDefault(),
+                                     ConsultasNoMes = group.Count()
+                                 }).ToArray();
         }
     }
 }

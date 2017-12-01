@@ -57,27 +57,18 @@ namespace ConsultorioAPI.Database.Repositories
 
         public EstatisticaMedico[] GetEstatisticas()
         {
-            try
-            {
-                return _ctx.Medicos.Include(m => m.Consultas).Select(delegate(Medico m)
+            return _ctx.Medicos.Include(m => m.Consultas).Select(delegate(Medico m)
+                {
+                    var consultasNoMes = m.Consultas.Where(c => c.DataHora.AddDays(30) > DateTime.Today && c.DataHora < DateTime.Today).ToArray();
+                    return new EstatisticaMedico()
                     {
-                        var consultasNoMes = m.Consultas.Where(c => c.DataHora.AddDays(30) > DateTime.Today).ToArray();
-                        return new EstatisticaMedico()
-                        {
-                            Medico = m,
-                            ConsultasNoMes = consultasNoMes.Length,
-                            AvaliacaoMedia = (int?)consultasNoMes.Where(c => c.Avaliacao.Nota.HasValue)
-                                                .Select(c => c.Avaliacao.Nota.Value)
-                                                .AverageOrDefault()
-                        };
-                    }).ToArray();
-                }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e.Message);
-            }
-
-            return null;
+                        Medico = m,
+                        ConsultasNoMes = consultasNoMes.Length,
+                        AvaliacaoMedia = (int?)consultasNoMes.Where(c => c.Avaliacao.Nota.HasValue)
+                                            .Select(c => c.Avaliacao.Nota.Value)
+                                            .AverageOrDefault()
+                    };
+                }).ToArray();
         }
 
         protected override void Dispose(bool disposing)

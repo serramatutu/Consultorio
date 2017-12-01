@@ -1,4 +1,5 @@
 ﻿using ConsultorioAPI.Models;
+using ConsultorioAPI.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
@@ -37,6 +38,19 @@ namespace ConsultorioAPI.Database.Repositories
                 return null;
 
             return _ctx.Pacientes.FirstOrDefault(p => p.DadosLogin.Id.Equals(loginUsuario.Id));
+        }
+
+        public EstatisticaPaciente[] GetEstatisticas()
+        {
+            return _ctx.Pacientes.Include(p => p.Consultas).Select(delegate (Paciente p)
+            {
+                var consultasNoMes = p.Consultas.Where(c => c.DataHora.AddDays(30) > DateTime.Today && c.DataHora < DateTime.Today).ToArray();
+                return new EstatisticaPaciente()
+                {
+                    Paciente = p,
+                    ConsultasNoMes = consultasNoMes.Length
+                };
+            }).ToArray();
         }
 
         #region Conta

@@ -198,6 +198,20 @@ namespace ConsultorioAPI.Database.Repositories
             return ResultadoOperacao.Ok;
         }
 
+        public EstatisticaMesConsulta[] GetEstatisticasMes()
+        {
+            // TODO: Refazer isso para gráficos coerentes. Por enquanto tá bão
+            return _ctx.Consultas.Where(c => c.DataHora < DateTime.Today 
+                                             && DbFunctions.AddDays(c.DataHora, 30) > DateTime.Today)
+                                 .GroupBy(c => c.DataHora.Month)
+                                 .Select(group => new EstatisticaMesConsulta()
+                                 {
+                                     Mes = group.Key,
+                                     ConsultasCanceladasNoMes = group.Count(c => c.Status == StatusConsulta.Cancelada),
+                                     ConsultasNoMes = group.Count(c => c.Status == StatusConsulta.Realizada)                                     
+                                 }).ToArray();
+        }
+
         /// <summary>
         /// Obtém todas as consultas do consultório em um período
         /// </summary>
