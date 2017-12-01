@@ -35,7 +35,7 @@ namespace ConsultorioAPI.Database.Repositories
 
 
             // Procura por consulta do mesmo médico responsável no horário especificado
-            bool horarioIndisponivel = _ctx.Consultas.Any(delegate (Consulta c)
+            bool horarioIndisponivel = _ctx.Consultas.Include(c => c.Medico).Any(delegate (Consulta c)
             {
                 double diferenca = (c.DataHora - a.DataHora).TotalMinutes;
                 bool achouConsulta = false;
