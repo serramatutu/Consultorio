@@ -71,6 +71,14 @@ namespace ConsultorioAPI.Database.Repositories
                 }).ToArray();
         }
 
+        public Consulta GetConsultaAtual()
+        {
+            return _ctx.Consultas.Where(c => c.Status == StatusConsulta.Agendada &&
+                                             c.DataHora < DateTime.Now &&
+                                             DbFunctions.AddMinutes(c.DataHora, c.Duracao) > DateTime.Now)
+                                 .FirstOrDefault();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (!disposed)

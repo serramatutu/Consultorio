@@ -1,0 +1,25 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <h2>Sua agenda</h2>
+        <hr />
+        <h3 ng-hide="consultas.length > 0">
+            Sua agenda está vazia!
+        </h3>
+        <div class="table-responsive" ng-show="consultas.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Horário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="consulta in consultas">
+                        <td>{{consulta.paciente.nome}}</td>
+                        <td>{{consulta.dataHora | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

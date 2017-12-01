@@ -1,0 +1,46 @@
+﻿<form role="form" class="form" name="formConsulta">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Edição de consulta</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="form-group row">
+            <label for="medico" class="col-sm-3 col-form-label">Paciente</label>
+            <div class="col-sm-9">
+                <input id="medico" class="form-control" type="text" value="{{consulta.paciente.nome}}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="horainicio" class="col-sm-3 col-form-label">Hora de início</label>
+            <div class="col-sm-3">
+                <input id="horainicio" class="form-control" type="text" value="{{consulta.dataHora | date: 'HH:mm'}}" readonly>
+            </div>
+            <label for="horafim" class="col-sm-3 col-form-label">Hora de término</label>
+            <div class="col-sm-3">
+                <input id="horafim" class="form-control" type="text" value="{{util.addMinutes(consulta.dataHora, consulta.duracao) | date: 'HH:mm'}}" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="data" class="col-sm-3 col-form-label">Data</label>
+            <div class="col-sm-3">
+                <input id="data" class="form-control" type="text" value="{{consulta.dataHora | date: 'dd/MM/yyyy'}}" readonly>
+            </div>
+            <label for="status" class="col-sm-3 col-form-label">Presença:</label>
+            <div class="col-sm-3">
+                <select id="status" class="form-control" ng-model="finalizacao.pacientePresente" required>
+                    <option value="true" selected="selected">Presente</option>
+                    <option value="false">Ausente</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="diagnostico">Diagnóstico:</label>
+            <textarea id="diagnostico" class="form-control" ng-model="finalizacao.diagnostico" required></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-click="formConsulta.$valid && finalizar()">
+            Finalizar
+        </button>
+        <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
+    </div>
+</form>

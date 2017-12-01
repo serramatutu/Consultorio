@@ -24,17 +24,26 @@ namespace ConsultorioAPI.Controllers
             public Guid IdConsulta { get; set; }
             
             public string Diagnostico { get; set; }
+
+            public bool PacientePresente { get; set; }
         }
 
-        [Route("comentarconsulta")]
+        [Route("finalizarconsulta")]
         [HttpPost]
-        public async Task<IHttpActionResult> ComentarConsulta([FromBody]IdDiagnosticoConsulta param)
+        public async Task<IHttpActionResult> FinalizarConsulta([FromBody]IdDiagnosticoConsulta param)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ResultadoOperacao r = await _consultaRepo.AlterarDiagnostico(param.Diagnostico, param.IdConsulta, GetUsuarioAtual().Id);
+            ResultadoOperacao r = await _consultaRepo.FinalizarConsulta(param.PacientePresente, param.Diagnostico, param.IdConsulta, GetUsuarioAtual().Id);
             return GetErrorResult(r);
+        }
+
+        [Route("getconsultaatual")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetConsultaAtual()
+        {
+            return Ok(_medicoRepo.GetConsultaAtual());
         }
 
         [Route("agenda")]

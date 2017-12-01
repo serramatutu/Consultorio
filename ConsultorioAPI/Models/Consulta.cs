@@ -25,27 +25,7 @@ namespace ConsultorioAPI.Models
 
         [Required]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public virtual DateTime DataHora
-        {
-            get
-            {
-                return _dataHora;
-            }
-            set
-            {
-                if (value < DateTime.UtcNow)
-                    throw new ArgumentException("Não pode marcar consulta no passado");
-
-                var dataFim = value.AddMinutes(Duracao);
-
-                // Horários em UTC
-                if (value.Hour < 11 || dataFim.Hour > 19 || (dataFim.Hour > 14 && value.Hour < 16))
-                    throw new ArgumentException("Horário de consulta inválido");
-
-                _dataHora = value;
-            }
-        }
+        public virtual DateTime DataHora { get; set; }
 
         protected int _duracao = 30;
         /// <summary>

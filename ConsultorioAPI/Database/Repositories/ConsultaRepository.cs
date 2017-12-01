@@ -141,11 +141,12 @@ namespace ConsultorioAPI.Database.Repositories
         }
 
         /// <summary>
-        /// Modifica o comentário de um médico de uma consulta
+        /// Modifica o comentário de um médico de uma consulta e a finaliza, atribuindo um status
         /// </summary>
+        /// <param name="pacientePresente">Se o paciente esteve presente</param>
         /// <param name="comentario">Comentário novo</param>
         /// <param name="idConsulta">Consulta a ter seu comentário modificado</param>
-        public async Task<ResultadoOperacao> AlterarDiagnostico(string diagnostico, Guid idConsulta, Guid idMedico)
+        public async Task<ResultadoOperacao> FinalizarConsulta(bool pacientePresente, string diagnostico, Guid idConsulta, Guid idMedico)
         {
             Consulta c = GetConsulta(idConsulta);
             if (c == null || !c.Medico.Id.Equals(idMedico))
@@ -155,8 +156,8 @@ namespace ConsultorioAPI.Database.Repositories
                     Mensagem = "Consulta inexistente"
                 };
 
-            var medico = c.Medico; // Força o LazyLoader pq a implementação do EF é ruim pra isso :( (se tirar dá erro)
             c.Diagnostico = diagnostico;
+            c.Status = pacientePresente ? StatusConsulta.Realizada : StatusConsulta.Cancelada;
             _ctx.Entry(c).State = System.Data.Entity.EntityState.Modified;
 
             if (await _ctx.SaveChangesAsync() < 1) // Não mexeu em nenhuma linha
@@ -188,7 +189,6 @@ namespace ConsultorioAPI.Database.Repositories
                     Mensagem = "Não pode avaliar uma consulta duas vezes"
                 };
 
-            var medico = c.Medico; // Força o LazyLoader pq a implementação do EF é ruim pra isso :( (se tirar dá erro)
             c.Avaliacao = avaliacao;
             _ctx.Entry(c).Property(x => x.Avaliacao).IsModified = true;
 
@@ -239,7 +239,7 @@ namespace ConsultorioAPI.Database.Repositories
 
         protected Consulta GetConsulta(Guid idConsulta)
         {
-            return _ctx.Consultas.FirstOrDefault(x => x.Id.Equals(idConsulta));
+            return _ctx.Consultas.Include(c => c.Medico).Include(c => c.Paciente).FirstOrDefault(x => x.Id.Equals(idConsulta));
         }
 
         protected bool disposed = false;

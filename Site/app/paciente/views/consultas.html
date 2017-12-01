@@ -130,7 +130,7 @@
                 !consulta.avaliacao.comentario">
                 Avaliar
             </button>
-            <button class="btn btn-primary" type="submit" ng-click="formConsulta.$valid && cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Agendada'">Cancelar consulta</button>
+            <button class="btn btn-primary" type="submit" ng-click="cancelarConsulta()" ng-show="getNomeStatusConsulta(consulta.status) == 'Agendada'">Cancelar consulta</button>
             <button class="btn btn-danger" type="button" ng-click="close()">Fechar</button>
         </div>
     </form>

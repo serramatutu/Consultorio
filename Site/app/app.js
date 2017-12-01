@@ -132,6 +132,26 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider',
         url: '/consultas',
         controller: 'adminConsultasController',
         templateUrl: "/app/admin/views/consultas.html"
+    });
+
+    $stateProvider.state("medico", {
+        abstract: true,
+        url: '/medico',
+        controller: 'medicoController',
+        templateUrl: '/app/medico/medico.html',
+        resolve: {
+            access: ["access", function (access) { return access.hasRole("medico"); }]
+        }
+    })
+    .state("medico.dashboard", {
+        url: '/dashboard',
+        controller: 'medicoDashboardController',
+        templateUrl: "/app/medico/views/dashboard.html"
+    })
+    .state("medico.consultas", {
+        url: '/consultas',
+        controller: 'medicoConsultasController',
+        templateUrl: "/app/medico/views/consultas.html"
     })
 
     $locationProvider.html5Mode(true); //Remove '#' da URL.
