@@ -1,4 +1,5 @@
 # Consultorio
+Projeto para a disciplina de Prática profissional III, cujo objetivo é desenvolver um sistema integrado de consultório médico.
 
 ## Links
 - http://techbrij.com/custom-roleprovider-authorization-asp-net-mvc
